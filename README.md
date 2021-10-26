@@ -8,15 +8,16 @@
 * 100% Rxjs based with typings.
 * Supports __multiple__ connections.
 * Auto-magic reconnection. 🙏
-* Configurable, verbose, logging facility.
-* Pub/sub + RPC support.
-* Hackable and extensible.
+* Offline _queueing_ support to handle disconnects.
 * Handles exchange, queue, and routing key bindings for you.
+* Pub/sub + RPC support.
+* Configurable, verbose, logging facility.
+* Hackable and extensible.
 * [Demo](app) implementation.
 
 [![asciicast](https://asciinema.org/a/444774.png)](https://asciinema.org/a/444774)
 
-# Installation
+# 🆕 Installation
 
 ```shell
 npm install @nestjs.pro/amqp
@@ -153,7 +154,7 @@ export class AppService {
 }
 ```
 
-# Contributing/Hacking
+# 👐 Contributing/Hacking
 
 Pull down this repo and install the dependencies using [pnpm](https://pnpm.io)..
 
@@ -183,7 +184,7 @@ pnpm install
 
 Enjoy!
 
-# Help
+# ❔ Help
 
 * [Public Discord](https://discord.gg/b4Mf3GVpaF)
 * https://github.com/nestjspro/amqp/issues
