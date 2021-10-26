@@ -14,7 +14,7 @@ export class AppService {
 
             console.log('DEMO: AMQP is connected! ✅');
 
-            // connection.publishJSON('test', { a: 1, b: 'c' });
+            connection.publishJSON('test', { a: 1, b: 'c' });
 
             //
             // Wait five seconds and then manually create a new

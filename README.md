@@ -1,6 +1,6 @@
 # AMQP for Nest.js like a boss. 💪
 
-[![asciicast](https://asciinema.org/a/444774.png)](https://asciinema.org/a/444774)
+![amqp](docs/amqp-hero.jpg)
 
 # 🧰 Features
 
@@ -10,14 +10,23 @@
 * Auto-magic reconnection. 🙏
 * Configurable, verbose, logging facility.
 * Pub/sub + RPC support.
-* Demo implementation.
 * Hackable and extensible.
+* Handles exchange, queue, and routing key bindings for you.
+* [Demo](app) implementation.
+
+[![asciicast](https://asciinema.org/a/444774.png)](https://asciinema.org/a/444774)
 
 # Installation
 
 ```shell
 npm install @nestjs.pro/amqp
 ```
+
+## Module Setup
+
+Drop this configuration in your [AppModule](app/src/AppModule.ts):
+
+See [app/src/AppModule.ts](app/src/AppModule.ts) for a complete implementation.
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -31,7 +40,14 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
 
         AMQPModule.forRoot({
 
+            //
+            // no secrets, log what is actually happening under the hood!
+            //
             logLevel: AMQPLogLevel.DEBUG,
+
+            //
+            // add multiple connections if required..
+            //
             connections: [
 
                 {
@@ -45,6 +61,7 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
                         options: {
 
                             durable: true
+                            // all other amqplib options supported..
 
                         }
 
@@ -59,46 +76,19 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
                             options: {
 
                                 durable: false
+                                // all other amqplib options supported..
 
                             }
 
                         }
 
-                    ]
-
-                }, {
-
-                    name: 'two',
-                    uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
-                    exchange: {
-
-                        name: 'test-2',
-                        type: 'topic',
-                        options: {
-
-                            durable: true
-
-                        }
-
-                    },
-                    queues: [
-
-                        {
-
-                            name: '2',
-                            routingKey: '222',
-                            createBindings: true,
-                            options: {
-
-                                durable: false
-
-                            }
-
-                        }
+                        // add more queues..
 
                     ]
 
                 }
+
+                // add more connections to your hearts desire..
 
             ]
 
@@ -112,6 +102,91 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
 export class AppModule {
 }
 ```
+
+## Service Implementation
+
+See [app/src/AppService.ts](app/src/AppService.ts) for a complete implementation.
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { AMQPService } from '@nestjs.pro/amqp/dist/AMQPService';
+import { AMQPConnectionStatus } from '@nestjs.pro/amqp/dist/AMQPConnectionStatus';
+
+@Injectable()
+export class AppService {
+
+    //
+    // Inject in to your service(s)..
+    //
+    public constructor(private readonly amqpService: AMQPService) {
+
+        //
+        // Retrieve the connection named "one" and do some magic..
+        //
+        amqpService.getConnection('one').subscribe(connection => {
+
+            //
+            // Now that we're connected, publish a message..
+            //
+            connection.publishJSON('test', { a: 1, b: 'c' });
+
+            // ..other fancy work happenin here..
+
+            //
+            // Optionally remove the exchange, queue, and routing keys if you want..
+            //
+            amqpService.tearDown().subscribe(() => {
+
+                console.log('DEMO: Tear down complete, all remaining exchange(s) and queue(s) removed! 🏁');
+
+                //
+                // Disconnect gracefully now that we've cleaned things up..
+                //
+                amqpService.disconnect();
+
+            });
+
+        });
+
+    }
+
+}
+```
+
+# Contributing/Hacking
+
+Pull down this repo and install the dependencies using [pnpm](https://pnpm.io)..
+
+> If you do not have pnpm installed simply run the following:
+> `npm install -g pnpm`
+
+Next we can compile the library out to the `dist` directory:
+
+```shell
+npx tsc -w
+```
+
+Finally, we just need to start the demo implementation:
+
+```shell
+npm run start:dev
+```
+
+---
+
+```shell
+git clone https://github.com/mateothegreat/nestjspro-amqp
+cd nestjspro-amqp
+
+pnpm install
+```
+
+Enjoy!
+
+# Help
+
+* [Public Discord](https://discord.gg/b4Mf3GVpaF)
+* https://github.com/nestjspro/amqp/issues
 
 ```shell
                     __    _                       
