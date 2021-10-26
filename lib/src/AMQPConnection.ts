@@ -71,7 +71,6 @@ export class AMQPConnection {
 
             AMQPLogger.debug(`Connection status changed to ${ chalk.greenBright(status) } for connection "${ chalk.yellowBright(this.config.name) }".`);
 
-            console.log(status);
             if (status === AMQPConnectionStatus.CONNECTED) {
 
                 this.declareResources().subscribe(() => {
