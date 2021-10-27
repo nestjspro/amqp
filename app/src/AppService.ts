@@ -14,39 +14,50 @@ export class AppService {
 
             console.log('DEMO: AMQP is connected! ✅');
 
-            connection.subscribe({ queue: '1' }).subscribe(payload => {
+            setTimeout(async () => {
 
-                console.log(`---> from routingKey "${ payload.message.fields.routingKey }" via exchange "${ payload.message.fields.exchange }" subscription: ${ payload.message.content.toString() }`);
+                await amqpService.disconnect();
 
-            });
+                setTimeout(() => {
 
-            connection.rpcConsume('t', message => {
+                    amqpService.connect();
 
-                // console.log(message);
-                return 'asdfasdf';
+                }, 2000);
 
-            }).subscribe(message => {
-
-                console.log(message);
-
-            });
-
-            setTimeout(() => {
-
-                connection.rpcCall({
-
-                    queue: 't',
-                    message: Buffer.from(JSON.stringify({ date: new Date(), rand: Math.random() }))
-
-                }).subscribe(response => {
-
-                    console.log(response);
-
-                });
-
-            }, 2000);
-
-            interval(3000).pipe(map(() => Math.floor(Math.random() * 100))).subscribe(t => {
+            }, 3000);
+            // connection.subscribe({ queue: '1' }).subscribe(payload => {
+            //
+            //     console.log(`---> from routingKey "${ payload.message.fields.routingKey }" via exchange "${ payload.message.fields.exchange }" subscription: ${ payload.message.content.toString() }`);
+            //
+            // });
+            //
+            // connection.rpcConsume('t', message => {
+            //
+            //     // console.log(message);
+            //     return 'asdfasdf';
+            //
+            // }).subscribe(message => {
+            //
+            //     // console.log(message);
+            //
+            // });
+            //
+            // setTimeout(() => {
+            //
+            //     connection.rpcCall({
+            //
+            //         queue: 't',
+            //         message: Buffer.from(JSON.stringify({ date: new Date(), rand: Math.random() }))
+            //
+            //     }).subscribe(response => {
+            //
+            //         // console.log(response);
+            //
+            //     });
+            //
+            // }, 2000);
+            //
+            interval(1000).pipe(map(() => Math.floor(Math.random() * 100))).subscribe(t => {
 
                 setTimeout(() => {
 

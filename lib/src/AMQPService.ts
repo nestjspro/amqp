@@ -12,7 +12,7 @@ import { AMQPLogEmoji } from './logging/AMQPLogEmoji';
 export class AMQPService implements OnModuleDestroy {
 
     public config: AMQPConfig;
-    
+
     private connections: Array<AMQPConnection> = [];
 
     public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig) {
@@ -27,9 +27,21 @@ export class AMQPService implements OnModuleDestroy {
 
         AMQPLogger.trace('Creating connections..', AMQPLogEmoji.NEW, 'SERVICE MANAGER');
 
-        for (let i = 0; i < this.config.connections.length; i++) {
+        if (this.connections.length === 0) {
 
-            this.addConnection(this.config.connections[ i ]);
+            for (let i = 0; i < this.config.connections.length; i++) {
+
+                this.addConnection(this.config.connections[ i ]);
+
+            }
+
+        } else {
+
+            for (let i = 0; i < this.connections.length; i++) {
+
+                this.connections[ i ].connect();
+
+            }
 
         }
 

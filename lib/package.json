@@ -37,6 +37,7 @@
     "scripts": {
         "build:watch": "tsc -w",
         "test": "jest",
+        "test:watch": "jest -w",
         "test:coverage": "jest --coverage && coveralls < test/coverage/lcov.info"
     },
     "dependencies": {
