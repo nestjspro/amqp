@@ -18,7 +18,7 @@ This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface
 * Hackable and extensible. 🧰
 * [Demo](app/src) implementation.
 
-[![asciicast](https://asciinema.org/a/444797.png?autoplay=1&loop=1&rows=35)](https://asciinema.org/a/444797?autoplay=1&loop=1&rows=35)
+[![asciicast](https://asciinema.org/a/444797.svg?autoplay=1&loop=1&rows=35)](https://asciinema.org/a/444797?autoplay=1&loop=1&rows=35)
 
 # 🛴 Installation
 
