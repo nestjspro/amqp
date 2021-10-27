@@ -1,0 +1,54 @@
+f534099513beae862759d1d7c01488ce
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPQueue = void 0;
+const rxjs_1 = require("rxjs");
+const AMQPConnectionStatus_1 = require("../AMQPConnectionStatus");
+const chalk = require("chalk");
+const AMQPLogEmoji_1 = require("../logging/AMQPLogEmoji");
+class AMQPQueue {
+    constructor(connection, max) {
+        this.queue$ = new rxjs_1.ReplaySubject();
+        this.length = 0;
+        this.subscriptions = new rxjs_1.Subscription();
+        this.logger = connection.logger;
+        this.connection = connection;
+        this.max = max;
+        this.connection.status$.subscribe(status => {
+            if (status === AMQPConnectionStatus_1.AMQPConnectionStatus.CONNECTED) {
+                this.logger.debug(`${chalk.greenBright('Connection established')}, queue is ready for drain operations for the connection ${chalk.yellowBright(this.connection.config.name)}!`, AMQPLogEmoji_1.AMQPLogEmoji.SUCCESS, 'QUEUE MANAGER');
+                this.subscriptions.add(this.queue$.subscribe(messages => this.drain(messages)));
+            }
+            else {
+                this.subscriptions.unsubscribe();
+                this.logger.debug(`${chalk.greenBright('Connection established')}, queue has stopped draining operations for the connection ${chalk.yellowBright(this.connection.config.name)}!`, AMQPLogEmoji_1.AMQPLogEmoji.DISCONNECT, 'QUEUE MANAGER');
+            }
+        });
+    }
+    drain(message) {
+        this.subscriptions.add(this.connection.reference$.subscribe(reference => {
+            this.logger.debug(`${chalk.redBright('Draining message')} to ${chalk.yellowBright(message.exchange)}(#${chalk.blueBright(message.routingKey)}) for the connection "${chalk.yellowBright(this.connection.config.name)}"`, AMQPLogEmoji_1.AMQPLogEmoji.DOWN, 'QUEUE MANAGER');
+            if (this.connection.status === AMQPConnectionStatus_1.AMQPConnectionStatus.CONNECTED) {
+                this.length--;
+                if (message.published$) {
+                }
+            }
+        }));
+    }
+    publish(message) {
+        this.logger.debug(`${chalk.greenBright('Publishing message')} to ${chalk.yellowBright(message.exchange)}(#${chalk.blueBright(message.routingKey)}) for the connection "${chalk.yellowBright(this.connection.config.name)}" (${this.connection.status === AMQPConnectionStatus_1.AMQPConnectionStatus.CONNECTED ? chalk.green(this.connection.status) : chalk.red(this.connection.status)})`, AMQPLogEmoji_1.AMQPLogEmoji.INBOX, 'QUEUE MANAGER');
+        this.queue$.next(message);
+        this.length++;
+    }
+    publishJSON(exchange, routingKey, message, published$ = new rxjs_1.Subject()) {
+        this.publish({
+            exchange,
+            routingKey,
+            message: Buffer.from(JSON.stringify(message)),
+            published$
+        });
+        return published$;
+    }
+}
+exports.AMQPQueue = AMQPQueue;
+//# sourceMappingURL=AMQPQueue.js.map

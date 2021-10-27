@@ -1,0 +1,12 @@
+479d2db63cd6f8da33eb926106f7d2d5
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPLogLevel = void 0;
+var AMQPLogLevel;
+(function (AMQPLogLevel) {
+    AMQPLogLevel[AMQPLogLevel["ERROR"] = 0] = "ERROR";
+    AMQPLogLevel[AMQPLogLevel["INFO"] = 1] = "INFO";
+    AMQPLogLevel[AMQPLogLevel["DEBUG"] = 2] = "DEBUG";
+    AMQPLogLevel[AMQPLogLevel["TRACE"] = 3] = "TRACE";
+})(AMQPLogLevel = exports.AMQPLogLevel || (exports.AMQPLogLevel = {}));
+//# sourceMappingURL=AMQPLogLevel.js.map

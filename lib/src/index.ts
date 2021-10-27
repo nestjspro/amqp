@@ -1,7 +1,6 @@
 export * from './AMQPConnection';
 export * from './AMQPConnectionStatus';
 export * from './AMQPModule';
-export * from './AMQPPublisher';
 export * from './AMQPQueueOptions';
 export * from './AMQPReference';
 export * from './AMQPService';

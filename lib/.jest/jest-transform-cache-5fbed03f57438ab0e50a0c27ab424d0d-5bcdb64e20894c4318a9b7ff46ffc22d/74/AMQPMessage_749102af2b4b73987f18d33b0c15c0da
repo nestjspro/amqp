@@ -1,0 +1,15 @@
+8b88587b2f40e65f7618398574d2769e
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPMessage = void 0;
+class AMQPMessage {
+    constructor(message, ack) {
+        this.message = message;
+        this.ack = ack;
+    }
+    fromJSON() {
+        return JSON.parse(this.message.content.toString());
+    }
+}
+exports.AMQPMessage = AMQPMessage;
+//# sourceMappingURL=AMQPMessage.js.map

@@ -15,9 +15,10 @@ export class AMQPService implements OnModuleDestroy {
 
     private connections: Array<AMQPConnection> = [];
 
-    public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig) {
+    public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig, private readonly logger: AMQPLogger) {
 
         this.config = config;
+        this.logger.config = config;
 
         this.connect();
 
@@ -25,7 +26,7 @@ export class AMQPService implements OnModuleDestroy {
 
     public connect() {
 
-        AMQPLogger.trace('Creating connections..', AMQPLogEmoji.NEW, 'SERVICE MANAGER');
+        this.logger.debug('Creating connections..', AMQPLogEmoji.NEW, 'SERVICE MANAGER');
 
         if (this.connections.length === 0) {
 
@@ -49,17 +50,15 @@ export class AMQPService implements OnModuleDestroy {
 
     public disconnect(): void {
 
-        AMQPLogger.info('Disconnecting from all connections..');
-
         for (let i = 0; i < this.connections.length; i++) {
 
-            AMQPLogger.debug(`Disconnecting from amqp server "${ chalk.yellowBright(this.connections[ i ].config.name ? this.connections[ i ].config.name : '#0') }"`, AMQPLogEmoji.DISCONNECT, 'SERVICE MANAGER');
+            this.logger.debug(`Disconnecting from amqp server "${ chalk.yellowBright(this.connections[ i ].config.name ? this.connections[ i ].config.name : '#0') }"`, AMQPLogEmoji.DISCONNECT, 'SERVICE MANAGER');
 
             this.connections[ i ].disconnect();
 
         }
 
-        AMQPLogger.debug('All connections have been disconnected!', AMQPLogEmoji.DISCONNECT, 'SERVICE MANAGER');
+        this.logger.debug('All connections have been disconnected!', AMQPLogEmoji.DISCONNECT, 'SERVICE MANAGER');
 
     }
 
@@ -71,9 +70,9 @@ export class AMQPService implements OnModuleDestroy {
 
     public addConnection(config: AMQPConfigConnection): AMQPConnection {
 
-        AMQPLogger.debug(`Creating connection to amqp server "${ chalk.yellowBright(config.name ? config.name : '#0') }"`, AMQPLogEmoji.NEW, 'SERVICE MANAGER');
+        this.logger.debug(`Creating connection to amqp server "${ chalk.yellowBright(config.name ? config.name : '#0') }"`, AMQPLogEmoji.NEW, 'SERVICE MANAGER');
 
-        const connection = new AMQPConnection(config);
+        const connection = new AMQPConnection(config, this.logger);
 
         this.connections.push(connection);
 
@@ -83,7 +82,7 @@ export class AMQPService implements OnModuleDestroy {
 
     public getConnection(name?: string): ReplaySubject<AMQPConnection> {
 
-        AMQPLogger.trace(`Attempting to get connection "${ chalk.yellowBright(name ? name : '#0') }"`, AMQPLogEmoji.NEW, 'SERVICE MANAGER');
+        this.logger.trace(`Attempting to get connection "${ chalk.yellowBright(name ? name : '#0') }"`, AMQPLogEmoji.NEW, 'SERVICE MANAGER');
 
         const subject$: ReplaySubject<AMQPConnection> = new ReplaySubject();
 
@@ -93,7 +92,7 @@ export class AMQPService implements OnModuleDestroy {
 
             if (connection) {
 
-                AMQPLogger.trace(`Retrieved connection "${ chalk.yellowBright(connection.config.name) }"!`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
+                this.logger.trace(`Retrieved connection "${ chalk.yellowBright(connection.config.name) }"!`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
 
                 subject$.next(connection);
 
@@ -107,7 +106,7 @@ export class AMQPService implements OnModuleDestroy {
 
             if (this.connections && this.connections.length > 0) {
 
-                AMQPLogger.trace(`Retrieved connection ${ chalk.yellowBright('#0!') }`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
+                this.logger.trace(`Retrieved connection ${ chalk.yellowBright('#0!') }`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
 
                 subject$.next(this.connections[ 0 ]);
 
@@ -125,7 +124,7 @@ export class AMQPService implements OnModuleDestroy {
 
     public onModuleDestroy(): void {
 
-        AMQPLogger.debug(chalk.magentaBright('Received shutdown signal, shutting down..'), AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
+        this.logger.debug(chalk.magentaBright('Received shutdown signal, shutting down..'), AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
 
         this.disconnect();
 

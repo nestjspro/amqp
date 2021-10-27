@@ -1,0 +1,63 @@
+54d2a6254b8bd1ba4b4161bc7c0f0721
+"use strict";
+
+/* istanbul ignore next */
+function cov_1qo4a8in42() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/configuration/AMQPConfigExchange.ts";
+  var hash = "e2ae76f0480d7250e231d199df474f08f86b6839";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/configuration/AMQPConfigExchange.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 2,
+          column: 62
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    inputSourceMap: {
+      file: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/configuration/AMQPConfigExchange.ts",
+      mappings: "",
+      names: [],
+      sources: ["/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/configuration/AMQPConfigExchange.ts"],
+      sourcesContent: ["import { Options } from 'amqplib/properties';\n\nexport interface AMQPConfigExchange {\n\n    name: string;\n    type: 'direct' | 'topic' | 'headers' | 'fanout' | 'match' | string;\n    options?: Options.AssertExchange;\n\n}\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "e2ae76f0480d7250e231d199df474f08f86b6839"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1qo4a8in42 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_1qo4a8in42();
+cov_1qo4a8in42().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9

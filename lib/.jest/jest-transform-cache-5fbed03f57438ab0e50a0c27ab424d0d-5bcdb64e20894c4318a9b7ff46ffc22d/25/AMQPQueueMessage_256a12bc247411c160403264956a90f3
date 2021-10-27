@@ -1,0 +1,63 @@
+e3f43d46a0e15e71dbd19887d7c948d7
+"use strict";
+
+/* istanbul ignore next */
+function cov_173rmjip0x() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueueMessage.ts";
+  var hash = "2870de7453326354353f9ea3c4638452e036d0d9";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueueMessage.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 2,
+          column: 62
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    inputSourceMap: {
+      file: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueueMessage.ts",
+      mappings: "",
+      names: [],
+      sources: ["/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueueMessage.ts"],
+      sourcesContent: ["import { Subject } from 'rxjs';\nimport { Options } from 'amqplib';\nimport Publish = Options.Publish;\n\nexport interface AMQPQueueMessage {\n\n    exchange: string | number;\n    routingKey: string | number;\n    message: Buffer;\n    options?: Publish;\n\n    published$?: Subject<boolean>;\n\n}\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2870de7453326354353f9ea3c4638452e036d0d9"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_173rmjip0x = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_173rmjip0x();
+cov_173rmjip0x().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9

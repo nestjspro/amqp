@@ -1,0 +1,930 @@
+ab337980ca111d30a11d13b39ee49020
+"use strict";
+
+/* istanbul ignore next */
+function cov_16iwamhzaf() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueue.ts";
+  var hash = "f40bd8100ea0ad770243124f97d6b648beef6db5";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueue.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 2,
+          column: 62
+        }
+      },
+      "1": {
+        start: {
+          line: 3,
+          column: 0
+        },
+        end: {
+          line: 3,
+          column: 27
+        }
+      },
+      "2": {
+        start: {
+          line: 4,
+          column: 15
+        },
+        end: {
+          line: 4,
+          column: 30
+        }
+      },
+      "3": {
+        start: {
+          line: 5,
+          column: 31
+        },
+        end: {
+          line: 5,
+          column: 65
+        }
+      },
+      "4": {
+        start: {
+          line: 6,
+          column: 14
+        },
+        end: {
+          line: 6,
+          column: 30
+        }
+      },
+      "5": {
+        start: {
+          line: 7,
+          column: 23
+        },
+        end: {
+          line: 7,
+          column: 57
+        }
+      },
+      "6": {
+        start: {
+          line: 16,
+          column: 8
+        },
+        end: {
+          line: 16,
+          column: 49
+        }
+      },
+      "7": {
+        start: {
+          line: 22,
+          column: 8
+        },
+        end: {
+          line: 22,
+          column: 24
+        }
+      },
+      "8": {
+        start: {
+          line: 23,
+          column: 8
+        },
+        end: {
+          line: 23,
+          column: 55
+        }
+      },
+      "9": {
+        start: {
+          line: 24,
+          column: 8
+        },
+        end: {
+          line: 24,
+          column: 40
+        }
+      },
+      "10": {
+        start: {
+          line: 25,
+          column: 8
+        },
+        end: {
+          line: 25,
+          column: 37
+        }
+      },
+      "11": {
+        start: {
+          line: 26,
+          column: 8
+        },
+        end: {
+          line: 26,
+          column: 23
+        }
+      },
+      "12": {
+        start: {
+          line: 30,
+          column: 8
+        },
+        end: {
+          line: 46,
+          column: 11
+        }
+      },
+      "13": {
+        start: {
+          line: 34,
+          column: 12
+        },
+        end: {
+          line: 45,
+          column: 13
+        }
+      },
+      "14": {
+        start: {
+          line: 35,
+          column: 16
+        },
+        end: {
+          line: 35,
+          column: 246
+        }
+      },
+      "15": {
+        start: {
+          line: 40,
+          column: 16
+        },
+        end: {
+          line: 40,
+          column: 96
+        }
+      },
+      "16": {
+        start: {
+          line: 40,
+          column: 73
+        },
+        end: {
+          line: 40,
+          column: 93
+        }
+      },
+      "17": {
+        start: {
+          line: 43,
+          column: 16
+        },
+        end: {
+          line: 43,
+          column: 49
+        }
+      },
+      "18": {
+        start: {
+          line: 44,
+          column: 16
+        },
+        end: {
+          line: 44,
+          column: 251
+        }
+      },
+      "19": {
+        start: {
+          line: 54,
+          column: 8
+        },
+        end: {
+          line: 70,
+          column: 12
+        }
+      },
+      "20": {
+        start: {
+          line: 55,
+          column: 12
+        },
+        end: {
+          line: 55,
+          column: 280
+        }
+      },
+      "21": {
+        start: {
+          line: 56,
+          column: 12
+        },
+        end: {
+          line: 69,
+          column: 13
+        }
+      },
+      "22": {
+        start: {
+          line: 58,
+          column: 16
+        },
+        end: {
+          line: 58,
+          column: 30
+        }
+      },
+      "23": {
+        start: {
+          line: 66,
+          column: 16
+        },
+        end: {
+          line: 68,
+          column: 17
+        }
+      },
+      "24": {
+        start: {
+          line: 78,
+          column: 8
+        },
+        end: {
+          line: 78,
+          column: 441
+        }
+      },
+      "25": {
+        start: {
+          line: 79,
+          column: 8
+        },
+        end: {
+          line: 79,
+          column: 34
+        }
+      },
+      "26": {
+        start: {
+          line: 80,
+          column: 8
+        },
+        end: {
+          line: 80,
+          column: 22
+        }
+      },
+      "27": {
+        start: {
+          line: 93,
+          column: 8
+        },
+        end: {
+          line: 98,
+          column: 11
+        }
+      },
+      "28": {
+        start: {
+          line: 99,
+          column: 8
+        },
+        end: {
+          line: 99,
+          column: 26
+        }
+      },
+      "29": {
+        start: {
+          line: 102,
+          column: 0
+        },
+        end: {
+          line: 102,
+          column: 30
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 15,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 33
+          },
+          end: {
+            line: 47,
+            column: 5
+          }
+        },
+        line: 15
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 30,
+            column: 42
+          },
+          end: {
+            line: 30,
+            column: 43
+          }
+        },
+        loc: {
+          start: {
+            line: 30,
+            column: 52
+          },
+          end: {
+            line: 46,
+            column: 9
+          }
+        },
+        line: 30
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 40,
+            column: 61
+          },
+          end: {
+            line: 40,
+            column: 62
+          }
+        },
+        loc: {
+          start: {
+            line: 40,
+            column: 73
+          },
+          end: {
+            line: 40,
+            column: 93
+          }
+        },
+        line: 40
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 53,
+            column: 4
+          },
+          end: {
+            line: 53,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 53,
+            column: 19
+          },
+          end: {
+            line: 71,
+            column: 5
+          }
+        },
+        line: 53
+      },
+      "4": {
+        name: "(anonymous_4)",
+        decl: {
+          start: {
+            line: 54,
+            column: 68
+          },
+          end: {
+            line: 54,
+            column: 69
+          }
+        },
+        loc: {
+          start: {
+            line: 54,
+            column: 81
+          },
+          end: {
+            line: 70,
+            column: 9
+          }
+        },
+        line: 54
+      },
+      "5": {
+        name: "(anonymous_5)",
+        decl: {
+          start: {
+            line: 77,
+            column: 4
+          },
+          end: {
+            line: 77,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 77,
+            column: 21
+          },
+          end: {
+            line: 81,
+            column: 5
+          }
+        },
+        line: 77
+      },
+      "6": {
+        name: "(anonymous_6)",
+        decl: {
+          start: {
+            line: 92,
+            column: 4
+          },
+          end: {
+            line: 92,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 92,
+            column: 82
+          },
+          end: {
+            line: 100,
+            column: 5
+          }
+        },
+        line: 92
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 34,
+            column: 12
+          },
+          end: {
+            line: 45,
+            column: 13
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 34,
+            column: 12
+          },
+          end: {
+            line: 45,
+            column: 13
+          }
+        }, {
+          start: {
+            line: 42,
+            column: 17
+          },
+          end: {
+            line: 45,
+            column: 13
+          }
+        }],
+        line: 34
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 56,
+            column: 12
+          },
+          end: {
+            line: 69,
+            column: 13
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 56,
+            column: 12
+          },
+          end: {
+            line: 69,
+            column: 13
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 56
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 66,
+            column: 16
+          },
+          end: {
+            line: 68,
+            column: 17
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 66,
+            column: 16
+          },
+          end: {
+            line: 68,
+            column: 17
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 66
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 78,
+            column: 230
+          },
+          end: {
+            line: 78,
+            column: 384
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 78,
+            column: 313
+          },
+          end: {
+            line: 78,
+            column: 348
+          }
+        }, {
+          start: {
+            line: 78,
+            column: 351
+          },
+          end: {
+            line: 78,
+            column: 384
+          }
+        }],
+        line: 78
+      },
+      "4": {
+        loc: {
+          start: {
+            line: 92,
+            column: 47
+          },
+          end: {
+            line: 92,
+            column: 80
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 92,
+            column: 60
+          },
+          end: {
+            line: 92,
+            column: 80
+          }
+        }],
+        line: 92
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "18": 0,
+      "19": 0,
+      "20": 0,
+      "21": 0,
+      "22": 0,
+      "23": 0,
+      "24": 0,
+      "25": 0,
+      "26": 0,
+      "27": 0,
+      "28": 0,
+      "29": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0],
+      "2": [0, 0],
+      "3": [0, 0],
+      "4": [0]
+    },
+    inputSourceMap: {
+      file: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueue.ts",
+      mappings: "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",
+      names: [],
+      sources: ["/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPQueue.ts"],
+      sourcesContent: ["import { AMQPConnection } from '../AMQPConnection';\nimport { Subject, Subscription, Observable, ReplaySubject } from 'rxjs';\nimport { AMQPConnectionStatus } from '../AMQPConnectionStatus';\nimport { AMQPQueueMessage } from './AMQPQueueMessage';\nimport { AMQPLogger } from '../logging/AMQPLogger';\nimport * as chalk from 'chalk';\nimport { AMQPLogEmoji } from '../logging/AMQPLogEmoji';\n\nexport class AMQPQueue {\n\n    private queue$: ReplaySubject<AMQPQueueMessage> = new ReplaySubject();\n    private connection: AMQPConnection;\n    private subscription: Subscription;\n    private readonly logger: AMQPLogger;\n\n    /**\n     * Length of the pending message queue.\n     *\n     * @type {number}\n     */\n    public length: number = 0;\n\n    /**\n     * Maximum number of messages to allow in queue at a time.\n     *\n     * @type {number}\n     */\n    public max: number;\n\n    public subscriptions: Subscription = new Subscription();\n\n    /**\n     * Queue instantiator.\n     *\n     * @param {AMQPConnection} connection Connection reference.\n     * @param {number} max Maximum number of messages to allow in queue at a time.\n     */\n    public constructor(connection: AMQPConnection, max?: number) {\n\n        this.logger = connection.logger;\n        this.connection = connection;\n        this.max = max;\n\n        //\n        // Listen for connection status changes.\n        //\n        this.connection.status$.subscribe(status => {\n\n            //\n            // If we're now connected, drain the queue, otherwise stop listening.\n            //\n            if (status === AMQPConnectionStatus.CONNECTED) {\n\n                this.logger.debug(`${ chalk.greenBright('Connection established') }, queue is ready for drain operations for the connection ${ chalk.yellowBright(this.connection.config.name) }!`, AMQPLogEmoji.SUCCESS, 'QUEUE MANAGER');\n\n                //\n                // Start draining the queue and listening for\n                // additional messages.\n                //\n                this.subscriptions.add(this.queue$.subscribe(messages => this.drain(messages)));\n\n            } else {\n\n                this.subscriptions.unsubscribe();\n\n                this.logger.debug(`${ chalk.greenBright('Connection established') }, queue has stopped draining operations for the connection ${ chalk.yellowBright(this.connection.config.name) }!`, AMQPLogEmoji.DISCONNECT, 'QUEUE MANAGER');\n\n            }\n\n        });\n\n    }\n\n    /**\n     * Subscribes to the queue$ {Subject} and publishes the pending message.\n     *\n     * @param {AMQPQueueMessage} message\n     */\n    public drain(message: AMQPQueueMessage): void {\n\n        this.subscriptions.add(this.connection.reference$.subscribe(reference => {\n\n            this.logger.debug(`${ chalk.redBright('Draining message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection \"${ chalk.yellowBright(this.connection.config.name) }\"`, AMQPLogEmoji.DOWN, 'QUEUE MANAGER');\n\n            if (this.connection.status === AMQPConnectionStatus.CONNECTED) {\n\n                // const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message, message.options);\n\n                this.length--;\n\n                //\n                // If the caller passed in an observable, call it to\n                // notify that the message has been published.\n                //\n                // This is beneficial in the event that there is a\n                // long backlog of messages due to connectivity issue(s).\n                //\n                if (message.published$) {\n\n                    // message.published$.next(result);\n\n                }\n\n            }\n\n        }));\n\n    }\n\n    /**\n     * Publish a new message the queue.\n     *\n     * @param {AMQPQueueMessage} message\n     */\n    public publish(message: AMQPQueueMessage): void {\n\n        this.logger.debug(`${ chalk.greenBright('Publishing message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection \"${ chalk.yellowBright(this.connection.config.name) }\" (${ this.connection.status === AMQPConnectionStatus.CONNECTED ? chalk.green(this.connection.status) : chalk.red(this.connection.status) })`, AMQPLogEmoji.INBOX, 'QUEUE MANAGER');\n\n        this.queue$.next(message);\n\n        this.length++;\n\n    }\n\n    /**\n     * Helper method to wrap .publish() via arguments.\n     *\n     * @param {string} exchange Exchange to publish message through.\n     * @param {string} routingKey Routing key to publish message under.\n     * @param {Object} message Object that gets serialized into a json string.\n     * @param {Subject<boolean>} published$ Emitted when the messages has been published from the queue.\n     *\n     * @return {Subject<boolean>} Observable that is .next'ed upon completion with the boolean response from amqplib.\n     */\n    public publishJSON(exchange: string | number, routingKey: string | number, message: Object, published$: Subject<boolean> = new Subject()): Observable<boolean> {\n\n        this.publish({\n\n            exchange,\n            routingKey,\n            message: Buffer.from(JSON.stringify(message)),\n            published$\n\n        });\n\n        return published$;\n\n    }\n\n}\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f40bd8100ea0ad770243124f97d6b648beef6db5"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_16iwamhzaf = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_16iwamhzaf();
+cov_16iwamhzaf().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+/* istanbul ignore next */
+cov_16iwamhzaf().s[1]++;
+exports.AMQPQueue = void 0;
+const rxjs_1 =
+/* istanbul ignore next */
+(cov_16iwamhzaf().s[2]++, require("rxjs"));
+const AMQPConnectionStatus_1 =
+/* istanbul ignore next */
+(cov_16iwamhzaf().s[3]++, require("../AMQPConnectionStatus"));
+const chalk =
+/* istanbul ignore next */
+(cov_16iwamhzaf().s[4]++, require("chalk"));
+const AMQPLogEmoji_1 =
+/* istanbul ignore next */
+(cov_16iwamhzaf().s[5]++, require("../logging/AMQPLogEmoji"));
+
+class AMQPQueue {
+  /**
+   * Queue instantiator.
+   *
+   * @param {AMQPConnection} connection Connection reference.
+   * @param {number} max Maximum number of messages to allow in queue at a time.
+   */
+  constructor(connection, max) {
+    /* istanbul ignore next */
+    cov_16iwamhzaf().f[0]++;
+    cov_16iwamhzaf().s[6]++;
+    this.queue$ = new rxjs_1.ReplaySubject();
+    /**
+     * Length of the pending message queue.
+     *
+     * @type {number}
+     */
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[7]++;
+    this.length = 0;
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[8]++;
+    this.subscriptions = new rxjs_1.Subscription();
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[9]++;
+    this.logger = connection.logger;
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[10]++;
+    this.connection = connection;
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[11]++;
+    this.max = max; //
+    // Listen for connection status changes.
+    //
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[12]++;
+    this.connection.status$.subscribe((status) => {
+      /* istanbul ignore next */
+      cov_16iwamhzaf().f[1]++;
+      cov_16iwamhzaf().s[13]++;
+
+      //
+      // If we're now connected, drain the queue, otherwise stop listening.
+      //
+      if (status === AMQPConnectionStatus_1.AMQPConnectionStatus.CONNECTED) {
+        /* istanbul ignore next */
+        cov_16iwamhzaf().b[0][0]++;
+        cov_16iwamhzaf().s[14]++;
+        this.logger.debug(`${chalk.greenBright('Connection established')}, queue is ready for drain operations for the connection ${chalk.yellowBright(this.connection.config.name)}!`, AMQPLogEmoji_1.AMQPLogEmoji.SUCCESS, 'QUEUE MANAGER'); //
+        // Start draining the queue and listening for
+        // additional messages.
+        //
+
+        /* istanbul ignore next */
+        cov_16iwamhzaf().s[15]++;
+        this.subscriptions.add(this.queue$.subscribe((messages) => {
+          /* istanbul ignore next */
+          cov_16iwamhzaf().f[2]++;
+          cov_16iwamhzaf().s[16]++;
+          return this.drain(messages);
+        }));
+      } else {
+        /* istanbul ignore next */
+        cov_16iwamhzaf().b[0][1]++;
+        cov_16iwamhzaf().s[17]++;
+        this.subscriptions.unsubscribe();
+
+        /* istanbul ignore next */
+        cov_16iwamhzaf().s[18]++;
+        this.logger.debug(`${chalk.greenBright('Connection established')}, queue has stopped draining operations for the connection ${chalk.yellowBright(this.connection.config.name)}!`, AMQPLogEmoji_1.AMQPLogEmoji.DISCONNECT, 'QUEUE MANAGER');
+      }
+    });
+  }
+  /**
+   * Subscribes to the queue$ {Subject} and publishes the pending message.
+   *
+   * @param {AMQPQueueMessage} message
+   */
+
+
+  drain(message) {
+    /* istanbul ignore next */
+    cov_16iwamhzaf().f[3]++;
+    cov_16iwamhzaf().s[19]++;
+    this.subscriptions.add(this.connection.reference$.subscribe((reference) => {
+      /* istanbul ignore next */
+      cov_16iwamhzaf().f[4]++;
+      cov_16iwamhzaf().s[20]++;
+      this.logger.debug(`${chalk.redBright('Draining message')} to ${chalk.yellowBright(message.exchange)}(#${chalk.blueBright(message.routingKey)}) for the connection "${chalk.yellowBright(this.connection.config.name)}"`, AMQPLogEmoji_1.AMQPLogEmoji.DOWN, 'QUEUE MANAGER');
+
+      /* istanbul ignore next */
+      cov_16iwamhzaf().s[21]++;
+
+      if (this.connection.status === AMQPConnectionStatus_1.AMQPConnectionStatus.CONNECTED) {
+        /* istanbul ignore next */
+        cov_16iwamhzaf().b[1][0]++;
+        cov_16iwamhzaf().s[22]++;
+        // const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message, message.options);
+        this.length--; //
+        // If the caller passed in an observable, call it to
+        // notify that the message has been published.
+        //
+        // This is beneficial in the event that there is a
+        // long backlog of messages due to connectivity issue(s).
+        //
+
+        /* istanbul ignore next */
+        cov_16iwamhzaf().s[23]++;
+
+        if (message.published$) {// message.published$.next(result);
+
+          /* istanbul ignore next */
+          cov_16iwamhzaf().b[2][0]++;
+        } else
+        /* istanbul ignore next */
+        {
+          cov_16iwamhzaf().b[2][1]++;
+        }
+      } else
+      /* istanbul ignore next */
+      {
+        cov_16iwamhzaf().b[1][1]++;
+      }
+    }));
+  }
+  /**
+   * Publish a new message the queue.
+   *
+   * @param {AMQPQueueMessage} message
+   */
+
+
+  publish(message) {
+    /* istanbul ignore next */
+    cov_16iwamhzaf().f[5]++;
+    cov_16iwamhzaf().s[24]++;
+    this.logger.debug(`${chalk.greenBright('Publishing message')} to ${chalk.yellowBright(message.exchange)}(#${chalk.blueBright(message.routingKey)}) for the connection "${chalk.yellowBright(this.connection.config.name)}" (${this.connection.status === AMQPConnectionStatus_1.AMQPConnectionStatus.CONNECTED ?
+    /* istanbul ignore next */
+    (cov_16iwamhzaf().b[3][0]++, chalk.green(this.connection.status)) :
+    /* istanbul ignore next */
+    (cov_16iwamhzaf().b[3][1]++, chalk.red(this.connection.status))})`, AMQPLogEmoji_1.AMQPLogEmoji.INBOX, 'QUEUE MANAGER');
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[25]++;
+    this.queue$.next(message);
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[26]++;
+    this.length++;
+  }
+  /**
+   * Helper method to wrap .publish() via arguments.
+   *
+   * @param {string} exchange Exchange to publish message through.
+   * @param {string} routingKey Routing key to publish message under.
+   * @param {Object} message Object that gets serialized into a json string.
+   * @param {Subject<boolean>} published$ Emitted when the messages has been published from the queue.
+   *
+   * @return {Subject<boolean>} Observable that is .next'ed upon completion with the boolean response from amqplib.
+   */
+
+
+  publishJSON(exchange, routingKey, message, published$ =
+  /* istanbul ignore next */
+  (cov_16iwamhzaf().b[4][0]++, new rxjs_1.Subject())) {
+    /* istanbul ignore next */
+    cov_16iwamhzaf().f[6]++;
+    cov_16iwamhzaf().s[27]++;
+    this.publish({
+      exchange,
+      routingKey,
+      message: Buffer.from(JSON.stringify(message)),
+      published$
+    });
+
+    /* istanbul ignore next */
+    cov_16iwamhzaf().s[28]++;
+    return published$;
+  }
+
+}
+
+/* istanbul ignore next */
+cov_16iwamhzaf().s[29]++;
+exports.AMQPQueue = AMQPQueue;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9tYXR0aGV3ZGF2aXMvd29ya3NwYWNlL25lc3Rqc3Byby9tb2R1bGVzL2FtcXAvbGliL3NyYy9xdWV1ZWluZy9BTVFQUXVldWUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFVWTs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFUWixNQUFBLE1BQUE7QUFBQTtBQUFBLDBCQUFBLE9BQUEsQ0FB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LENBQWEsS0FBN1gsRUFBb1ksZUFBcFk7O0FBRm9DO0FBQUE7QUFJcEMsU0FBSyxNQUFMLENBQVksSUFBWixDQUFpQixPQUFqQjs7QUFKb0M7QUFBQTtBQU1wQyxTQUFLLE1BQUw7QUFFSDtBQUVEOzs7Ozs7Ozs7QUFTRzs7O0FBQ0ksRUFBQSxXQUFXLENBQUMsUUFBRCxFQUE0QixVQUE1QixFQUF5RCxPQUF6RCxFQUEwRSxVQUFBO0FBQUE7QUFBQSwrQkFBK0IsSUFBSSxNQUFBLENBQUEsT0FBSixFQUEvQixDQUExRSxFQUFzSDtBQUFBO0FBQUE7QUFBQTtBQUVwSSxTQUFLLE9BQUwsQ0FBYTtBQUVULE1BQUEsUUFGUztBQUdULE1BQUEsVUFIUztBQUlULE1BQUEsT0FBTyxFQUFFLE1BQU0sQ0FBQyxJQUFQLENBQVksSUFBSSxDQUFDLFNBQUwsQ0FBZSxPQUFmLENBQVosQ0FKQTtBQUtULE1BQUE7QUFMUyxLQUFiOztBQUZvSTtBQUFBO0FBV3BJLFdBQU8sVUFBUDtBQUVIOztBQTNJaUI7Ozs7QUFBdEIsT0FBQSxDQUFBLFNBQUEsR0FBQSxTQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQU1RUENvbm5lY3Rpb24gfSBmcm9tICcuLi9BTVFQQ29ubmVjdGlvbic7XG5pbXBvcnQgeyBTdWJqZWN0LCBTdWJzY3JpcHRpb24sIE9ic2VydmFibGUsIFJlcGxheVN1YmplY3QgfSBmcm9tICdyeGpzJztcbmltcG9ydCB7IEFNUVBDb25uZWN0aW9uU3RhdHVzIH0gZnJvbSAnLi4vQU1RUENvbm5lY3Rpb25TdGF0dXMnO1xuaW1wb3J0IHsgQU1RUFF1ZXVlTWVzc2FnZSB9IGZyb20gJy4vQU1RUFF1ZXVlTWVzc2FnZSc7XG5pbXBvcnQgeyBBTVFQTG9nZ2VyIH0gZnJvbSAnLi4vbG9nZ2luZy9BTVFQTG9nZ2VyJztcbmltcG9ydCAqIGFzIGNoYWxrIGZyb20gJ2NoYWxrJztcbmltcG9ydCB7IEFNUVBMb2dFbW9qaSB9IGZyb20gJy4uL2xvZ2dpbmcvQU1RUExvZ0Vtb2ppJztcblxuZXhwb3J0IGNsYXNzIEFNUVBRdWV1ZSB7XG5cbiAgICBwcml2YXRlIHF1ZXVlJDogUmVwbGF5U3ViamVjdDxBTVFQUXVldWVNZXNzYWdlPiA9IG5ldyBSZXBsYXlTdWJqZWN0KCk7XG4gICAgcHJpdmF0ZSBjb25uZWN0aW9uOiBBTVFQQ29ubmVjdGlvbjtcbiAgICBwcml2YXRlIHN1YnNjcmlwdGlvbjogU3Vic2NyaXB0aW9uO1xuICAgIHByaXZhdGUgcmVhZG9ubHkgbG9nZ2VyOiBBTVFQTG9nZ2VyO1xuXG4gICAgLyoqXG4gICAgICogTGVuZ3RoIG9mIHRoZSBwZW5kaW5nIG1lc3NhZ2UgcXVldWUuXG4gICAgICpcbiAgICAgKiBAdHlwZSB7bnVtYmVyfVxuICAgICAqL1xuICAgIHB1YmxpYyBsZW5ndGg6IG51bWJlciA9IDA7XG5cbiAgICAvKipcbiAgICAgKiBNYXhpbXVtIG51bWJlciBvZiBtZXNzYWdlcyB0byBhbGxvdyBpbiBxdWV1ZSBhdCBhIHRpbWUuXG4gICAgICpcbiAgICAgKiBAdHlwZSB7bnVtYmVyfVxuICAgICAqL1xuICAgIHB1YmxpYyBtYXg6IG51bWJlcjtcblxuICAgIHB1YmxpYyBzdWJzY3JpcHRpb25zOiBTdWJzY3JpcHRpb24gPSBuZXcgU3Vic2NyaXB0aW9uKCk7XG5cbiAgICAvKipcbiAgICAgKiBRdWV1ZSBpbnN0YW50aWF0b3IuXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge0FNUVBDb25uZWN0aW9ufSBjb25uZWN0aW9uIENvbm5lY3Rpb24gcmVmZXJlbmNlLlxuICAgICAqIEBwYXJhbSB7bnVtYmVyfSBtYXggTWF4aW11bSBudW1iZXIgb2YgbWVzc2FnZXMgdG8gYWxsb3cgaW4gcXVldWUgYXQgYSB0aW1lLlxuICAgICAqL1xuICAgIHB1YmxpYyBjb25zdHJ1Y3Rvcihjb25uZWN0aW9uOiBBTVFQQ29ubmVjdGlvbiwgbWF4PzogbnVtYmVyKSB7XG5cbiAgICAgICAgdGhpcy5sb2dnZXIgPSBjb25uZWN0aW9uLmxvZ2dlcjtcbiAgICAgICAgdGhpcy5jb25uZWN0aW9uID0gY29ubmVjdGlvbjtcbiAgICAgICAgdGhpcy5tYXggPSBtYXg7XG5cbiAgICAgICAgLy9cbiAgICAgICAgLy8gTGlzdGVuIGZvciBjb25uZWN0aW9uIHN0YXR1cyBjaGFuZ2VzLlxuICAgICAgICAvL1xuICAgICAgICB0aGlzLmNvbm5lY3Rpb24uc3RhdHVzJC5zdWJzY3JpYmUoc3RhdHVzID0+IHtcblxuICAgICAgICAgICAgLy9cbiAgICAgICAgICAgIC8vIElmIHdlJ3JlIG5vdyBjb25uZWN0ZWQsIGRyYWluIHRoZSBxdWV1ZSwgb3RoZXJ3aXNlIHN0b3AgbGlzdGVuaW5nLlxuICAgICAgICAgICAgLy9cbiAgICAgICAgICAgIGlmIChzdGF0dXMgPT09IEFNUVBDb25uZWN0aW9uU3RhdHVzLkNPTk5FQ1RFRCkge1xuXG4gICAgICAgICAgICAgICAgdGhpcy5sb2dnZXIuZGVidWcoYCR7IGNoYWxrLmdyZWVuQnJpZ2h0KCdDb25uZWN0aW9uIGVzdGFibGlzaGVkJykgfSwgcXVldWUgaXMgcmVhZHkgZm9yIGRyYWluIG9wZXJhdGlvbnMgZm9yIHRoZSBjb25uZWN0aW9uICR7IGNoYWxrLnllbGxvd0JyaWdodCh0aGlzLmNvbm5lY3Rpb24uY29uZmlnLm5hbWUpIH0hYCwgQU1RUExvZ0Vtb2ppLlNVQ0NFU1MsICdRVUVVRSBNQU5BR0VSJyk7XG5cbiAgICAgICAgICAgICAgICAvL1xuICAgICAgICAgICAgICAgIC8vIFN0YXJ0IGRyYWluaW5nIHRoZSBxdWV1ZSBhbmQgbGlzdGVuaW5nIGZvclxuICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwgbWVzc2FnZXMuXG4gICAgICAgICAgICAgICAgLy9cbiAgICAgICAgICAgICAgICB0aGlzLnN1YnNjcmlwdGlvbnMuYWRkKHRoaXMucXVldWUkLnN1YnNjcmliZShtZXNzYWdlcyA9PiB0aGlzLmRyYWluKG1lc3NhZ2VzKSkpO1xuXG4gICAgICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICAgICAgdGhpcy5zdWJzY3JpcHRpb25zLnVuc3Vic2NyaWJlKCk7XG5cbiAgICAgICAgICAgICAgICB0aGlzLmxvZ2dlci5kZWJ1ZyhgJHsgY2hhbGsuZ3JlZW5CcmlnaHQoJ0Nvbm5lY3Rpb24gZXN0YWJsaXNoZWQnKSB9LCBxdWV1ZSBoYXMgc3RvcHBlZCBkcmFpbmluZyBvcGVyYXRpb25zIGZvciB0aGUgY29ubmVjdGlvbiAkeyBjaGFsay55ZWxsb3dCcmlnaHQodGhpcy5jb25uZWN0aW9uLmNvbmZpZy5uYW1lKSB9IWAsIEFNUVBMb2dFbW9qaS5ESVNDT05ORUNULCAnUVVFVUUgTUFOQUdFUicpO1xuXG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfSk7XG5cbiAgICB9XG5cbiAgICAvKipcbiAgICAgKiBTdWJzY3JpYmVzIHRvIHRoZSBxdWV1ZSQge1N1YmplY3R9IGFuZCBwdWJsaXNoZXMgdGhlIHBlbmRpbmcgbWVzc2FnZS5cbiAgICAgKlxuICAgICAqIEBwYXJhbSB7QU1RUFF1ZXVlTWVzc2FnZX0gbWVzc2FnZVxuICAgICAqL1xuICAgIHB1YmxpYyBkcmFpbihtZXNzYWdlOiBBTVFQUXVldWVNZXNzYWdlKTogdm9pZCB7XG5cbiAgICAgICAgdGhpcy5zdWJzY3JpcHRpb25zLmFkZCh0aGlzLmNvbm5lY3Rpb24ucmVmZXJlbmNlJC5zdWJzY3JpYmUocmVmZXJlbmNlID0+IHtcblxuICAgICAgICAgICAgdGhpcy5sb2dnZXIuZGVidWcoYCR7IGNoYWxrLnJlZEJyaWdodCgnRHJhaW5pbmcgbWVzc2FnZScpIH0gdG8gJHsgY2hhbGsueWVsbG93QnJpZ2h0KG1lc3NhZ2UuZXhjaGFuZ2UpIH0oIyR7IGNoYWxrLmJsdWVCcmlnaHQobWVzc2FnZS5yb3V0aW5nS2V5KSB9KSBmb3IgdGhlIGNvbm5lY3Rpb24gXCIkeyBjaGFsay55ZWxsb3dCcmlnaHQodGhpcy5jb25uZWN0aW9uLmNvbmZpZy5uYW1lKSB9XCJgLCBBTVFQTG9nRW1vamkuRE9XTiwgJ1FVRVVFIE1BTkFHRVInKTtcblxuICAgICAgICAgICAgaWYgKHRoaXMuY29ubmVjdGlvbi5zdGF0dXMgPT09IEFNUVBDb25uZWN0aW9uU3RhdHVzLkNPTk5FQ1RFRCkge1xuXG4gICAgICAgICAgICAgICAgLy8gY29uc3QgcmVzdWx0ID0gcmVmZXJlbmNlLmNoYW5uZWwucHVibGlzaChtZXNzYWdlLmV4Y2hhbmdlLnRvU3RyaW5nKCksIG1lc3NhZ2Uucm91dGluZ0tleS50b1N0cmluZygpLCBtZXNzYWdlLm1lc3NhZ2UsIG1lc3NhZ2Uub3B0aW9ucyk7XG5cbiAgICAgICAgICAgICAgICB0aGlzLmxlbmd0aC0tO1xuXG4gICAgICAgICAgICAgICAgLy9cbiAgICAgICAgICAgICAgICAvLyBJZiB0aGUgY2FsbGVyIHBhc3NlZCBpbiBhbiBvYnNlcnZhYmxlLCBjYWxsIGl0IHRvXG4gICAgICAgICAgICAgICAgLy8gbm90aWZ5IHRoYXQgdGhlIG1lc3NhZ2UgaGFzIGJlZW4gcHVibGlzaGVkLlxuICAgICAgICAgICAgICAgIC8vXG4gICAgICAgICAgICAgICAgLy8gVGhpcyBpcyBiZW5lZmljaWFsIGluIHRoZSBldmVudCB0aGF0IHRoZXJlIGlzIGFcbiAgICAgICAgICAgICAgICAvLyBsb25nIGJhY2tsb2cgb2YgbWVzc2FnZXMgZHVlIHRvIGNvbm5lY3Rpdml0eSBpc3N1ZShzKS5cbiAgICAgICAgICAgICAgICAvL1xuICAgICAgICAgICAgICAgIGlmIChtZXNzYWdlLnB1Ymxpc2hlZCQpIHtcblxuICAgICAgICAgICAgICAgICAgICAvLyBtZXNzYWdlLnB1Ymxpc2hlZCQubmV4dChyZXN1bHQpO1xuXG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfSkpO1xuXG4gICAgfVxuXG4gICAgLyoqXG4gICAgICogUHVibGlzaCBhIG5ldyBtZXNzYWdlIHRoZSBxdWV1ZS5cbiAgICAgKlxuICAgICAqIEBwYXJhbSB7QU1RUFF1ZXVlTWVzc2FnZX0gbWVzc2FnZVxuICAgICAqL1xuICAgIHB1YmxpYyBwdWJsaXNoKG1lc3NhZ2U6IEFNUVBRdWV1ZU1lc3NhZ2UpOiB2b2lkIHtcblxuICAgICAgICB0aGlzLmxvZ2dlci5kZWJ1ZyhgJHsgY2hhbGsuZ3JlZW5CcmlnaHQoJ1B1Ymxpc2hpbmcgbWVzc2FnZScpIH0gdG8gJHsgY2hhbGsueWVsbG93QnJpZ2h0KG1lc3NhZ2UuZXhjaGFuZ2UpIH0oIyR7IGNoYWxrLmJsdWVCcmlnaHQobWVzc2FnZS5yb3V0aW5nS2V5KSB9KSBmb3IgdGhlIGNvbm5lY3Rpb24gXCIkeyBjaGFsay55ZWxsb3dCcmlnaHQodGhpcy5jb25uZWN0aW9uLmNvbmZpZy5uYW1lKSB9XCIgKCR7IHRoaXMuY29ubmVjdGlvbi5zdGF0dXMgPT09IEFNUVBDb25uZWN0aW9uU3RhdHVzLkNPTk5FQ1RFRCA/IGNoYWxrLmdyZWVuKHRoaXMuY29ubmVjdGlvbi5zdGF0dXMpIDogY2hhbGsucmVkKHRoaXMuY29ubmVjdGlvbi5zdGF0dXMpIH0pYCwgQU1RUExvZ0Vtb2ppLklOQk9YLCAnUVVFVUUgTUFOQUdFUicpO1xuXG4gICAgICAgIHRoaXMucXVldWUkLm5leHQobWVzc2FnZSk7XG5cbiAgICAgICAgdGhpcy5sZW5ndGgrKztcblxuICAgIH1cblxuICAgIC8qKlxuICAgICAqIEhlbHBlciBtZXRob2QgdG8gd3JhcCAucHVibGlzaCgpIHZpYSBhcmd1bWVudHMuXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge3N0cmluZ30gZXhjaGFuZ2UgRXhjaGFuZ2UgdG8gcHVibGlzaCBtZXNzYWdlIHRocm91Z2guXG4gICAgICogQHBhcmFtIHtzdHJpbmd9IHJvdXRpbmdLZXkgUm91dGluZyBrZXkgdG8gcHVibGlzaCBtZXNzYWdlIHVuZGVyLlxuICAgICAqIEBwYXJhbSB7T2JqZWN0fSBtZXNzYWdlIE9iamVjdCB0aGF0IGdldHMgc2VyaWFsaXplZCBpbnRvIGEganNvbiBzdHJpbmcuXG4gICAgICogQHBhcmFtIHtTdWJqZWN0PGJvb2xlYW4+fSBwdWJsaXNoZWQkIEVtaXR0ZWQgd2hlbiB0aGUgbWVzc2FnZXMgaGFzIGJlZW4gcHVibGlzaGVkIGZyb20gdGhlIHF1ZXVlLlxuICAgICAqXG4gICAgICogQHJldHVybiB7U3ViamVjdDxib29sZWFuPn0gT2JzZXJ2YWJsZSB0aGF0IGlzIC5uZXh0J2VkIHVwb24gY29tcGxldGlvbiB3aXRoIHRoZSBib29sZWFuIHJlc3BvbnNlIGZyb20gYW1xcGxpYi5cbiAgICAgKi9cbiAgICBwdWJsaWMgcHVibGlzaEpTT04oZXhjaGFuZ2U6IHN0cmluZyB8IG51bWJlciwgcm91dGluZ0tleTogc3RyaW5nIHwgbnVtYmVyLCBtZXNzYWdlOiBPYmplY3QsIHB1Ymxpc2hlZCQ6IFN1YmplY3Q8Ym9vbGVhbj4gPSBuZXcgU3ViamVjdCgpKTogT2JzZXJ2YWJsZTxib29sZWFuPiB7XG5cbiAgICAgICAgdGhpcy5wdWJsaXNoKHtcblxuICAgICAgICAgICAgZXhjaGFuZ2UsXG4gICAgICAgICAgICByb3V0aW5nS2V5LFxuICAgICAgICAgICAgbWVzc2FnZTogQnVmZmVyLmZyb20oSlNPTi5zdHJpbmdpZnkobWVzc2FnZSkpLFxuICAgICAgICAgICAgcHVibGlzaGVkJFxuXG4gICAgICAgIH0pO1xuXG4gICAgICAgIHJldHVybiBwdWJsaXNoZWQkO1xuXG4gICAgfVxuXG59XG4iXX0=

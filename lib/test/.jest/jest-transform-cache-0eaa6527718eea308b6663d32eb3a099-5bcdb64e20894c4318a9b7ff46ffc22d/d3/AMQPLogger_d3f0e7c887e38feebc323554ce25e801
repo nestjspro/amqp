@@ -1,0 +1,60 @@
+918600ee667b80c749548868298ea4c7
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var AMQPLogger_1;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPLogger = void 0;
+const AMQPLogLevel_1 = require("./AMQPLogLevel");
+const chalk = require("chalk");
+const chalk_1 = require("chalk");
+const common_1 = require("@nestjs/common");
+let AMQPLogger = AMQPLogger_1 = class AMQPLogger {
+    static pad(str, padLeft = ' ') {
+        const pad = '                   ';
+        if (typeof str === 'undefined') {
+            return pad;
+        }
+        if (padLeft) {
+            return (pad + str).slice(-pad.length) + ' ';
+        }
+        else {
+            return (str + pad).substring(0, pad.length) + ' ';
+        }
+    }
+    log(logLevel, message, emoji, context) {
+        if (this.config.logLevel >= logLevel) {
+            let str = `[${chalk.cyan('@nestjs.pro/amqp')}] ${chalk.gray(new Date().toLocaleString())} `;
+            if (context) {
+                str += `${chalk.bgGrey(AMQPLogger_1.pad(context))} `;
+            }
+            str += `${AMQPLogger_1.LOG_LEVEL_COLORS[logLevel](AMQPLogLevel_1.AMQPLogLevel[logLevel])}: `;
+            if (emoji) {
+                str += `${emoji}`;
+            }
+            console.log(`${str} ${message}`);
+        }
+    }
+    error(message, emoji, context) {
+        this.log(AMQPLogLevel_1.AMQPLogLevel.ERROR, message, emoji, context);
+    }
+    info(message, emoji, context) {
+        this.log(AMQPLogLevel_1.AMQPLogLevel.INFO, message, emoji, context);
+    }
+    debug(message, emoji, context) {
+        this.log(AMQPLogLevel_1.AMQPLogLevel.DEBUG, message, emoji, context);
+    }
+    trace(message, emoji, context) {
+        this.log(AMQPLogLevel_1.AMQPLogLevel.TRACE, message, emoji, context);
+    }
+};
+AMQPLogger.LOG_LEVEL_COLORS = [chalk_1.cyan.redBright, chalk_1.cyan.yellowBright, chalk_1.cyan.magenta, chalk_1.cyan.gray];
+AMQPLogger = AMQPLogger_1 = __decorate([
+    (0, common_1.Injectable)()
+], AMQPLogger);
+exports.AMQPLogger = AMQPLogger;
+//# sourceMappingURL=AMQPLogger.js.map

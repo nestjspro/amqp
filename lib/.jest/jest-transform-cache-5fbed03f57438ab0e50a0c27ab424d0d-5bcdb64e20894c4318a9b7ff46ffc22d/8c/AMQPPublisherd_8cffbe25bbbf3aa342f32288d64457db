@@ -1,0 +1,36 @@
+6c04466bab3c39d7a52996c742630886
+/* istanbul ignore next */
+function cov_1z4tio07jg() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/dist/AMQPPublisher.d.ts";
+  var hash = "e21b1efbe3a11f10a7fff42bf04954ffa18f83fe";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/dist/AMQPPublisher.d.ts",
+    statementMap: {},
+    fnMap: {},
+    branchMap: {},
+    s: {},
+    f: {},
+    b: {},
+    inputSourceMap: null,
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "e21b1efbe3a11f10a7fff42bf04954ffa18f83fe"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1z4tio07jg = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_1z4tio07jg();

@@ -1,0 +1,37 @@
+447d05f3f9ca12c42b42fd4e87e72dec
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var AMQPModule_1;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPModule = void 0;
+const common_1 = require("@nestjs/common");
+const AMQPService_1 = require("./AMQPService");
+const AMQPLogger_1 = require("./logging/AMQPLogger");
+let AMQPModule = AMQPModule_1 = class AMQPModule {
+    static forRoot(config) {
+        return {
+            module: AMQPModule_1,
+            providers: [
+                AMQPLogger_1.AMQPLogger,
+                AMQPService_1.AMQPService,
+                {
+                    provide: 'AMQP_CONFIG',
+                    useValue: config
+                }
+            ],
+            exports: [
+                AMQPService_1.AMQPService
+            ]
+        };
+    }
+};
+AMQPModule = AMQPModule_1 = __decorate([
+    (0, common_1.Module)({})
+], AMQPModule);
+exports.AMQPModule = AMQPModule;
+//# sourceMappingURL=AMQPModule.js.map

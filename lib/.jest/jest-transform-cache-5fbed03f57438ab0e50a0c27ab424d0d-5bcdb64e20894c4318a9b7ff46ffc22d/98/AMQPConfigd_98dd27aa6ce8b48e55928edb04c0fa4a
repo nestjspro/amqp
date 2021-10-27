@@ -1,0 +1,36 @@
+f4acc53ada52c15bc1ffdb8b205598d3
+/* istanbul ignore next */
+function cov_2jcio6hgeo() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/dist/AMQPConfig.d.ts";
+  var hash = "81cec407e5f829d44f0856c7da74be67ab17b048";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/dist/AMQPConfig.d.ts",
+    statementMap: {},
+    fnMap: {},
+    branchMap: {},
+    s: {},
+    f: {},
+    b: {},
+    inputSourceMap: null,
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "81cec407e5f829d44f0856c7da74be67ab17b048"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2jcio6hgeo = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_2jcio6hgeo();

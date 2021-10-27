@@ -1,7 +1,7 @@
 import { Module, DynamicModule } from '@nestjs/common';
 import { AMQPConfig } from './configuration/AMQPConfig';
-import { AMQPPublisher } from './AMQPPublisher';
 import { AMQPService } from './AMQPService';
+import { AMQPLogger } from './logging/AMQPLogger';
 
 @Module({})
 export class AMQPModule {
@@ -14,7 +14,7 @@ export class AMQPModule {
 
             providers: [
 
-                AMQPPublisher,
+                AMQPLogger,
                 AMQPService,
                 {
 

@@ -1,4 +1,4 @@
-import { AMQPService, AMQPPublisher, AMQPModule } from '../dist';
+import { AMQPService, AMQPModule, AMQPLogLevel, AMQPConnectionStatus } from '../dist';
 import { TestingModule, Test } from '@nestjs/testing';
 
 jest.setTimeout(15000);
@@ -15,6 +15,7 @@ describe('AMQPModule Test', () => {
 
                 AMQPModule.forRoot({
 
+                    logLevel: AMQPLogLevel.ERROR,
                     connections: [
 
                         {
@@ -92,25 +93,26 @@ describe('AMQPModule Test', () => {
         }).compile();
 
         app = module.createNestApplication();
+
         await app.init();
 
         const service = module.get(AMQPService);
-        const publisher = module.get(AMQPPublisher);
 
-        // const connection = await service.getConnection().toPromise();
-        //
-        // expect(connection).toBeTruthy();
+        service.getConnection('two').subscribe(connection => {
 
-        // await app.close();
-        expect(1).toEqual(1);
+            expect(connection.status).toEqual(AMQPConnectionStatus.DISCONNECTED);
+
+        });
+
 
         service.disconnect();
-        console.log(222);
+
         return new Promise<void>(resolve => {
+
             expect(1).toEqual(1);
 
-            console.log(111);
             resolve();
+            
         });
 
         //
@@ -133,15 +135,13 @@ describe('AMQPModule Test', () => {
     });
 
     afterAll(async () => {
-        console.log(333);
+
         await app.close();
-        console.log(444);
+
         return new Promise<void>(resolve => {
-            console.log(534)
-            ;
+
             setTimeout(() => {
 
-                console.log(999);
                 resolve();
 
             }, 1000);

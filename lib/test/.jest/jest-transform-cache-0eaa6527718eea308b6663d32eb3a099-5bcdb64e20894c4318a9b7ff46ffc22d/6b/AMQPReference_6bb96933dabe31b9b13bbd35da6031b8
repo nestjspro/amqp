@@ -1,0 +1,8 @@
+8543adc5e2d6ebe1f5dd16fad2e7fb72
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPReference = void 0;
+class AMQPReference {
+}
+exports.AMQPReference = AMQPReference;
+//# sourceMappingURL=AMQPReference.js.map

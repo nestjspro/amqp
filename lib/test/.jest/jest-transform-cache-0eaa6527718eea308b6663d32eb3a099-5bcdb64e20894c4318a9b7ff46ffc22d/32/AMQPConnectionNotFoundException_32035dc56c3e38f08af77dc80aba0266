@@ -1,0 +1,12 @@
+c4c9918a87bac2835a4ab0d3ed6e79fb
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPConnectionNotFoundException = void 0;
+class AMQPConnectionNotFoundException extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'AMQPConnectionNotFoundException';
+    }
+}
+exports.AMQPConnectionNotFoundException = AMQPConnectionNotFoundException;
+//# sourceMappingURL=AMQPConnectionNotFoundException.js.map

@@ -1,0 +1,63 @@
+f6963b92614b7bd62076da56076e8165
+"use strict";
+
+/* istanbul ignore next */
+function cov_2cta1k7yvw() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPQueueOptions.ts";
+  var hash = "5ecd89534aad9791a108b090580375b644bf506b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPQueueOptions.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 2,
+          column: 62
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    inputSourceMap: {
+      file: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPQueueOptions.ts",
+      mappings: "",
+      names: [],
+      sources: ["/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPQueueOptions.ts"],
+      sourcesContent: ["export interface AMQPQueueOptions {\n\n    exclusive?: boolean | undefined;\n    durable?: boolean | undefined;\n    autoDelete?: boolean | undefined;\n    arguments?: any;\n    messageTtl?: number | undefined;\n    expires?: number | undefined;\n    deadLetterExchange?: string | undefined;\n    deadLetterRoutingKey?: string | undefined;\n    maxLength?: number | undefined;\n    maxPriority?: number | undefined;\n\n}\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "5ecd89534aad9791a108b090580375b644bf506b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2cta1k7yvw = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_2cta1k7yvw();
+cov_2cta1k7yvw().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9

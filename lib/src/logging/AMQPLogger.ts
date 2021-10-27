@@ -1,10 +1,13 @@
 import { AMQPLogLevel } from './AMQPLogLevel';
 import * as chalk from 'chalk';
 import { cyan } from 'chalk';
+import { Injectable } from '@nestjs/common';
+import { AMQPConfig } from '../configuration/AMQPConfig';
 
 /**
  * Global log messaging.
  */
+@Injectable()
 export class AMQPLogger {
 
     /**
@@ -37,6 +40,13 @@ export class AMQPLogger {
     }
 
     /**
+     * Main configuration for getting the log level from.
+     *
+     * @type {AMQPConfig}
+     */
+    public config: AMQPConfig;
+
+    /**
      * console.log log messages.
      *
      * @param {AMQPLogLevel} logLevel Level to output.
@@ -44,24 +54,28 @@ export class AMQPLogger {
      * @param {string} emoji (optional) Emojis make life better.
      * @param {string?} context (optional) context to prepend to message.
      */
-    public static log(logLevel: AMQPLogLevel, message: string, emoji?: string, context?: string): void {
+    public log(logLevel: AMQPLogLevel, message: string, emoji?: string, context?: string): void {
 
-        let str = `[${ chalk.cyan('@nestjs.pro/amqp') }] ${ chalk.gray(new Date().toLocaleString()) } `;
+        if (this.config.logLevel >= logLevel) {
 
-        if (context) {
+            let str = `[${ chalk.cyan('@nestjs.pro/amqp') }] ${ chalk.gray(new Date().toLocaleString()) } `;
 
-            str += `${ chalk.bgGrey(this.pad(context)) } `;
+            if (context) {
+
+                str += `${ chalk.bgGrey(AMQPLogger.pad(context)) } `;
+
+            }
+
+            str += `${ AMQPLogger.LOG_LEVEL_COLORS[ logLevel ](AMQPLogLevel[ logLevel ]) }: `;
+
+            if (emoji) {
+
+                str += `${ emoji }`;
+            }
+
+            console.log(`${ str } ${ message }`);
 
         }
-
-        str += `${ this.LOG_LEVEL_COLORS[ logLevel ](AMQPLogLevel[ logLevel ]) }: `;
-
-        if (emoji) {
-
-            str += `${ emoji }`;
-        }
-
-        console.log(`${ str } ${ message }`);
 
     }
 
@@ -72,7 +86,7 @@ export class AMQPLogger {
      * @param {string} emoji (optional) Emojis make life better.
      * @param {string?} context (optional) context to prepend to message.
      */
-    public static error(message: string, emoji?: string, context?: string): void {
+    public error(message: string, emoji?: string, context?: string): void {
 
         this.log(AMQPLogLevel.ERROR, message, emoji, context);
 
@@ -85,7 +99,7 @@ export class AMQPLogger {
      * @param {string} emoji (optional) Emojis make life better.
      * @param {string?} context (optional) context to prepend to message.
      */
-    public static info(message: string, emoji?: string, context?: string): void {
+    public info(message: string, emoji?: string, context?: string): void {
 
         this.log(AMQPLogLevel.INFO, message, emoji, context);
 
@@ -98,7 +112,7 @@ export class AMQPLogger {
      * @param {string} emoji Emojis make life better.
      * @param {string?} context Optional context to prepend to message.
      */
-    public static debug(message: string, emoji?: string, context?: string): void {
+    public debug(message: string, emoji?: string, context?: string): void {
 
         this.log(AMQPLogLevel.DEBUG, message, emoji, context);
 
@@ -111,7 +125,7 @@ export class AMQPLogger {
      * @param {string} emoji (optional) Emojis make life better.
      * @param {string?} context (optional) context to prepend to message.
      */
-    public static trace(message: string, emoji?: string, context?: string): void {
+    public trace(message: string, emoji?: string, context?: string): void {
 
         this.log(AMQPLogLevel.TRACE, message, emoji, context);
 

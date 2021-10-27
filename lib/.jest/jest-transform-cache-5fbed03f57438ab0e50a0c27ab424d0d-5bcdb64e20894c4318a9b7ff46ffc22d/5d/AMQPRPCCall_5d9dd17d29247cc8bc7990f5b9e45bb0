@@ -1,0 +1,63 @@
+b3e4bc66039dc726376e9139330fbc7c
+"use strict";
+
+/* istanbul ignore next */
+function cov_dpd333t69() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPRPCCall.ts";
+  var hash = "992c026a64dea479ddc6f19c7c8a76bdfb329213";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPRPCCall.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 2,
+          column: 62
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    inputSourceMap: {
+      file: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPRPCCall.ts",
+      mappings: "",
+      names: [],
+      sources: ["/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/queueing/AMQPRPCCall.ts"],
+      sourcesContent: ["import { Options } from 'amqplib';\nimport Publish = Options.Publish;\n\nexport interface AMQPRPCCall {\n\n    correlationId?: string;\n    queue: string;\n    message: Buffer;\n    options?: Publish;\n    timeout?: number;\n    \n}\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "992c026a64dea479ddc6f19c7c8a76bdfb329213"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_dpd333t69 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_dpd333t69();
+cov_dpd333t69().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9

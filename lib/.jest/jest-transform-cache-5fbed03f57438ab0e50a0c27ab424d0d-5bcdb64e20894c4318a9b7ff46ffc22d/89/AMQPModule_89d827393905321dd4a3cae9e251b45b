@@ -1,0 +1,803 @@
+8dc3df3dc80eb4bdb0ad2aeeceb0770b
+"use strict";
+
+/* istanbul ignore next */
+function cov_d4o6fzjhe() {
+  var path = "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPModule.ts";
+  var hash = "664e04e7a09a616020d6032e7e56db06f6309c1b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPModule.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 17
+        },
+        end: {
+          line: 7,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 3,
+          column: 12
+        },
+        end: {
+          line: 3,
+          column: 28
+        }
+      },
+      "2": {
+        start: {
+          line: 3,
+          column: 34
+        },
+        end: {
+          line: 3,
+          column: 125
+        }
+      },
+      "3": {
+        start: {
+          line: 4,
+          column: 4
+        },
+        end: {
+          line: 5,
+          column: 150
+        }
+      },
+      "4": {
+        start: {
+          line: 4,
+          column: 79
+        },
+        end: {
+          line: 4,
+          column: 131
+        }
+      },
+      "5": {
+        start: {
+          line: 5,
+          column: 9
+        },
+        end: {
+          line: 5,
+          column: 150
+        }
+      },
+      "6": {
+        start: {
+          line: 5,
+          column: 22
+        },
+        end: {
+          line: 5,
+          column: 43
+        }
+      },
+      "7": {
+        start: {
+          line: 5,
+          column: 58
+        },
+        end: {
+          line: 5,
+          column: 150
+        }
+      },
+      "8": {
+        start: {
+          line: 5,
+          column: 81
+        },
+        end: {
+          line: 5,
+          column: 150
+        }
+      },
+      "9": {
+        start: {
+          line: 6,
+          column: 4
+        },
+        end: {
+          line: 6,
+          column: 66
+        }
+      },
+      "10": {
+        start: {
+          line: 9,
+          column: 0
+        },
+        end: {
+          line: 9,
+          column: 62
+        }
+      },
+      "11": {
+        start: {
+          line: 10,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 28
+        }
+      },
+      "12": {
+        start: {
+          line: 11,
+          column: 17
+        },
+        end: {
+          line: 11,
+          column: 42
+        }
+      },
+      "13": {
+        start: {
+          line: 12,
+          column: 22
+        },
+        end: {
+          line: 12,
+          column: 46
+        }
+      },
+      "14": {
+        start: {
+          line: 13,
+          column: 21
+        },
+        end: {
+          line: 13,
+          column: 52
+        }
+      },
+      "15": {
+        start: {
+          line: 14,
+          column: 17
+        },
+        end: {
+          line: 31,
+          column: 1
+        }
+      },
+      "16": {
+        start: {
+          line: 16,
+          column: 8
+        },
+        end: {
+          line: 29,
+          column: 10
+        }
+      },
+      "17": {
+        start: {
+          line: 32,
+          column: 0
+        },
+        end: {
+          line: 34,
+          column: 15
+        }
+      },
+      "18": {
+        start: {
+          line: 35,
+          column: 0
+        },
+        end: {
+          line: 35,
+          column: 32
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 2,
+            column: 46
+          },
+          end: {
+            line: 2,
+            column: 47
+          }
+        },
+        loc: {
+          start: {
+            line: 2,
+            column: 87
+          },
+          end: {
+            line: 7,
+            column: 1
+          }
+        },
+        line: 2
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 15,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 27
+          },
+          end: {
+            line: 30,
+            column: 5
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 2,
+            column: 17
+          },
+          end: {
+            line: 7,
+            column: 1
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 2,
+            column: 18
+          },
+          end: {
+            line: 2,
+            column: 22
+          }
+        }, {
+          start: {
+            line: 2,
+            column: 26
+          },
+          end: {
+            line: 2,
+            column: 41
+          }
+        }, {
+          start: {
+            line: 2,
+            column: 46
+          },
+          end: {
+            line: 7,
+            column: 1
+          }
+        }],
+        line: 2
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 3,
+            column: 34
+          },
+          end: {
+            line: 3,
+            column: 125
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 3,
+            column: 42
+          },
+          end: {
+            line: 3,
+            column: 48
+          }
+        }, {
+          start: {
+            line: 3,
+            column: 51
+          },
+          end: {
+            line: 3,
+            column: 125
+          }
+        }],
+        line: 3
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 3,
+            column: 51
+          },
+          end: {
+            line: 3,
+            column: 125
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 3,
+            column: 67
+          },
+          end: {
+            line: 3,
+            column: 118
+          }
+        }, {
+          start: {
+            line: 3,
+            column: 121
+          },
+          end: {
+            line: 3,
+            column: 125
+          }
+        }],
+        line: 3
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 4,
+            column: 4
+          },
+          end: {
+            line: 5,
+            column: 150
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 4,
+            column: 4
+          },
+          end: {
+            line: 5,
+            column: 150
+          }
+        }, {
+          start: {
+            line: 5,
+            column: 9
+          },
+          end: {
+            line: 5,
+            column: 150
+          }
+        }],
+        line: 4
+      },
+      "4": {
+        loc: {
+          start: {
+            line: 4,
+            column: 8
+          },
+          end: {
+            line: 4,
+            column: 77
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 4,
+            column: 8
+          },
+          end: {
+            line: 4,
+            column: 35
+          }
+        }, {
+          start: {
+            line: 4,
+            column: 39
+          },
+          end: {
+            line: 4,
+            column: 77
+          }
+        }],
+        line: 4
+      },
+      "5": {
+        loc: {
+          start: {
+            line: 5,
+            column: 58
+          },
+          end: {
+            line: 5,
+            column: 150
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 5,
+            column: 58
+          },
+          end: {
+            line: 5,
+            column: 150
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 5
+      },
+      "6": {
+        loc: {
+          start: {
+            line: 5,
+            column: 85
+          },
+          end: {
+            line: 5,
+            column: 149
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 5,
+            column: 86
+          },
+          end: {
+            line: 5,
+            column: 143
+          }
+        }, {
+          start: {
+            line: 5,
+            column: 148
+          },
+          end: {
+            line: 5,
+            column: 149
+          }
+        }],
+        line: 5
+      },
+      "7": {
+        loc: {
+          start: {
+            line: 5,
+            column: 86
+          },
+          end: {
+            line: 5,
+            column: 143
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 5,
+            column: 94
+          },
+          end: {
+            line: 5,
+            column: 98
+          }
+        }, {
+          start: {
+            line: 5,
+            column: 101
+          },
+          end: {
+            line: 5,
+            column: 143
+          }
+        }],
+        line: 5
+      },
+      "8": {
+        loc: {
+          start: {
+            line: 5,
+            column: 101
+          },
+          end: {
+            line: 5,
+            column: 143
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 5,
+            column: 109
+          },
+          end: {
+            line: 5,
+            column: 126
+          }
+        }, {
+          start: {
+            line: 5,
+            column: 129
+          },
+          end: {
+            line: 5,
+            column: 143
+          }
+        }],
+        line: 5
+      },
+      "9": {
+        loc: {
+          start: {
+            line: 6,
+            column: 11
+          },
+          end: {
+            line: 6,
+            column: 62
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 6,
+            column: 11
+          },
+          end: {
+            line: 6,
+            column: 16
+          }
+        }, {
+          start: {
+            line: 6,
+            column: 20
+          },
+          end: {
+            line: 6,
+            column: 21
+          }
+        }, {
+          start: {
+            line: 6,
+            column: 25
+          },
+          end: {
+            line: 6,
+            column: 62
+          }
+        }],
+        line: 6
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "18": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0, 0],
+      "1": [0, 0],
+      "2": [0, 0],
+      "3": [0, 0],
+      "4": [0, 0],
+      "5": [0, 0],
+      "6": [0, 0],
+      "7": [0, 0],
+      "8": [0, 0],
+      "9": [0, 0, 0]
+    },
+    inputSourceMap: {
+      file: "/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPModule.ts",
+      mappings: ";;;;;;;;;;AAAA,2CAAuD;AAEvD,+CAA4C;AAC5C,qDAAkD;AAGlD,IAAa,UAAU,kBAAvB,MAAa,UAAU;IAEZ,MAAM,CAAC,OAAO,CAAC,MAAkB;QAEpC,OAAO;YAEH,MAAM,EAAE,YAAU;YAElB,SAAS,EAAE;gBAEP,uBAAU;gBACV,yBAAW;gBACX;oBAEI,OAAO,EAAE,aAAa;oBACtB,QAAQ,EAAE,MAAM;iBAEnB;aAEJ;YAED,OAAO,EAAE;gBAEL,yBAAW;aAEd;SAEJ,CAAC;IAEN,CAAC;CAEJ,CAAA;AA/BY,UAAU;IADtB,IAAA,eAAM,EAAC,EAAE,CAAC;GACE,UAAU,CA+BtB;AA/BY,gCAAU",
+      names: [],
+      sources: ["/Users/matthewdavis/workspace/nestjspro/modules/amqp/lib/src/AMQPModule.ts"],
+      sourcesContent: ["import { Module, DynamicModule } from '@nestjs/common';\nimport { AMQPConfig } from './configuration/AMQPConfig';\nimport { AMQPService } from './AMQPService';\nimport { AMQPLogger } from './logging/AMQPLogger';\n\n@Module({})\nexport class AMQPModule {\n\n    public static forRoot(config: AMQPConfig): DynamicModule {\n\n        return {\n\n            module: AMQPModule,\n\n            providers: [\n\n                AMQPLogger,\n                AMQPService,\n                {\n\n                    provide: 'AMQP_CONFIG',\n                    useValue: config\n\n                }\n\n            ],\n\n            exports: [\n\n                AMQPService\n\n            ]\n\n        };\n\n    }\n\n}\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "664e04e7a09a616020d6032e7e56db06f6309c1b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_d4o6fzjhe = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+
+cov_d4o6fzjhe();
+
+var __decorate =
+/* istanbul ignore next */
+(cov_d4o6fzjhe().s[0]++,
+/* istanbul ignore next */
+(cov_d4o6fzjhe().b[0][0]++, this) &&
+/* istanbul ignore next */
+(cov_d4o6fzjhe().b[0][1]++, this.__decorate) ||
+/* istanbul ignore next */
+(cov_d4o6fzjhe().b[0][2]++, function (decorators, target, key, desc) {
+  /* istanbul ignore next */
+  cov_d4o6fzjhe().f[0]++;
+  var c =
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().s[1]++, arguments.length),
+      r =
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().s[2]++, c < 3 ?
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().b[1][0]++, target) :
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().b[1][1]++, desc === null ?
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().b[2][0]++, desc = Object.getOwnPropertyDescriptor(target, key)) :
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().b[2][1]++, desc))),
+      d;
+
+  /* istanbul ignore next */
+  cov_d4o6fzjhe().s[3]++;
+
+  if (
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().b[4][0]++, typeof Reflect === "object") &&
+  /* istanbul ignore next */
+  (cov_d4o6fzjhe().b[4][1]++, typeof Reflect.decorate === "function")) {
+    /* istanbul ignore next */
+    cov_d4o6fzjhe().b[3][0]++;
+    cov_d4o6fzjhe().s[4]++;
+    r = Reflect.decorate(decorators, target, key, desc);
+  } else {
+    /* istanbul ignore next */
+    cov_d4o6fzjhe().b[3][1]++;
+    cov_d4o6fzjhe().s[5]++;
+
+    for (var i =
+    /* istanbul ignore next */
+    (cov_d4o6fzjhe().s[6]++, decorators.length - 1); i >= 0; i--) {
+      /* istanbul ignore next */
+      cov_d4o6fzjhe().s[7]++;
+
+      if (d = decorators[i]) {
+        /* istanbul ignore next */
+        cov_d4o6fzjhe().b[5][0]++;
+        cov_d4o6fzjhe().s[8]++;
+        r =
+        /* istanbul ignore next */
+        (cov_d4o6fzjhe().b[6][0]++, c < 3 ?
+        /* istanbul ignore next */
+        (cov_d4o6fzjhe().b[7][0]++, d(r)) :
+        /* istanbul ignore next */
+        (cov_d4o6fzjhe().b[7][1]++, c > 3 ?
+        /* istanbul ignore next */
+        (cov_d4o6fzjhe().b[8][0]++, d(target, key, r)) :
+        /* istanbul ignore next */
+        (cov_d4o6fzjhe().b[8][1]++, d(target, key)))) ||
+        /* istanbul ignore next */
+        (cov_d4o6fzjhe().b[6][1]++, r);
+      } else
+      /* istanbul ignore next */
+      {
+        cov_d4o6fzjhe().b[5][1]++;
+      }
+    }
+  }
+
+  /* istanbul ignore next */
+  cov_d4o6fzjhe().s[9]++;
+  return (
+    /* istanbul ignore next */
+    (cov_d4o6fzjhe().b[9][0]++, c > 3) &&
+    /* istanbul ignore next */
+    (cov_d4o6fzjhe().b[9][1]++, r) &&
+    /* istanbul ignore next */
+    (cov_d4o6fzjhe().b[9][2]++, Object.defineProperty(target, key, r)), r
+  );
+}));
+
+var AMQPModule_1;
+
+/* istanbul ignore next */
+cov_d4o6fzjhe().s[10]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+/* istanbul ignore next */
+cov_d4o6fzjhe().s[11]++;
+exports.AMQPModule = void 0;
+const common_1 =
+/* istanbul ignore next */
+(cov_d4o6fzjhe().s[12]++, require("@nestjs/common"));
+const AMQPService_1 =
+/* istanbul ignore next */
+(cov_d4o6fzjhe().s[13]++, require("./AMQPService"));
+const AMQPLogger_1 =
+/* istanbul ignore next */
+(cov_d4o6fzjhe().s[14]++, require("./logging/AMQPLogger"));
+let AMQPModule =
+/* istanbul ignore next */
+(cov_d4o6fzjhe().s[15]++, AMQPModule_1 = class AMQPModule {
+  static forRoot(config) {
+    /* istanbul ignore next */
+    cov_d4o6fzjhe().f[1]++;
+    cov_d4o6fzjhe().s[16]++;
+    return {
+      module: AMQPModule_1,
+      providers: [AMQPLogger_1.AMQPLogger, AMQPService_1.AMQPService, {
+        provide: 'AMQP_CONFIG',
+        useValue: config
+      }],
+      exports: [AMQPService_1.AMQPService]
+    };
+  }
+
+});
+
+/* istanbul ignore next */
+cov_d4o6fzjhe().s[17]++;
+AMQPModule = AMQPModule_1 = __decorate([(0, common_1.Module)({})], AMQPModule);
+
+/* istanbul ignore next */
+cov_d4o6fzjhe().s[18]++;
+exports.AMQPModule = AMQPModule;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9tYXR0aGV3ZGF2aXMvd29ya3NwYWNlL25lc3Rqc3Byby9tb2R1bGVzL2FtcXAvbGliL3NyYy9BTVFQTW9kdWxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFVUTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBVlIsTUFBQSxRQUFBO0FBQUE7QUFBQSwwQkFBQSxPQUFBLENBQUEsZ0JBQUEsQ0FBQSxDQUFBO0FBRUEsTUFBQSxhQUFBO0FBQUE7QUFBQSwwQkFBQSxPQUFBLENBQUEsZUFBQSxDQUFBLENBQUE7QUFDQSxNQUFBLFlBQUE7QUFBQTtBQUFBLDBCQUFBLE9BQUEsQ0FBQSxzQkFBQSxDQUFBLENBQUE7QUFHQSxJQUFhLFVBQVU7QUFBQTtBQUFBLDBCQUFBLFlBQUEsR0FBdkIsTUFBYSxVQUFiLENBQXVCO0FBRUUsU0FBUCxPQUFPLENBQUMsTUFBRCxFQUFtQjtBQUFBO0FBQUE7QUFBQTtBQUVwQyxXQUFPO0FBRUgsTUFBQSxNQUFNLEVBQUUsWUFGTDtBQUlILE1BQUEsU0FBUyxFQUFFLENBRVAsWUFBQSxDQUFBLFVBRk8sRUFHUCxhQUFBLENBQUEsV0FITyxFQUlQO0FBRUksUUFBQSxPQUFPLEVBQUUsYUFGYjtBQUdJLFFBQUEsUUFBUSxFQUFFO0FBSGQsT0FKTyxDQUpSO0FBaUJILE1BQUEsT0FBTyxFQUFFLENBRUwsYUFBQSxDQUFBLFdBRks7QUFqQk4sS0FBUDtBQXlCSDs7QUE3QmtCLENBQUEsQ0FBdkI7Ozs7QUFBYSxVQUFVLEdBQUEsWUFBQSxHQUFBLFVBQUEsQ0FBQSxDQUR0QixDQUFBLEdBQUEsUUFBQSxDQUFBLE1BQUEsRUFBTyxFQUFQLENBQ3NCLENBQUEsRUFBVixVQUFVLENBQVY7Ozs7QUFBQSxPQUFBLENBQUEsVUFBQSxHQUFBLFVBQUEiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBNb2R1bGUsIER5bmFtaWNNb2R1bGUgfSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBBTVFQQ29uZmlnIH0gZnJvbSAnLi9jb25maWd1cmF0aW9uL0FNUVBDb25maWcnO1xuaW1wb3J0IHsgQU1RUFNlcnZpY2UgfSBmcm9tICcuL0FNUVBTZXJ2aWNlJztcbmltcG9ydCB7IEFNUVBMb2dnZXIgfSBmcm9tICcuL2xvZ2dpbmcvQU1RUExvZ2dlcic7XG5cbkBNb2R1bGUoe30pXG5leHBvcnQgY2xhc3MgQU1RUE1vZHVsZSB7XG5cbiAgICBwdWJsaWMgc3RhdGljIGZvclJvb3QoY29uZmlnOiBBTVFQQ29uZmlnKTogRHluYW1pY01vZHVsZSB7XG5cbiAgICAgICAgcmV0dXJuIHtcblxuICAgICAgICAgICAgbW9kdWxlOiBBTVFQTW9kdWxlLFxuXG4gICAgICAgICAgICBwcm92aWRlcnM6IFtcblxuICAgICAgICAgICAgICAgIEFNUVBMb2dnZXIsXG4gICAgICAgICAgICAgICAgQU1RUFNlcnZpY2UsXG4gICAgICAgICAgICAgICAge1xuXG4gICAgICAgICAgICAgICAgICAgIHByb3ZpZGU6ICdBTVFQX0NPTkZJRycsXG4gICAgICAgICAgICAgICAgICAgIHVzZVZhbHVlOiBjb25maWdcblxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgXSxcblxuICAgICAgICAgICAgZXhwb3J0czogW1xuXG4gICAgICAgICAgICAgICAgQU1RUFNlcnZpY2VcblxuICAgICAgICAgICAgXVxuXG4gICAgICAgIH07XG5cbiAgICB9XG5cbn1cbiJdfQ==

@@ -1,0 +1,15 @@
+4d60f8a6f4a3afe5c0b0f38543c64b16
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AMQPLogEmoji = void 0;
+var AMQPLogEmoji;
+(function (AMQPLogEmoji) {
+    AMQPLogEmoji["INBOX"] = "\uD83D\uDCE5";
+    AMQPLogEmoji["CONNECTION"] = "\uD83C\uDFAC ";
+    AMQPLogEmoji["DISCONNECT"] = "\u2716 ";
+    AMQPLogEmoji["SUCCESS"] = "\u2705 ";
+    AMQPLogEmoji["SETTINGS"] = "\u2699 ";
+    AMQPLogEmoji["NEW"] = "\uD83D\uDEEB";
+    AMQPLogEmoji["DOWN"] = "\uD83D\uDC8C";
+})(AMQPLogEmoji = exports.AMQPLogEmoji || (exports.AMQPLogEmoji = {}));
+//# sourceMappingURL=AMQPLogEmoji.js.map

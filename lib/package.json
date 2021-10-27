@@ -36,25 +36,25 @@
     "main": "start.sh",
     "scripts": {
         "build:watch": "tsc -w",
-        "test": "jest",
-        "test:watch": "jest -w",
-        "test:coverage": "jest --coverage && coveralls < test/coverage/lcov.info"
+        "test": "jest --detectOpenHandles --forceExit",
+        "test:clearcache": "jest --clearCache",
+        "test:watch": "jest --watchAll --detectOpenHandles",
+        "test:coverage": "jest --coverage --detectOpenHandles --forceExit && coveralls < test/coverage/lcov.info"
     },
     "dependencies": {
         "amqplib": "^0.8.0",
         "chalk": "^4.1.2",
         "rxjs": "^7.4.0"
     },
-    "peerDependencies": {
-    },
     "devDependencies": {
-        "@nestjs/testing": "^8.1.2",
         "@nestjs/common": "^8.1.2",
         "@nestjs/core": "^8.1.2",
         "@nestjs/platform-express": "^8.1.2",
+        "@nestjs/testing": "^8.1.2",
         "@types/amqplib": "^0.8.2",
         "@types/jest": "^27.0.2",
         "@types/node": "^16.11.6",
+        "codecov": "^3.8.3",
         "coveralls": "^3.1.1",
         "jest": "^27.3.1",
         "ts-jest": "^27.0.7",
@@ -63,15 +63,28 @@
         "typescript": "^4.4.4"
     },
     "jest": {
+        "preset": "ts-jest",
+        "rootDir": ".",
         "moduleFileExtensions": [
             "js",
             "ts"
         ],
-        "rootDir": "test",
+        "testEnvironment": "node",
         "testRegex": "Test.ts$",
         "transform": {
             "^.+\\.ts$": "ts-jest"
         },
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "src/**/*.ts"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "lines": 90,
+                "statements": 90
+            }
+        },
+        "cacheDirectory": ".jest",
         "coverageDirectory": "./coverage"
     },
     "keywords": [
