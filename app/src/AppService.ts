@@ -34,37 +34,37 @@ export class AppService {
                 console.log('DEMO: Manually creating a new connection.. 🙏');
 
                 amqpService.addConnection({
+  
+                    name: 'three',
+                    uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                    exchange: {
 
-                                              name: 'three',
-                                              uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
-                                              exchange: {
+                        name: 'test-3',
+                        type: 'topic',
+                        options: {
 
-                                                  name: 'test-3',
-                                                  type: 'topic',
-                                                  options: {
+                            durable: true
 
-                                                      durable: true
+                        }
 
-                                                  }
+                    },
+                    queues: [
 
-                                              },
-                                              queues: [
+                        {
 
-                                                  {
+                            name: '3',
+                            routingKey: '333',
+                            options: {
 
-                                                      name: '3',
-                                                      routingKey: '333',
-                                                      options: {
+                                durable: false
 
-                                                          durable: false
+                            }
 
-                                                      }
+                        }
 
-                                                  }
+                    ]
 
-                                              ]
-
-                                          }).status$.subscribe(status => {
+                }).status$.subscribe(status => {
 
                     if (status === AMQPConnectionStatus.CONNECTED) {
 
