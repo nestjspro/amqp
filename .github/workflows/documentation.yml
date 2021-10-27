@@ -4,8 +4,11 @@ on:
     branches:
       - main
 jobs:
-  publish:
+  generate-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm run docs
+      - name: npm install
+        run: npm install
+      - name: run typedoc
+        run: npm run docs
