@@ -2,8 +2,7 @@
 
 ![amqp](docs/amqp-hero.jpg)
 
-This module implements an AMQP pub/sub + RPC scalable interface for
-[Nest.js](https://nestjs.com).
+This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface for [Nest.js](https://nestjs.com).
 
 # 🧰 Features
 
