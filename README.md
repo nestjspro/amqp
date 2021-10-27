@@ -125,7 +125,7 @@ export class AppService {
             //
             // Now that we're connected, publish a message..
             //
-            connection.publishJSON('test', { a: 1, b: 'c' });
+            connection.queue.publishJSON('test-1', 111, { date: new Date(), rand: Math.random() });
 
             // ..other fancy work happenin here..
 
