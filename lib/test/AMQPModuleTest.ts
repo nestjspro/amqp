@@ -18,11 +18,11 @@ describe('AMQPModule Test', () => {
 
                         {
 
-                            name: 'default',
-                            uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                            name: 'one',
+                            url: 'amqp://rabbitmq:agaeq14@localhost:5672',
                             exchange: {
 
-                                name: 'test-1111',
+                                name: 'test-1',
                                 type: 'topic',
                                 options: {
 
@@ -30,7 +30,55 @@ describe('AMQPModule Test', () => {
 
                                 }
 
-                            }
+                            },
+                            queues: [
+
+                                {
+
+                                    name: '1',
+                                    routingKey: '111',
+                                    createBindings: true,
+                                    options: {
+
+                                        durable: false
+
+                                    }
+
+                                }
+
+                            ]
+
+                        }, {
+
+                            name: 'two',
+                            url: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                            exchange: {
+
+                                name: 'test-2',
+                                type: 'topic',
+                                options: {
+
+                                    durable: true
+
+                                }
+
+                            },
+                            queues: [
+
+                                {
+
+                                    name: '2',
+                                    routingKey: '222',
+                                    createBindings: true,
+                                    options: {
+
+                                        durable: false
+
+                                    }
+
+                                }
+
+                            ]
 
                         }
 

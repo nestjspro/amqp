@@ -15,7 +15,7 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
                 {
 
                     name: 'one',
-                    uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                    url: 'amqp://rabbitmq:agaeq14@localhost:5672',
                     exchange: {
 
                         name: 'test-1',
@@ -47,7 +47,7 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
                 }, {
 
                     name: 'two',
-                    uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                    url: 'amqp://rabbitmq:agaeq14@localhost:5672',
                     exchange: {
 
                         name: 'test-2',
