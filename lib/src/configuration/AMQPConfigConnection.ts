@@ -1,6 +1,6 @@
 import { AMQPConfigQueue } from './AMQPConfigQueue';
 import { AMQPConfigExchange } from './AMQPConfigExchange';
-import { AMQPLogLevel } from './AMQPLogLevel';
+import { AMQPLogLevel } from '../logging/AMQPLogLevel';
 
 export interface AMQPConfigConnection {
 

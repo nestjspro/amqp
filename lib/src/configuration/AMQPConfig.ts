@@ -1,5 +1,5 @@
 import { AMQPConfigConnection } from './AMQPConfigConnection';
-import { AMQPLogLevel } from './AMQPLogLevel';
+import { AMQPLogLevel } from '../logging/AMQPLogLevel';
 
 export interface AMQPConfig {
 

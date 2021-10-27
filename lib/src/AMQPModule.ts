@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { AMQPConfig } from './AMQPConfig';
+import { AMQPConfig } from './configuration/AMQPConfig';
 import { AMQPPublisher } from './AMQPPublisher';
 import { AMQPService } from './AMQPService';
 

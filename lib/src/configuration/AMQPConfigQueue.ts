@@ -1,4 +1,4 @@
-import { AMQPQueueOptions } from './AMQPQueueOptions';
+import { AMQPQueueOptions } from '../AMQPQueueOptions';
 
 export interface AMQPConfigQueue {
 

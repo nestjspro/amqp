@@ -1,11 +1,12 @@
 import { Injectable, Inject, OnModuleDestroy } from '@nestjs/common';
 import { AMQPConnection } from './AMQPConnection';
-import { AMQPConfig } from './AMQPConfig';
+import { AMQPConfig } from './configuration/AMQPConfig';
 import { AMQPConnectionNotFoundException } from './exceptions/AMQPConnectionNotFoundException';
 import { ReplaySubject, forkJoin, Observable } from 'rxjs';
-import { AMQPLogger } from './AMQPLogger';
+import { AMQPLogger } from './logging/AMQPLogger';
 import * as chalk from 'chalk';
-import { AMQPConfigConnection } from './AMQPConfigConnection';
+import { AMQPConfigConnection } from './configuration/AMQPConfigConnection';
+import { AMQPLogEmoji } from './logging/AMQPLogEmoji';
 
 @Injectable()
 export class AMQPService implements OnModuleDestroy {
@@ -23,7 +24,9 @@ export class AMQPService implements OnModuleDestroy {
 
     public connect() {
 
-        AMQPLogger.trace('Creating connections..');
+        AMQPLogger.trace('Creating connections..',
+                         AMQPLogEmoji.NEW,
+                         'SERVICE MANAGER');
 
         for (let i = 0; i < this.config.connections.length; i++) {
 
@@ -39,13 +42,17 @@ export class AMQPService implements OnModuleDestroy {
 
         for (let i = 0; i < this.connections.length; i++) {
 
-            AMQPLogger.debug(`Disconnecting from amqp server "${ chalk.yellowBright(this.connections[ i ].config.name ? this.connections[ i ].config.name : '#0') }"`);
+            AMQPLogger.debug(`Disconnecting from amqp server "${ chalk.yellowBright(this.connections[ i ].config.name ? this.connections[ i ].config.name : '#0') }"`,
+                             AMQPLogEmoji.DISCONNECT,
+                             'SERVICE MANAGER');
 
             this.connections[ i ].disconnect();
 
         }
 
-        AMQPLogger.debug('All connections have been disconnected!');
+        AMQPLogger.debug('All connections have been disconnected!',
+                         AMQPLogEmoji.DISCONNECT,
+                         'SERVICE MANAGER');
 
     }
 
@@ -57,7 +64,9 @@ export class AMQPService implements OnModuleDestroy {
 
     public addConnection(config: AMQPConfigConnection): AMQPConnection {
 
-        AMQPLogger.debug(`Creating connection to amqp server "${ chalk.yellowBright(config.name ? config.name : '#0') }"`);
+        AMQPLogger.debug(`Creating connection to amqp server "${ chalk.yellowBright(config.name ? config.name : '#0') }"`,
+                         AMQPLogEmoji.NEW,
+                         'SERVICE MANAGER');
 
         const connection = new AMQPConnection(config);
 
@@ -69,7 +78,9 @@ export class AMQPService implements OnModuleDestroy {
 
     public getConnection(name?: string): ReplaySubject<AMQPConnection> {
 
-        AMQPLogger.trace(`Attempting to get connection "${ chalk.yellowBright(name ? name : '#0') }"`);
+        AMQPLogger.trace(`Attempting to get connection "${ chalk.yellowBright(name ? name : '#0') }"`,
+                         AMQPLogEmoji.NEW,
+                         'SERVICE MANAGER');
 
         const subject$: ReplaySubject<AMQPConnection> = new ReplaySubject();
 
@@ -79,7 +90,9 @@ export class AMQPService implements OnModuleDestroy {
 
             if (connection) {
 
-                AMQPLogger.trace(`Retrieved connection "${ chalk.yellowBright(connection.config.name) }"!`);
+                AMQPLogger.trace(`Retrieved connection "${ chalk.yellowBright(connection.config.name) }"!`,
+                                 AMQPLogEmoji.SUCCESS,
+                                 'SERVICE MANAGER');
 
                 subject$.next(connection);
 
@@ -93,7 +106,9 @@ export class AMQPService implements OnModuleDestroy {
 
             if (this.connections && this.connections.length > 0) {
 
-                AMQPLogger.trace(`Retrieved connection ${ chalk.yellowBright('#0!') }`);
+                AMQPLogger.trace(`Retrieved connection ${ chalk.yellowBright('#0!') }`,
+                                 AMQPLogEmoji.SUCCESS,
+                                 'SERVICE MANAGER');
 
                 subject$.next(this.connections[ 0 ]);
 
@@ -111,7 +126,9 @@ export class AMQPService implements OnModuleDestroy {
 
     public onModuleDestroy(): void {
 
-        AMQPLogger.debug(chalk.magentaBright('Received shutdown signal, shutting down..'));
+        AMQPLogger.debug(chalk.magentaBright('Received shutdown signal, shutting down..'),
+                         AMQPLogEmoji.SUCCESS,
+                         'SERVICE MANAGER');
 
         this.disconnect();
 
