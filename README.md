@@ -2,6 +2,9 @@
 
 ![amqp](docs/amqp-hero.jpg)
 
+This module implements an AMQP pub/sub + RPC scalable interface for
+[Nest.js](https://nestjs.com).
+
 # 🧰 Features
 
 * Configurable as a module + programatically add connections on the fly.
@@ -37,69 +40,69 @@ import { AMQPLogLevel } from '@nestjs.pro/amqp/dist/AMQPLogLevel';
 
 @Module({
 
-    imports: [
+            imports: [
 
-        AMQPModule.forRoot({
+                AMQPModule.forRoot({
 
-            //
-            // no secrets, log what is actually happening under the hood!
-            //
-            logLevel: AMQPLogLevel.DEBUG,
+                                       //
+                                       // no secrets, log what is actually happening under the hood!
+                                       //
+                                       logLevel: AMQPLogLevel.DEBUG,
 
-            //
-            // add multiple connections if required..
-            //
-            connections: [
+                                       //
+                                       // add multiple connections if required..
+                                       //
+                                       connections: [
 
-                {
+                                           {
 
-                    name: 'one',
-                    uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
-                    exchange: {
+                                               name: 'one',
+                                               uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
+                                               exchange: {
 
-                        name: 'test-1',
-                        type: 'topic',
-                        options: {
+                                                   name: 'test-1',
+                                                   type: 'topic',
+                                                   options: {
 
-                            durable: true
-                            // all other amqplib options supported..
+                                                       durable: true
+                                                       // all other amqplib options supported..
 
-                        }
+                                                   }
 
-                    },
-                    queues: [
+                                               },
+                                               queues: [
 
-                        {
+                                                   {
 
-                            name: '1',
-                            routingKey: '111',
-                            createBindings: true,
-                            options: {
+                                                       name: '1',
+                                                       routingKey: '111',
+                                                       createBindings: true,
+                                                       options: {
 
-                                durable: false
-                                // all other amqplib options supported..
+                                                           durable: false
+                                                           // all other amqplib options supported..
 
-                            }
+                                                       }
 
-                        }
+                                                   }
 
-                        // add more queues..
+                                                   // add more queues..
 
-                    ]
+                                               ]
 
-                }
+                                           }
 
-                // add more connections to your hearts desire..
+                                           // add more connections to your hearts desire..
 
-            ]
+                                       ]
+
+                                   })
+
+            ],
+
+            providers: [ AppService ]
 
         })
-
-    ],
-
-    providers: [ AppService ]
-
-})
 export class AppModule {
 }
 ```
