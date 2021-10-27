@@ -18,6 +18,7 @@ This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface
 * Hackable and extensible. 🧰
 * [Demo](app/src) implementation.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3ed4f1de38c14588ab9cf2a16235f129)](https://app.codacy.com/gh/nestjspro/amqp?utm_source=github.com&utm_medium=referral&utm_content=nestjspro/amqp&utm_campaign=Badge_Grade_Settings)
 [![asciicast](https://asciinema.org/a/444797.svg?autoplay=1&loop=1&rows=35)](https://asciinema.org/a/444797?autoplay=1&loop=1&rows=35)
 
 # 🛴 Installation
