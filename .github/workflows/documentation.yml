@@ -4,16 +4,11 @@ on:
     branches:
       - main
 jobs:
-  install-dependencies:
+  generate-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: npm install
         run: npm install
-
-  generate-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - name: generate docs
         run: npm run docs
