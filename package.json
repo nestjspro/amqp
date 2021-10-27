@@ -1,6 +1,9 @@
 {
-	"dependencies": {
-		"typedoc": "^0.22.7",
-		"typedoc-plugin-extras": "^2.2.1"
-	}
+    "scripts": {
+        "docs": "typedoc --out docs --plugin typedoc-plugin-extras --footerDate true --footerTime true --favicon assets/icon.png lib/src/index.ts --tsconfig lib/tsconfig.json"
+    },
+    "dependencies": {
+        "typedoc": "^0.22.7",
+        "typedoc-plugin-extras": "^2.2.1"
+    }
 }
