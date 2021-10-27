@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AMQPService } from '@nestjs.pro/amqp/dist/AMQPService';
+import { interval, map } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -13,8 +14,16 @@ export class AppService {
 
             console.log('DEMO: AMQP is connected! ✅');
 
-            connection.queue.publishJSON('test-1', 111, { a: 1, b: 'c' });
- 
+            interval(3000).pipe(map(() => Math.floor(Math.random() * 100))).subscribe(t => {
+
+                setTimeout(() => {
+
+                    connection.queue.publishJSON('test-1', 111, { date: new Date(), rand: Math.random() });
+
+                }, t);
+
+            });
+
             //
             // Wait five seconds and then manually create a new
             // connection dynamically.

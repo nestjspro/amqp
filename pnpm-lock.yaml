@@ -15,17 +15,19 @@ importers:
       jest: ^27.3.1
       nodemon: ^2.0.14
       reflect-metadata: ^0.1.13
+      rxjs: ^7.4.0
       supertest: ^6.1.6
       ts-jest: ^27.0.7
       typescript: ^4.4.4
       wait-on: ^6.0.0
     dependencies:
       '@nestjs.pro/amqp': link:../lib
-      '@nestjs/common': 8.1.2_reflect-metadata@0.1.13
-      '@nestjs/core': 8.1.2_9b21dda741eb1c1b8cfcaa1d3d3d942f
+      '@nestjs/common': 8.1.2_ad16f1f28877c5242670873e13562245
+      '@nestjs/core': 8.1.2_b3e6921aee41404e2866237bfdfd83a3
       '@nestjs/testing': 8.1.2_bbf59b1cbf49bba2b2f47e404ee3cb27
       dotenv: 10.0.0
       reflect-metadata: 0.1.13
+      rxjs: 7.4.0
     devDependencies:
       '@types/jest': 27.0.2
       '@types/node': 16.11.6
@@ -628,7 +630,7 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@nestjs/common/8.1.2_reflect-metadata@0.1.13:
+  /@nestjs/common/8.1.2_ad16f1f28877c5242670873e13562245:
     resolution: {integrity: sha512-5k9iFRj0HkAe1gn6Ozx5UWzbRyT8xCgZ663FWsVc5Cf6BJ+OYhQC8Y5cuVx8gsbSnzc0AUpcknPP5rYh2TkLOQ==}
     peerDependencies:
       cache-manager: '*'
@@ -647,6 +649,7 @@ packages:
       axios: 0.23.0
       iterare: 1.2.1
       reflect-metadata: 0.1.13
+      rxjs: 7.4.0
       tslib: 2.3.1
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -708,7 +711,7 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@nestjs/core/8.1.2_9b21dda741eb1c1b8cfcaa1d3d3d942f:
+  /@nestjs/core/8.1.2_b3e6921aee41404e2866237bfdfd83a3:
     resolution: {integrity: sha512-yjLueLD16JnPgNv0JZSFYPMxJ7MX6Z1v80f6XzoNLm5F6c83X0y9roXj0tEpiZhkhVq1Gol38uEbfgfr6fsafg==}
     requiresBuild: true
     peerDependencies:
@@ -726,13 +729,14 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 8.1.2_reflect-metadata@0.1.13
+      '@nestjs/common': 8.1.2_ad16f1f28877c5242670873e13562245
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
       object-hash: 2.2.0
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.13
+      rxjs: 7.4.0
       tslib: 2.3.1
       uuid: 8.3.2
     dev: false
@@ -786,8 +790,8 @@ packages:
         optional: true
     dependencies:
       optional: 0.1.4
-      '@nestjs/common': 8.1.2_reflect-metadata@0.1.13
-      '@nestjs/core': 8.1.2_9b21dda741eb1c1b8cfcaa1d3d3d942f
+      '@nestjs/common': 8.1.2_ad16f1f28877c5242670873e13562245
+      '@nestjs/core': 8.1.2_b3e6921aee41404e2866237bfdfd83a3
       tslib: 2.3.1
     dev: false
 

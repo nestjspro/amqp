@@ -1,6 +1,6 @@
 import { AMQPConfigConnection } from 'src/configuration/AMQPConfigConnection';
 import { AMQPConnection } from '../AMQPConnection';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Subject, Subscription, Observable, ReplaySubject } from 'rxjs';
 import { AMQPConnectionStatus } from '../AMQPConnectionStatus';
 import { AMQPMessage } from './AMQPMessage';
 import { AMQPLogger } from '../logging/AMQPLogger';
@@ -9,7 +9,7 @@ import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
 
 export class AMQPQueue {
 
-    private queue$: Subject<AMQPMessage> = new Subject();
+    private queue$: ReplaySubject<AMQPMessage> = new ReplaySubject();
     private name: string;
     private config: AMQPConfigConnection;
     private connection: AMQPConnection;
@@ -23,13 +23,22 @@ export class AMQPQueue {
     public length: number = 0;
 
     /**
+     * Maximum number of messages to allow in queue at a time.
+     *
+     * @type {number}
+     */
+    public max: number;
+
+    /**
      * Queue instantiator.
      *
-     * @param {AMQPConnection} connection
+     * @param {AMQPConnection} connection Connection reference.
+     * @param {number} max Maximum number of messages to allow in queue at a time.
      */
-    public constructor(connection: AMQPConnection) {
+    public constructor(connection: AMQPConnection, max?: number) {
 
         this.connection = connection;
+        this.max = max;
 
         //
         // Listen for connection status changes.
@@ -45,6 +54,10 @@ export class AMQPQueue {
                                  AMQPLogEmoji.SUCCESS,
                                  'QUEUE MANAGER');
 
+                //
+                // Start draining the queue and listening for
+                // additional messages.
+                //
                 this.subscription = this.queue$.subscribe(messages => this.drain(messages));
 
             } else if (this.subscription) {
@@ -53,6 +66,10 @@ export class AMQPQueue {
                                  AMQPLogEmoji.DISCONNECT,
                                  'QUEUE MANAGER');
 
+                //
+                // Disconnect the plumbing until the connection
+                // is re-established.
+                //
                 this.subscription.unsubscribe();
 
             }
@@ -70,10 +87,21 @@ export class AMQPQueue {
 
         this.connection.reference$.subscribe(reference => {
 
+            AMQPLogger.debug(`${ chalk.redBright('Draining message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }"`,
+                             AMQPLogEmoji.DOWN,
+                             'QUEUE MANAGER');
+
             const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message);
 
             this.length--;
 
+            //
+            // If the caller passed in an observable, call it to
+            // notify that the message has been published.
+            //
+            // This is beneficial in the event that there is a
+            // long backlog of messages due to connectivity issue(s).
+            //
             if (message.published$) {
 
                 message.published$.next(result);

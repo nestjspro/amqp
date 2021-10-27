@@ -1,10 +1,11 @@
 export enum AMQPLogEmoji {
 
-    INBOX = '📥 ',
+    INBOX = '📥',
     CONNECTION = '🎬 ',
     DISCONNECT = '✖ ',
     SUCCESS = '✅ ',
     SETTINGS = '⚙ ',
-    NEW = '🛫'
+    NEW = '🛫',
+    DOWN = '💌'
 
 }
