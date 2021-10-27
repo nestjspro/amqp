@@ -1,0 +1,30 @@
+on: ["push", "pull_request"]
+
+name: Test Coveralls
+
+jobs:
+
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v1
+
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+
+    - name: npm install
+      run: cd lib && npm install
+
+    - name: run coverage
+      run: cd lib && npm run test:coverage
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        base-path: lib
+        path-to-lcov: lib/test/coverage/lcov.info

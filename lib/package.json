@@ -1,49 +1,86 @@
 {
     "name": "@nestjs.pro/amqp",
+    "description": "AMQP for Nest.js like a boss. 💪",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \\\\\\\"Error: no test specified\\\\\\\" && exit 1"
-    },
-    "keywords": [],
+    "license": "MIT",
+    "homepage": "https://amqp.nestjs.pro",
+    "readme": "README.md",
+    "types": "src/index.ts",
     "author": {
         "name": "Matthew Davis",
         "email": "matthew@matthewdavis.io",
         "url": "https://matthewdavis.io"
     },
-    "license": "MIT",
+    "repository": {
+        "url": "https://github.com/nestjspro/amqp.git",
+        "type": "git"
+    },
+    "bugs": {
+        "url": "https://github.com/nestjspro/amqp/issues",
+        "email": "support@nestjs.pro"
+    },
+    "contributors": [
+        {
+            "name": "Matthew Davis",
+            "email": "matthew@matthewdavis.io",
+            "url": "https://matthewdavis.io"
+        }
+    ],
+    "maintainers": [
+        {
+            "name": "Matthew Davis",
+            "email": "matthew@matthewdavis.io",
+            "url": "https://matthewdavis.io"
+        }
+    ],
+    "main": "start.sh",
+    "scripts": {
+        "build:watch": "tsc -w",
+        "test": "jest",
+        "test:coverage": "jest --coverage && coveralls < coverage/lcov.info"
+    },
     "dependencies": {
-        "@nestjs/common": "^8.1.2",
-        "@nestjs/core": "^8.1.2",
-        "@nestjs/platform-express": "^8.1.2",
         "amqplib": "^0.8.0",
         "chalk": "^4.1.2",
-        "rxjs": "^7.4.0",
-        "typedoc-plugin-extras": "^2.2.1"
+        "rxjs": "^7.4.0"
+    },
+    "peerDependencies": {
+        "@nestjs/common": "^8.1.2",
+        "@nestjs/core": "^8.1.2",
+        "@nestjs/platform-express": "^8.1.2"
     },
     "devDependencies": {
         "@nestjs/testing": "^8.1.2",
         "@types/amqplib": "^0.8.2",
         "@types/jest": "^27.0.2",
         "@types/node": "^16.11.6",
-        "install": "^0.13.0",
+        "coveralls": "^3.1.1",
         "jest": "^27.3.1",
         "ts-jest": "^27.0.7",
         "typedoc": "^0.22.7",
+        "typedoc-plugin-extras": "^2.2.1",
         "typescript": "^4.4.4"
     },
     "jest": {
         "moduleFileExtensions": [
             "js",
-            "json",
             "ts"
         ],
         "rootDir": "test",
         "testRegex": "Test.ts$",
         "transform": {
-            "^.+\\.(t|j)s$": "ts-jest"
+            "^.+\\.ts$": "ts-jest"
         },
         "coverageDirectory": "./coverage"
-    }
+    },
+    "keywords": [
+        "amqp",
+        "amqplib",
+        "messaging",
+        "microservices",
+        "nestjs",
+        "nestjs.pro",
+        "queue",
+        "rabbitmq"
+    ]
 }
