@@ -7,8 +7,11 @@ jobs:
   coverage:
     name: Code Coverage
     runs-on: ubuntu-latest
-    steps:
+    defaults:
+      run:
+        working-directory: ./lib
 
+    steps:
     - uses: actions/checkout@v1
 
     - name: Use Node.js 16.x
@@ -17,15 +20,12 @@ jobs:
         node-version: 16.x
 
     - name: npm install
-      working-directory: ./lib
       run: npm install
 
     - name: run coverage
-      working-directory: ./lib
       run: npm run test:coverage
 
     - name: Coveralls
-      working-directory: ./lib
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
