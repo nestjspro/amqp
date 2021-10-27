@@ -1,92 +1,89 @@
-import { TestingModule, Test } from '@nestjs/testing';
-import { AMQPModule } from '../src/AMQPModule';
-
 describe('AMQPModule Test', () => {
 
 
-    test('asdf', async () => {
+    test('asdf', () => {
 
-        const module: TestingModule = await Test.createTestingModule({
-
-            imports: [
-
-                AMQPModule.forRoot({
-
-                    connections: [
-
-                        {
-
-                            name: 'one',
-                            url: 'amqp://rabbitmq:agaeq14@localhost:5672',
-                            exchange: {
-
-                                name: 'test-1',
-                                type: 'topic',
-                                options: {
-
-                                    durable: true
-
-                                }
-
-                            },
-                            queues: [
-
-                                {
-
-                                    name: '1',
-                                    routingKey: '111',
-                                    createBindings: true,
-                                    options: {
-
-                                        durable: false
-
-                                    }
-
-                                }
-
-                            ]
-
-                        }, {
-
-                            name: 'two',
-                            url: 'amqp://rabbitmq:agaeq14@localhost:5672',
-                            exchange: {
-
-                                name: 'test-2',
-                                type: 'topic',
-                                options: {
-
-                                    durable: true
-
-                                }
-
-                            },
-                            queues: [
-
-                                {
-
-                                    name: '2',
-                                    routingKey: '222',
-                                    createBindings: true,
-                                    options: {
-
-                                        durable: false
-
-                                    }
-
-                                }
-
-                            ]
-
-                        }
-
-                    ]
-
-                })
-
-            ]
-
-        }).compile();
+        // const module: TestingModule = await Test.createTestingModule({
+        //
+        //     imports: [
+        //
+        //         AMQPModule.forRoot({
+        //
+        //             connections: [
+        //
+        //                 {
+        //
+        //                     name: 'one',
+        //                     url: 'amqp://rabbitmq:agaeq14@localhost:5672',
+        //                     exchange: {
+        //
+        //                         name: 'test-1',
+        //                         type: 'topic',
+        //                         options: {
+        //
+        //                             durable: true
+        //
+        //                         }
+        //
+        //                     },
+        //                     queues: [
+        //
+        //                         {
+        //
+        //                             name: '1',
+        //                             routingKey: '111',
+        //                             createBindings: true,
+        //                             options: {
+        //
+        //                                 durable: false
+        //
+        //                             }
+        //
+        //                         }
+        //
+        //                     ]
+        //
+        //                 }, {
+        //
+        //                     name: 'two',
+        //                     url: 'amqp://rabbitmq:agaeq14@localhost:5672',
+        //                     exchange: {
+        //
+        //                         name: 'test-2',
+        //                         type: 'topic',
+        //                         options: {
+        //
+        //                             durable: true
+        //
+        //                         }
+        //
+        //                     },
+        //                     queues: [
+        //
+        //                         {
+        //
+        //                             name: '2',
+        //                             routingKey: '222',
+        //                             createBindings: true,
+        //                             options: {
+        //
+        //                                 durable: false
+        //
+        //                             }
+        //
+        //                         }
+        //
+        //                     ]
+        //
+        //                 }
+        //
+        //             ]
+        //
+        //         })
+        //
+        //     ]
+        //
+        // }).compile();
 
         // const app = module.createNestApplication();
         // await app.init();

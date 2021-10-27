@@ -101,7 +101,7 @@ export class AMQPConnection {
 
         try {
 
-            amqp.connect(this.config.url, { timeout: this.config.timeout || 30000 }).then(async connection => {
+            amqp.connect(this.config.url, { timeout: this.config.timeout || 5000 }).then(async connection => {
 
                 const channel = await connection.createChannel();
 

@@ -37,7 +37,7 @@
     "scripts": {
         "build:watch": "tsc -w",
         "test": "jest",
-        "test:coverage": "jest --coverage && coveralls < coverage/lcov.info"
+        "test:coverage": "jest --coverage && coveralls < test/coverage/lcov.info"
     },
     "dependencies": {
         "amqplib": "^0.8.0",
