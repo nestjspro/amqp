@@ -2,14 +2,14 @@ import { AMQPConfigConnection } from 'src/configuration/AMQPConfigConnection';
 import { AMQPConnection } from '../AMQPConnection';
 import { Subject, Subscription, Observable, ReplaySubject } from 'rxjs';
 import { AMQPConnectionStatus } from '../AMQPConnectionStatus';
-import { AMQPMessage } from './AMQPMessage';
+import { AMQPQueueMessage } from './AMQPQueueMessage';
 import { AMQPLogger } from '../logging/AMQPLogger';
 import * as chalk from 'chalk';
 import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
 
 export class AMQPQueue {
 
-    private queue$: ReplaySubject<AMQPMessage> = new ReplaySubject();
+    private queue$: ReplaySubject<AMQPQueueMessage> = new ReplaySubject();
     private name: string;
     private config: AMQPConfigConnection;
     private connection: AMQPConnection;
@@ -51,8 +51,8 @@ export class AMQPQueue {
             if (status === AMQPConnectionStatus.CONNECTED) {
 
                 AMQPLogger.debug(`${ chalk.greenBright('Connection established') }, queue is ready for drain operations for the connection ${ chalk.yellowBright(this.connection.config.name) }!`,
-                                 AMQPLogEmoji.SUCCESS,
-                                 'QUEUE MANAGER');
+                    AMQPLogEmoji.SUCCESS,
+                    'QUEUE MANAGER');
 
                 //
                 // Start draining the queue and listening for
@@ -63,8 +63,8 @@ export class AMQPQueue {
             } else if (this.subscription) {
 
                 AMQPLogger.debug(`${ chalk.greenBright('Connection established') }, queue has stopped draining operations for the connection ${ chalk.yellowBright(this.connection.config.name) }!`,
-                                 AMQPLogEmoji.DISCONNECT,
-                                 'QUEUE MANAGER');
+                    AMQPLogEmoji.DISCONNECT,
+                    'QUEUE MANAGER');
 
                 //
                 // Disconnect the plumbing until the connection
@@ -81,17 +81,15 @@ export class AMQPQueue {
     /**
      * Subscribes to the queue$ {Subject} and publishes the pending message.
      *
-     * @param {AMQPMessage} message
+     * @param {AMQPQueueMessage} message
      */
-    public drain(message: AMQPMessage): void {
+    public drain(message: AMQPQueueMessage): void {
 
         this.connection.reference$.subscribe(reference => {
 
-            AMQPLogger.debug(`${ chalk.redBright('Draining message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }"`,
-                             AMQPLogEmoji.DOWN,
-                             'QUEUE MANAGER');
+            AMQPLogger.debug(`${ chalk.redBright('Draining message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }"`, AMQPLogEmoji.DOWN, 'QUEUE MANAGER');
 
-            const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message);
+            const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message, message.options);
 
             this.length--;
 
@@ -115,13 +113,11 @@ export class AMQPQueue {
     /**
      * Publish a new message the queue.
      *
-     * @param {AMQPMessage} message
+     * @param {AMQPQueueMessage} message
      */
-    public publish(message: AMQPMessage): void {
+    public publish(message: AMQPQueueMessage): void {
 
-        AMQPLogger.debug(`${ chalk.greenBright('Publishing message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }"`,
-                         AMQPLogEmoji.INBOX,
-                         'QUEUE MANAGER');
+        AMQPLogger.debug(`${ chalk.greenBright('Publishing message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }"`, AMQPLogEmoji.INBOX, 'QUEUE MANAGER');
 
         this.queue$.next(message);
 
@@ -143,12 +139,12 @@ export class AMQPQueue {
 
         this.publish({
 
-                         exchange,
-                         routingKey,
-                         message: Buffer.from(JSON.stringify(message)),
-                         published$
+            exchange,
+            routingKey,
+            message: Buffer.from(JSON.stringify(message)),
+            published$
 
-                     });
+        });
 
         return published$;
 

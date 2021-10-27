@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AMQPService } from '@nestjs.pro/amqp/dist/AMQPService';
 import { interval, map } from 'rxjs';
-import { AMQPConnectionStatus } from '@nestjs.pro/amqp/dist/AMQPConnectionStatus';
 
 @Injectable()
 export class AppService {
@@ -14,6 +13,38 @@ export class AppService {
         amqpService.getConnection('one').subscribe(connection => {
 
             console.log('DEMO: AMQP is connected! ✅');
+
+            connection.subscribe({ queue: '1' }).subscribe(payload => {
+
+                console.log(`---> from routingKey "${ payload.message.fields.routingKey }" via exchange "${ payload.message.fields.exchange }" subscription: ${ payload.message.content.toString() }`);
+
+            });
+
+            connection.rpcConsume('t', message => {
+
+                // console.log(message);
+                return 'asdfasdf';
+
+            }).subscribe(message => {
+
+                console.log(message);
+
+            });
+
+            setTimeout(() => {
+
+                connection.rpcCall({
+
+                    queue: 't',
+                    message: Buffer.from(JSON.stringify({ date: new Date(), rand: Math.random() }))
+
+                }).subscribe(response => {
+
+                    console.log(response);
+
+                });
+
+            }, 2000);
 
             interval(3000).pipe(map(() => Math.floor(Math.random() * 100))).subscribe(t => {
 
@@ -29,67 +60,67 @@ export class AppService {
             // Wait five seconds and then manually create a new
             // connection dynamically.
             //
-            setTimeout(() => {
-
-                console.log('DEMO: Manually creating a new connection.. 🙏');
-
-                amqpService.addConnection({
-  
-                    name: 'three',
-                    uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
-                    exchange: {
-
-                        name: 'test-3',
-                        type: 'topic',
-                        options: {
-
-                            durable: true
-
-                        }
-
-                    },
-                    queues: [
-
-                        {
-
-                            name: '3',
-                            routingKey: '333',
-                            options: {
-
-                                durable: false
-
-                            }
-
-                        }
-
-                    ]
-
-                }).status$.subscribe(status => {
-
-                    if (status === AMQPConnectionStatus.CONNECTED) {
-
-                        console.log('DEMO: The new connection was established! 👏');
-
-                    }
-
-                });
-
-            }, 5000);
-
-
+            // setTimeout(() => {
             //
-            // Wait 10 seconds and then initiate a tear down to remove
-            // the exchange and queues for this connection only.
+            //     console.log('DEMO: Manually creating a new connection.. 🙏');
             //
-            setTimeout(() => {
-
-                connection.tearDown().subscribe(() => {
-
-                    console.log('DEMO: Tear down complete, exchange and queue(s) removed! 🏁');
-
-                });
-
-            }, 10000);
+            //     amqpService.addConnection({
+            //
+            //         name: 'three',
+            //         uri: 'amqp://rabbitmq:agaeq14@localhost:5672',
+            //         exchange: {
+            //
+            //             name: 'test-3',
+            //             type: 'topic',
+            //             options: {
+            //
+            //                 durable: true
+            //
+            //             }
+            //
+            //         },
+            //         queues: [
+            //
+            //             {
+            //
+            //                 name: '3',
+            //                 routingKey: '333',
+            //                 options: {
+            //
+            //                     durable: false
+            //
+            //                 }
+            //
+            //             }
+            //
+            //         ]
+            //
+            //     }).status$.subscribe(status => {
+            //
+            //         if (status === AMQPConnectionStatus.CONNECTED) {
+            //
+            //             console.log('DEMO: The new connection was established! 👏');
+            //
+            //         }
+            //
+            //     });
+            //
+            // }, 5000);
+            //
+            //
+            // //
+            // // Wait 10 seconds and then initiate a tear down to remove
+            // // the exchange and queues for this connection only.
+            // //
+            // setTimeout(() => {
+            //
+            //     connection.tearDown().subscribe(() => {
+            //
+            //         console.log('DEMO: Tear down complete, exchange and queue(s) removed! 🏁');
+            //
+            //     });
+            //
+            // }, 10000);
 
         });
 
@@ -98,26 +129,26 @@ export class AppService {
         // Wait 15 seconds and then initiate a tear down to remove
         // the exchange and queues for the remaining connections.
         //
-        setTimeout(() => {
-
-            amqpService.tearDown().subscribe(() => {
-
-                console.log('DEMO: Tear down complete, all remaining exchange(s) and queue(s) removed! 🏁');
-
-            });
-
-        }, 15000);
-
+        // setTimeout(() => {
         //
-        // Wait 20 seconds and then initiate a disconnect programatically.
+        //     amqpService.tearDown().subscribe(() => {
         //
-        setTimeout(() => {
-
-            amqpService.disconnect();
-
-            console.log('DEMO: Disconnected! 🏁');
-
-        }, 20000);
+        //         console.log('DEMO: Tear down complete, all remaining exchange(s) and queue(s) removed! 🏁');
+        //
+        //     });
+        //
+        // }, 15000);
+        //
+        // //
+        // // Wait 20 seconds and then initiate a disconnect programatically.
+        // //
+        // setTimeout(() => {
+        //
+        //     amqpService.disconnect();
+        //
+        //     console.log('DEMO: Disconnected! 🏁');
+        //
+        // }, 20000);
 
     }
 

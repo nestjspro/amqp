@@ -9,5 +9,6 @@ export interface AMQPConfigConnection {
     exchange: AMQPConfigExchange;
     queues?: Array<AMQPConfigQueue>;
     logLevel?: AMQPLogLevel;
+    prefetch?: number;
 
 }

@@ -1,11 +1,8 @@
-import { Subject } from 'rxjs';
+import { ConsumeMessage } from 'amqplib';
 
 export class AMQPMessage {
 
-    public exchange: string | number;
-    public routingKey: string | number;
-    public message: Buffer;
-
-    public published$?: Subject<boolean>;
+    public message: ConsumeMessage;
+    public ack: Function;
 
 }
