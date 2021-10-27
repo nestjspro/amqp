@@ -15,15 +15,18 @@
         "@nestjs/platform-express": "^8.1.2",
         "amqplib": "^0.8.0",
         "chalk": "^4.1.2",
-        "rxjs": "^7.4.0"
+        "rxjs": "^7.4.0",
+        "typedoc-plugin-extras": "^2.2.1"
     },
     "devDependencies": {
         "@nestjs/testing": "^8.1.2",
         "@types/amqplib": "^0.8.2",
         "@types/jest": "^27.0.2",
         "@types/node": "^16.11.6",
+        "install": "^0.13.0",
         "jest": "^27.3.1",
         "ts-jest": "^27.0.7",
+        "typedoc": "^0.22.7",
         "typescript": "^4.4.4"
     },
     "jest": {

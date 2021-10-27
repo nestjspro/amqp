@@ -234,9 +234,9 @@ export class AMQPConnection {
      *
      * @return {Subject<AMQPMessage>} Observable emitting new messages on arrival.
      */
-    public subscribe(subscriber: AMQPSubscriber): Subject<AMQPMessage> {
+    public subscribe(subscriber: AMQPSubscriber): Subject<AMQPMessage<any>> {
 
-        const subject$: Subject<AMQPMessage> = new Subject();
+        const subject$: Subject<AMQPMessage<any>> = new Subject();
 
         //
         // Acquire connection reference.
@@ -253,20 +253,12 @@ export class AMQPConnection {
                 //
                 // Emit the new message.
                 //
-                subject$.next({
+                subject$.next(new AMQPMessage<any>(message, () => {
 
-                    message,
-
-                    //
                     // Lazy acknowledgement method.
-                    //
-                    ack: () => {
+                    reference.channel.ack(message);
 
-                        reference.channel.ack(message);
-
-                    }
-
-                });
+                }));
 
                 //
                 // Automatically acknowledge message if not otherwise set to true.
@@ -294,12 +286,11 @@ export class AMQPConnection {
      * **NOTE:** This call is susceptible to a timout (defaults to 5 seconds).
      *
      * @param {AMQPRPCCall} call RPC call configuration object.
-     *
      * @return {Subject<any>} Observable which emits a reply of type {T}.
      */
-    public rpcCall<T>(call: AMQPRPCCall): Subject<T> {
+    public rpcCall<T>(call: AMQPRPCCall): Subject<AMQPMessage<T>> {
 
-        const subject$: Subject<T> = new Subject();
+        const subject$: Subject<AMQPMessage<T>> = new Subject();
 
         //
         // Calculate correlationId (used for mapping the sender
@@ -329,7 +320,7 @@ export class AMQPConnection {
 
                 console.log(`a: ${ message.content.toString() }`);
 
-                subject$.next(message);
+                subject$.next(new AMQPMessage<T>(message));
 
             }, call.options);
 

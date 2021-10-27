@@ -1,4 +1,4 @@
-export class AMQPConnectionNotFoundException extends Error {
+export class AMQPPublishException extends Error {
 
     public constructor(message?: string) {
 
