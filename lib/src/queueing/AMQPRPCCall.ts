@@ -7,5 +7,6 @@ export interface AMQPRPCCall {
     queue: string;
     message: Buffer;
     options?: Publish;
-
+    timeout?: number;
+    
 }

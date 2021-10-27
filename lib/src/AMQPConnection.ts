@@ -22,16 +22,12 @@ export class AMQPConnection {
     /**
      * Connection status.
      *
-     * @author Matthew Davis <matthew@matthewdavis.io
-     *
      * @type {AMQPConnectionStatus}
      */
     public status: AMQPConnectionStatus;
 
     /**
      * Connection status event change observable.
-     *
-     * @author Matthew Davis <matthew@matthewdavis.io
      *
      * @type {BehaviorSubject<AMQPConnectionStatus>}
      */
@@ -40,16 +36,12 @@ export class AMQPConnection {
     /**
      * Connection configuration settings.
      *
-     * @author Matthew Davis <matthew@matthewdavis.io
-     *
      * @type {AMQPConfigConnection}
      */
     public config: AMQPConfigConnection;
 
     /**
      * References to the connection and channel for this connection.
-     *
-     * @author Matthew Davis <matthew@matthewdavis.io
      *
      * @type {ReplaySubject<AMQPReference>}
      */
@@ -65,8 +57,6 @@ export class AMQPConnection {
     /**
      * AMQP individual connection class constructor (requires a configuration object).
      *
-     * @author Matthew Davis <matthew@matthewdavis.io
-     *
      * @param {AMQPConfigConnection} config
      */
     public constructor(config: AMQPConfigConnection) {
@@ -76,8 +66,6 @@ export class AMQPConnection {
         this.status = AMQPConnectionStatus.DISCONNECTED;
         this.queue = new AMQPQueue(this);
         this.config = config;
-
-        this.connect();
 
         //
         // Subscribe to status changes so we can log them.
@@ -98,12 +86,12 @@ export class AMQPConnection {
 
         });
 
+        this.connect();
+
     }
 
     /**
      * Connect to the AMQP server.
-     *
-     * @author Matthew Davis <matthew@matthewdavis.io
      *
      * @returns {ReplaySubject<AMQPReference>}
      */
@@ -113,15 +101,15 @@ export class AMQPConnection {
 
         try {
 
-            amqp.connect(this.config.uri).then(async connection => {
+            amqp.connect(this.config.url, { timeout: this.config.timeout || 30000 }).then(async connection => {
 
                 const channel = await connection.createChannel();
 
                 await channel.prefetch(!!this.config.prefetch ? this.config.prefetch : 1);
 
-                this.reference$.next({ connection, channel });
-
                 this.setStatus(AMQPConnectionStatus.CONNECTED);
+
+                this.reference$.next({ connection, channel });
 
             });
 
@@ -129,9 +117,9 @@ export class AMQPConnection {
 
         } catch (e) {
 
-            console.log(e);
-
             this.setStatus(AMQPConnectionStatus.DISCONNECTED);
+
+            console.log(e);
 
         }
 
@@ -224,6 +212,11 @@ export class AMQPConnection {
 
     }
 
+    /**
+     * Change status to a new value.
+     *
+     * @param {AMQPConnectionStatus} status
+     */
     public setStatus(status: AMQPConnectionStatus): void {
 
         this.status$.next(status);
@@ -232,19 +225,41 @@ export class AMQPConnection {
 
     }
 
+    /**
+     * Subscribe to a queue returning an observable.
+     *
+     * Message will auto-acknowledge itself when emitted if not disabled.
+     *
+     * @param {AMQPSubscriber} subscriber Subscripton configuration object.
+     *
+     * @return {Subject<AMQPMessage>} Observable emitting new messages on arrival.
+     */
     public subscribe(subscriber: AMQPSubscriber): Subject<AMQPMessage> {
 
         const subject$: Subject<AMQPMessage> = new Subject();
 
+        //
+        // Acquire connection reference.
+        //
         this.reference$.subscribe(reference => {
 
-            reference.channel.consume(subscriber.queue, (message) => {
+            //
+            // Start consuming (subscribing) new messages.
+            //
+            reference.channel.consume(subscriber.queue, message => {
 
                 AMQPLogger.debug(`Subscribe emitted deliveryTag #${ chalk.yellowBright(message.fields.deliveryTag) } for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
+                //
+                // Emit the new message.
+                //
                 subject$.next({
 
                     message,
+
+                    //
+                    // Lazy acknowledgement method.
+                    //
                     ack: () => {
 
                         reference.channel.ack(message);
@@ -253,6 +268,9 @@ export class AMQPConnection {
 
                 });
 
+                //
+                // Automatically acknowledge message if not otherwise set to true.
+                //
                 if (!subscriber.noAck) {
 
                     reference.channel.ack(message);
@@ -267,10 +285,26 @@ export class AMQPConnection {
 
     }
 
-    public rpcCall<T>(call: AMQPRPCCall): Subject<any> {
+    /**
+     * Perform an RPC call and return the response.
+     *
+     * Before performing the request a new queue will be generated
+     * and subcribe to temporarily.
+     *
+     * **NOTE:** This call is susceptible to a timout (defaults to 5 seconds).
+     *
+     * @param {AMQPRPCCall} call RPC call configuration object.
+     *
+     * @return {Subject<any>} Observable which emits a reply of type {T}.
+     */
+    public rpcCall<T>(call: AMQPRPCCall): Subject<T> {
 
         const subject$: Subject<T> = new Subject();
 
+        //
+        // Calculate correlationId (used for mapping the sender
+        // and receiver of a message across pub/sub sessions).
+        //
         if (!call.options) {
 
             call.options = { correlationId: randomUUID() };
@@ -281,17 +315,34 @@ export class AMQPConnection {
 
         }
 
+        //
+        // Acquire the connection reference safely.
+        //
         this.reference$.subscribe(reference => {
 
             AMQPLogger.debug(`Sending RPC call to correlationId #${ chalk.yellowBright(call.options.correlationId) } for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
+            //
+            // Kick off the consumer first.
+            //
             reference.channel.consume(call.queue, message => {
 
                 console.log(`a: ${ message.content.toString() }`);
 
-            });
+                subject$.next(message);
 
+            }, call.options);
+
+            //
+            // Publish the RPC message.
+            //
             reference.channel.sendToQueue(call.queue, call.message, call.options);
+
+            const timeout = setTimeout(() => {
+
+                console.log('timed out');
+
+            }, call.timeout);
 
         });
 
