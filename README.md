@@ -4,7 +4,7 @@
 
 This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface for [Nest.js](https://nestjs.com).
 
-# 🧰 Features
+# ⚡ Features
 
 * Configurable as a module + programatically add connections on the fly.
 * 100% Rxjs based with typings.
@@ -13,13 +13,14 @@ This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface
 * Offline _queueing_ support to handle disconnects.
 * Handles exchange, queue, and routing key bindings for you.
 * Pub/sub + RPC support.
+* Shutdown signal trap for graceful shutdown. 💣
 * Configurable, verbose, logging facility.
-* Hackable and extensible.
+* Hackable and extensible. 🧰
 * [Demo](app/src) implementation.
 
-[![asciicast](https://asciinema.org/a/444774.png)](https://asciinema.org/a/444774)
+[![asciicast](https://asciinema.org/a/444797.png)](https://asciinema.org/a/444797)
 
-# 🆕 Installation
+# 🛴 Installation
 
 ```shell
 npm install @nestjs.pro/amqp
@@ -152,7 +153,7 @@ export class AppService {
 
 # 👐 Contributing/Hacking
 
-Pull down this repo and install the dependencies using [pnpm](https://pnpm.io)..
+Pull down this repo and install the dependencies using [pnpm](https://pnpm.io):
 
 > If you do not have pnpm installed simply run the following:
 > `npm install -g pnpm`
