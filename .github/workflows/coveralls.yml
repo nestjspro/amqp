@@ -22,14 +22,6 @@ jobs:
     - name: npm install
       run: npm ci
 
-    - run: ls -l
-    - run: ls -l node_modules
-
-    - run: npm list
-
-    - run: pwd
-    - run: ls -la
-
     - name: run coverage
       run: npm run test:coverage
 
@@ -41,7 +33,7 @@ jobs:
         path-to-lcov: ./test/coverage/lcov.info
 
 
-analyze:
+  analyze:
     needs: coverage
     name: Analyze
     runs-on: ubuntu-latest
