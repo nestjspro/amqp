@@ -12,14 +12,14 @@ jobs:
         working-directory: ./lib
 
     steps:
-    - run: npm config ls -l
-
     - uses: actions/checkout@v1
 
     - name: Use Node.js 16.x
       uses: actions/setup-node@v2
       with:
         node-version: 16.x
+
+    - run: npm config ls -l
 
     - name: npm install
       run: npm install --include dev
