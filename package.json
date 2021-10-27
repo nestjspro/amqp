@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"typedoc": "^0.22.7",
+		"typedoc-plugin-extras": "^2.2.1"
+	}
+}
