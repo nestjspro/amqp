@@ -1,4 +1,4 @@
-name: Documentation
+name: Generate Documentation
 on:
   push:
     branches:
@@ -21,14 +21,33 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Automated documentation generation.
-          file_pattern: docs/**/.
+          file_pattern: docs/.
+          commit_user_name: My GitHub Actions Bot # defaults to "GitHub Actions"
+          commit_user_email: my-github-actions-bot@example.org # defaults to "actions@github.com"
+          commit_author: Author <actions@github.com> # defaults to author of the commit that triggered the run
+
+          # Optional tag message
+          # Action will create and push a new tag to the remote repository and the defined branch
+          tagging_message: 'v1.0.0'
+
+          # Optional. Used by `git-status`
+          # See https://git-scm.com/docs/git-status#_options
+          status_options: '--untracked-files=yes'
+
           # Optional. Used by `git-add`
           # See https://git-scm.com/docs/git-add#_options
-          add_options: '-A'
+          add_options: '-u'
+
+          # Optional. Used by `git-push`
+          # See https://git-scm.com/docs/git-push#_options
+          push_options: '--force'
+
+          # Optional. Disable dirty check and always try to create a commit and push
+          skip_dirty_check: true
 
           # Optional. Skip internal call to `git fetch`
           skip_fetch: true
-          skip_dirty_check: true
+
           # Optional. Prevents the shell from expanding filenames.
           # Details: https://www.gnu.org/software/bash/manual/html_node/Filename-Expansion.html
           disable_globbing: true
