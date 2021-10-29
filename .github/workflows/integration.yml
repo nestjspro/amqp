@@ -201,8 +201,10 @@ jobs:
     needs:
       - analyze
       - coverage
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./lib
     steps:
 
       - name: Get branch name (merge)
@@ -220,6 +222,17 @@ jobs:
         shell: bash
         run: echo "BRANCH_NAME=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
 
+      - name: Cache pnpm modules
+        id: pnpm-cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.pnpm-store
+            **/node_modules
+          key: ${{ runner.os }}-npm-cache-3-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-3-
+
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
         id: create_release
@@ -233,6 +246,9 @@ jobs:
             First release
           draft: false
           prerelease: false
+
+      - name: Build
+        run: npm run build
 
       - name: npm publish
         if: startsWith(github.ref, 'refs/tags/v')

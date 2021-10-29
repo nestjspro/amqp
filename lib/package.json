@@ -35,6 +35,7 @@
     ],
     "main": "start.sh",
     "scripts": {
+        "build": "tsc",
         "build:watch": "tsc -w",
         "test": "jest --runInBand --detectOpenHandles --forceExit",
         "test:clearcache": "jest --clearCache",
