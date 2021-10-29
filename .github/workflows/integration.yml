@@ -1,5 +1,6 @@
 on:
   push:
+    branches: [ main ]
     tags:
       - v*
 
@@ -7,7 +8,40 @@ name: CI
 
 jobs:
 
+  dependencies:
+
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+
+      - name: Cache pnpm modules
+        id: pnpm-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
+
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.0.2
+          run_install: true
+
+#      - uses: actions/cache@v2
+#        with:
+#          path: '**/node_modules'
+#          key: ${{ runner.os }}-modules-${{ hashFiles('../pnpm-lock.yaml') }}
+#
+#      - name: pnpm install
+#        run: pnpm install
+
   coverage:
+    needs: dependencies
     name: Code Coverage
     runs-on: ubuntu-latest
     defaults:
@@ -15,9 +49,14 @@ jobs:
         working-directory: ./lib
 
     steps:
-    - uses: actions/checkout@v1
-      with:
-        ref: ${{ github.event.client_payload.ref }}
+      - name: Cache pnpm modules
+        id: pnpm-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
 
     - name: start rabbitmq server
       run: docker-compose up -d
@@ -26,12 +65,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16.x
-
-    - name: install pnpm
-      run: npm i -g pnpm
-
-    - name: pnpm ci
-      run: pnpm install
 
     - name: run coverage
       run: npm run test:coverage
