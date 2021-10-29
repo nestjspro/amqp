@@ -205,21 +205,6 @@ jobs:
         working-directory: ./lib
     steps:
 
-      - name: Get branch name (merge)
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
-
-      - name: Get branch name (pull request)
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-
-      - name: Get branch name (repository_dispatch event)
-        if: github.event_name == 'repository_dispatch'
-        shell: bash
-        run: echo "BRANCH_NAME=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
-
       - name: Cache pnpm modules
         id: pnpm-cache
         uses: actions/cache@v2
@@ -231,19 +216,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-cache-3-
 
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            First release
-          draft: false
-          prerelease: false
+#      - name: Create Release
+#        if: startsWith(github.ref, 'refs/tags/v')
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: ${{ github.ref }}
+#          release_name: Release ${{ github.ref }}
+#          body: |
+#            First release
+#          draft: false
+#          prerelease: false
 
       - name: Build
         run: npm run build
