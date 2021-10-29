@@ -145,6 +145,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-cache-3-
 
+      - name: Purge previous docs
+        run: rm -rf docs
+
       - name: generate docs
         run: npm run docs
 
