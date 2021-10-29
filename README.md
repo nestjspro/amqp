@@ -5,6 +5,8 @@
 This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface for [Nest.js](https://nestjs.com).
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/83f5be74f9c7488184bac4ee6e441154)](https://www.codacy.com/gh/nestjspro/amqp/dashboard?utm_source=github.com&utm_medium=referral&utm_content=nestjspro/amqp&utm_campaign=Badge_Coverage)
+![integration](https://github.com/nestjspro/amqp/actions/workflows/integration.yml/badge.svg)
+![documentation](https://github.com/nestjspro/amqp/actions/workflows/documentation.yml/badge.svg)
 
 # ⚡ Features
 
@@ -21,8 +23,6 @@ This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface
 * [Demo](app/src) implementation.
 
 [![asciicast](https://asciinema.org/a/444797.svg?autoplay=1&loop=1&rows=35)](https://asciinema.org/a/444797?autoplay=1&loop=1&rows=35)
-![integration](https://github.com/nestjspro/amqp/actions/workflows/integration.yml/badge.svg)
-![documentation](https://github.com/nestjspro/amqp/actions/workflows/documentation.yml/badge.svg)
 
 # 🛴 Installation
 
