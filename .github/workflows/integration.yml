@@ -58,18 +58,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-cache-
 
-    - name: start rabbitmq server
-      run: docker-compose up -d
+      - name: start rabbitmq server
+        run: docker-compose up -d
 
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.x
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
 
-    - name: run coverage
-      run: npm run test:coverage
+      - name: run coverage
+        run: npm run test:coverage
 
-    - run: CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
+      - run: CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
 
   analyze:
     needs: coverage
