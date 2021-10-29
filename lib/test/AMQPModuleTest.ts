@@ -9,7 +9,7 @@ describe('AMQPModule Test', () => {
     let app;
     let amqpService: AMQPService;
 
-    test('asdf', async () => {
+    beforeAll(async () => {
 
         const module: TestingModule = await Test.createTestingModule({
 
@@ -100,9 +100,11 @@ describe('AMQPModule Test', () => {
 
         amqpService = module.get<AMQPService>(AMQPService);
 
+    });
+
+    test('AMQPConnection', async () => {
+
         await expect(amqpService.connections[ 0 ].config).toBeTruthy();
-
-
         await expect(amqpService.connections.length).toEqual(2);
 
         amqpService.getConnection('two').subscribe(async connection => {
