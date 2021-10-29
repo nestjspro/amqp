@@ -6,9 +6,6 @@ on:
 jobs:
   generate-docs:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./lib
     steps:
       - uses: actions/checkout@v2
 
