@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: start rabbitmq server
+      run: docker-compose up -d
+
     - name: Use Node.js 16.x
       uses: actions/setup-node@v2
       with:
