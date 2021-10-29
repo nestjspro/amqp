@@ -36,10 +36,10 @@
     "main": "start.sh",
     "scripts": {
         "build:watch": "tsc -w",
-        "test": "jest --detectOpenHandles --forceExit",
+        "test": "jest --runInBand --detectOpenHandles --forceExit",
         "test:clearcache": "jest --clearCache",
-        "test:watch": "jest --watchAll --detectOpenHandles --no-cahe",
-        "test:coverage": "jest --coverage --detectOpenHandles --forceExit && coveralls < test/coverage/lcov.info"
+        "test:watch": "jest --maxWorkers 1 --watchAll --detectOpenHandles --no-cahe",
+        "test:coverage": "jest --runInBand --coverage --detectOpenHandles --forceExit"
     },
     "dependencies": {
         "amqplib": "^0.8.0",
@@ -75,13 +75,14 @@
         },
         "collectCoverage": true,
         "collectCoverageFrom": [
-            "src/**/*.ts"
+            "src/**/{!(ignore-coverage),}*.ts"
         ],
         "verbose": true,
         "coverageThreshold": {
             "global": {
-                "lines": 90,
-                "statements": 90
+                "statements": 90,
+                "branches": 50,
+                "lines": 90
             }
         },
         "coverageReporters": [

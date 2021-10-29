@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AMQPService } from '@nestjs.pro/amqp/dist/AMQPService';
 import { interval, map } from 'rxjs';
+import { AMQPLogEmoji } from '@nestjs.pro/amqp/dist';
 
 @Injectable()
 export class AppService {
@@ -14,49 +15,48 @@ export class AppService {
 
             console.log('DEMO: AMQP is connected! ✅');
 
-            setTimeout(async () => {
-
-                await amqpService.disconnect();
-
-                setTimeout(() => {
-
-                    amqpService.connect();
-
-                }, 2000);
-
-            }, 3000);
+            // setTimeout(async () => {
+            //
+            //     await amqpService.disconnect();
+            //
+            //     setTimeout(() => {
+            //
+            //         amqpService.connect();
+            //
+            //     }, 2000);
+            //
+            // }, 3000);
             // connection.subscribe({ queue: '1' }).subscribe(payload => {
             //
             //     console.log(`---> from routingKey "${ payload.message.fields.routingKey }" via exchange "${ payload.message.fields.exchange }" subscription: ${ payload.message.content.toString() }`);
             //
             // });
             //
-            // connection.rpcConsume('t', message => {
-            //
-            //     // console.log(message);
-            //     return 'asdfasdf';
-            //
-            // }).subscribe(message => {
-            //
-            //     // console.log(message);
-            //
-            // });
-            //
-            // setTimeout(() => {
-            //
-            //     connection.rpcCall({
-            //
-            //         queue: 't',
-            //         message: Buffer.from(JSON.stringify({ date: new Date(), rand: Math.random() }))
-            //
-            //     }).subscribe(response => {
-            //
-            //         // console.log(response);
-            //
-            //     });
-            //
-            // }, 2000);
-            //
+            connection.rpcConsume('t', message => {
+
+                return 'hellow from rpc consumer!';
+
+            }).subscribe(message => {
+
+                // console.log(message);
+
+            });
+
+            setTimeout(() => {
+
+                connection.rpcCall({
+
+                    queue: 't',
+                    message: Buffer.from(JSON.stringify({ date: new Date(), rand: Math.random() }))
+
+                }).subscribe(response => {
+
+                    this.amqpService.logger.debug(response.message.content.toString(), AMQPLogEmoji.SUCCESS, 'DEMO RPC->REPLY');
+
+                });
+
+            }, 2000);
+
             interval(1000).pipe(map(() => Math.floor(Math.random() * 100))).subscribe(t => {
 
                 setTimeout(() => {

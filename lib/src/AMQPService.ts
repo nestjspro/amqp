@@ -14,16 +14,14 @@ export class AMQPService implements OnModuleDestroy {
     public config: AMQPConfig;
     public connections: Array<AMQPConnection> = [];
 
-    public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig, private readonly logger: AMQPLogger) {
+    public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig, public readonly logger: AMQPLogger) {
 
         this.config = config;
         this.logger.config = config;
 
-        this.connect();
-
     }
 
-    public connect() {
+    public connect(): boolean {
 
         this.logger.debug('Creating connections..', AMQPLogEmoji.NEW, 'SERVICE MANAGER');
 
@@ -45,6 +43,8 @@ export class AMQPService implements OnModuleDestroy {
 
         }
 
+        return true;
+
     }
 
     public disconnect(): void {
@@ -63,7 +63,7 @@ export class AMQPService implements OnModuleDestroy {
 
     public tearDown(): Observable<Array<unknown>> {
 
-        return forkJoin(this.connections.map(connection => connection.tearDown()));
+        return forkJoin(this.connections.map(connection => connection.tearDown));
 
     }
 
@@ -105,7 +105,7 @@ export class AMQPService implements OnModuleDestroy {
 
             if (this.connections && this.connections.length > 0) {
 
-                this.logger.trace(`Retrieved connection ${ chalk.yellowBright('#0!') }`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
+                this.logger.debug(`Retrieved connection ${ chalk.yellowBright('#0!') }`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
 
                 subject$.next(this.connections[ 0 ]);
 

@@ -9,8 +9,7 @@ import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
 export class AMQPQueue {
 
     private queue$: ReplaySubject<AMQPQueueMessage> = new ReplaySubject();
-    private connection: AMQPConnection;
-    private subscription: Subscription;
+    public connection: AMQPConnection;
     private readonly logger: AMQPLogger;
 
     /**
@@ -84,7 +83,7 @@ export class AMQPQueue {
 
             if (this.connection.status === AMQPConnectionStatus.CONNECTED) {
 
-                // const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message, message.options);
+                const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message, message.options);
 
                 this.length--;
 
@@ -97,7 +96,7 @@ export class AMQPQueue {
                 //
                 if (message.published$) {
 
-                    // message.published$.next(result);
+                    message.published$.next(result);
 
                 }
 
@@ -112,7 +111,7 @@ export class AMQPQueue {
      *
      * @param {AMQPQueueMessage} message
      */
-    public publish(message: AMQPQueueMessage): void {
+    public publish(message: AMQPQueueMessage): Observable<boolean> {
 
         this.logger.debug(`${ chalk.greenBright('Publishing message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }" (${ this.connection.status === AMQPConnectionStatus.CONNECTED ? chalk.green(this.connection.status) : chalk.red(this.connection.status) })`, AMQPLogEmoji.INBOX, 'QUEUE MANAGER');
 
@@ -120,6 +119,8 @@ export class AMQPQueue {
 
         this.length++;
 
+        return message.published$;
+        
     }
 
     /**

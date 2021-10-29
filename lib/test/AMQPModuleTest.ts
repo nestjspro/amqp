@@ -1,6 +1,16 @@
-import { AMQPService, AMQPModule, AMQPLogLevel, AMQPConnectionStatus, AMQPMessage } from '../dist';
+import {
+    AMQPService,
+    AMQPModule,
+    AMQPLogLevel,
+    AMQPMessage,
+    AMQPLogger,
+    AMQPConnectionNotFoundException,
+    AMQPPublishException,
+    AMQPConnectionStatus
+} from '../src';
 import { TestingModule, Test } from '@nestjs/testing';
 import { ConsumeMessage } from 'amqplib';
+import { first } from 'rxjs';
 
 jest.setTimeout(15000);
 
@@ -102,35 +112,89 @@ describe('AMQPModule Test', () => {
 
     });
 
-    test('AMQPConnection', async () => {
+    test('AMQPConnection->Connections', async () => {
 
-        await expect(amqpService.connections[ 0 ].config).toBeTruthy();
-        await expect(amqpService.connections.length).toEqual(2);
+        try {
 
-        amqpService.getConnection('two').subscribe(async connection => {
+            expect(amqpService.getConnection()).toThrowError('There is no existing connection named "bad".');
 
-            await expect(connection.status).toEqual(AMQPConnectionStatus.DISCONNECTED);
+        } catch (e) {
 
-        });
+            //
+
+        }
+        try {
+
+            expect(amqpService.getConnection('bad')).toThrowError('There is no existing connection named "bad".');
+
+        } catch (e) {
+
+            //
+
+        }
+
+        expect(amqpService.connect()).toBeTruthy();
 
 
-        return new Promise<void>(resolve => {
+    });
 
-            expect(1).toEqual(1);
+    test('AMQPConnection->Reconnection', done => {
 
-            resolve();
+        amqpService.getConnection('one').subscribe(connection => {
+
+            connection.reconnect().subscribe(() => {
+
+                done();
+
+            });
 
         });
 
     });
 
-    test('Publish Message', async () => {
+    test('AMQPQueue->RPC', done => {
+
+        amqpService.getConnection('two').subscribe(async connection => {
+
+            connection.rpcConsume('rpc', message => {
+
+                return message.content;
+
+            }).subscribe(() => {
+
+                connection.rpcCall({
+
+                    queue: 'rpc',
+                    message: Buffer.from(JSON.stringify({ a: 123 })),
+                    timeout: 5000
+
+                }).subscribe(response => {
+
+                    expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
+
+                    done();
+
+                });
+
+            });
+
+        });
+
+    });
+
+    test('AMQPConnection->Publish', async () => {
 
         return new Promise<void>(resolve => {
 
-            amqpService.getConnection('two').subscribe(connection => {
+            amqpService.getConnection('two').subscribe(async connection => {
 
-                connection.queue.publish({ exchange: 'test-1', message: Buffer.from('a'), routingKey: '1' });
+                expect(connection.status).toBeTruthy();
+
+                connection.queue.publishJSON('test-1', '1', { a: 1 }).subscribe(result => {
+
+                    expect(result).toBeTruthy();
+
+                });
 
                 expect(connection.config).toBeTruthy();
 
@@ -139,6 +203,48 @@ describe('AMQPModule Test', () => {
             });
 
         });
+
+    });
+
+    test('AMQPQueue->subscribe(..)', done => {
+
+        amqpService.getConnection('two').subscribe(async connection => {
+
+            // expect(connection.queue.connection.status).toBeTruthy();
+
+            connection.subscribe({ queue: '1' }).pipe(first()).subscribe(message => {
+
+                // message.ack();
+
+                done();
+
+            });
+
+            connection.queue.publishJSON('test-1', '111', { a: 1 });
+
+            done();
+
+        });
+
+    });
+
+    test('AMQPQueue->Drain', done => {
+
+        amqpService.getConnection('two').subscribe(async connection => {
+
+            connection.queue.drain({ exchange: 'test-2', routingKey: '222', message: Buffer.from('a') });
+
+            done();
+
+        });
+
+    });
+
+    test('Logger', () => {
+
+        expect(amqpService.logger.error('a', '🙏', 'testing')).toBeTruthy();
+
+        return expect(AMQPLogger.pad('a', ' ')).toBeTruthy();
 
     });
 
@@ -154,21 +260,57 @@ describe('AMQPModule Test', () => {
 
     });
 
+    test('Exceptions', () => {
+
+        expect(new AMQPConnectionNotFoundException('test')).toBeTruthy();
+        expect(new AMQPPublishException('test')).toBeTruthy();
+
+    });
+
+    test('AMQPConnection.setStatus()', done => {
+
+        amqpService.getConnection('two').subscribe(async connection => {
+
+            connection.setStatus(AMQPConnectionStatus.DISCONNECTED);
+
+            expect(connection.status).toEqual(AMQPConnectionStatus.DISCONNECTED);
+
+            done();
+
+        });
+
+    });
+
+    test('AMQPConnection->Clean up', done => {
+
+        amqpService.getConnection('two').subscribe(connection => {
+
+            connection.tearDown().subscribe(async () => {
+
+                await connection.disconnect();
+
+                done();
+
+            });
+
+        });
+
+    });
+
+
+    test('AMQPService->Clean up', done => {
+
+        amqpService.tearDown();
+
+        done();
+
+    });
+
     afterAll(async () => {
 
         amqpService.disconnect();
 
         await app.close();
-
-        return new Promise<void>(resolve => {
-
-            setTimeout(() => {
-
-                resolve();
-
-            }, 1000);
-
-        });
 
     });
 
