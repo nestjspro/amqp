@@ -26,7 +26,7 @@ jobs:
       run: npm i -g pnpm
 
     - name: pnpm ci
-      run: pnpm ci
+      run: pnpm install
 
     - name: run coverage
       run: npm run test:coverage
