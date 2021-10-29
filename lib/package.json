@@ -67,12 +67,6 @@
         "typedoc-plugin-extras": "^2.2.1",
         "typescript": "^4.4.4"
     },
-    "release": {
-        "branches": [
-            "main"
-        ],
-        "repositoryUrl": "git@github.com:nestjspro/amqp.git"
-    },
     "jest": {
         "rootDir": ".",
         "moduleFileExtensions": [
