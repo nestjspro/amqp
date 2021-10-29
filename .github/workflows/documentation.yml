@@ -15,8 +15,13 @@ jobs:
       - name: pnpm install
         run: pnpm install
 
-      - run: ls -la
-      - run: pwd
-
       - name: generate docs
         run: npm run docs
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated documentation generation.
+          file_pattern: src/.
+          # Optional. Used by `git-add`
+          # See https://git-scm.com/docs/git-add#_options
+          add_options: '-u'
