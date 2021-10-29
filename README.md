@@ -21,6 +21,8 @@ This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface
 * [Demo](app/src) implementation.
 
 [![asciicast](https://asciinema.org/a/444797.svg?autoplay=1&loop=1&rows=35)](https://asciinema.org/a/444797?autoplay=1&loop=1&rows=35)
+![integration](https://github.com/nestjspro/amqp/actions/workflows/integration.yml/badge.svg)
+![documentation](https://github.com/nestjspro/amqp/actions/workflows/documentation.yml/badge.svg)
 
 # 🛴 Installation
 
