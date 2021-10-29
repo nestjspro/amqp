@@ -56,6 +56,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: npm install
+      run: npm install
+
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
       env:
