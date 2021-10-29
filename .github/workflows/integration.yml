@@ -16,7 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      ref: ${{ github.event.client_payload.ref }}
+      with:
+        ref: ${{ github.event.client_payload.ref }}
 
     - name: start rabbitmq server
       run: docker-compose up -d
@@ -58,7 +59,8 @@ jobs:
 
     - name: Checkout repository
       uses: actions/checkout@v2
-      ref: ${{ github.event.client_payload.ref }}
+      with:
+        ref: ${{ github.event.client_payload.ref }}
 
     - name: install pnpm
       run: npm i -g pnpm
@@ -90,7 +92,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        ref: ${{ github.event.client_payload.ref }}
+        with:
+          ref: ${{ github.event.client_payload.ref }}
 
       - name: install pnpm
         run: npm i -g pnpm
