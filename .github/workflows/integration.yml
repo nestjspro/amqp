@@ -49,6 +49,17 @@ jobs:
         working-directory: ./lib
 
     steps:
+      - run: pwd
+      - run: ls -la
+
+      - name: start rabbitmq server
+        run: docker-compose up -d
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
       - name: Cache pnpm modules
         id: pnpm-cache
         uses: actions/cache@v2
@@ -58,15 +69,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-cache-
 
-      - run: pwd
-      - run: ls -la
-      - name: start rabbitmq server
-        run: docker-compose up -d
-
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
 
       - name: run coverage
         run: npm run test:coverage
