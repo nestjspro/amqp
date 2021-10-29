@@ -1,4 +1,4 @@
-name: Generate Documentation
+name: Documentation
 on:
   push:
     branches:
@@ -24,7 +24,7 @@ jobs:
           file_pattern: docs/**/.
           # Optional. Used by `git-add`
           # See https://git-scm.com/docs/git-add#_options
-          add_options: '-a'
+          add_options: '-A'
 
           # Optional. Skip internal call to `git fetch`
           skip_fetch: true
