@@ -25,13 +25,13 @@ jobs:
     - name: run coverage
       run: npm run test:coverage
 
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
+    - name: Run codacy-coverage-reporter
+      uses: codacy/codacy-coverage-reporter-action@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        base-path: lib
-        path-to-lcov: ./test/coverage/lcov.info
-
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        # or
+        # api-token: ${{ secrets.CODACY_API_TOKEN }}
+        coverage-reports: coverage/lcov.info
 
   analyze:
     needs: coverage
@@ -51,6 +51,7 @@ jobs:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
     steps:
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
