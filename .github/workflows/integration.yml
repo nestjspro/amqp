@@ -44,9 +44,9 @@ jobs:
     needs: dependencies
     name: Code Coverage
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./lib
+#    defaults:
+#      run:
+#        working-directory: ./lib
 
     steps:
       - run: pwd
