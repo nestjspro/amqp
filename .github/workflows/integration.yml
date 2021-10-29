@@ -153,7 +153,8 @@ jobs:
           # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
           # Default: ''
 
-    release:
+  release:
+    steps:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
