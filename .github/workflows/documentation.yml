@@ -21,7 +21,14 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Automated documentation generation.
-          file_pattern: src/.
+          file_pattern: docs/
           # Optional. Used by `git-add`
           # See https://git-scm.com/docs/git-add#_options
           add_options: '-u'
+
+          # Optional. Skip internal call to `git fetch`
+          skip_fetch: true
+
+          # Optional. Prevents the shell from expanding filenames.
+          # Details: https://www.gnu.org/software/bash/manual/html_node/Filename-Expansion.html
+          disable_globbing: true
