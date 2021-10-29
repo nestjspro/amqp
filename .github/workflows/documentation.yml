@@ -18,36 +18,51 @@ jobs:
       - name: generate docs
         run: npm run docs
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
         with:
-          commit_message: Automated documentation generation.
-          file_pattern: docs/.
-          commit_user_name: My GitHub Actions Bot # defaults to "GitHub Actions"
-          commit_user_email: my-github-actions-bot@example.org # defaults to "actions@github.com"
-          commit_author: Author <actions@github.com> # defaults to author of the commit that triggered the run
+          # The arguments for the `git add` command (see the paragraph below for more info)
+          # Default: '.'
+          add: 'docs'
 
-          # Optional tag message
-          # Action will create and push a new tag to the remote repository and the defined branch
-          tagging_message: 'v1.0.0'
+          # The name of the user that will be displayed as the author of the commit.
+          # Default: depends on the default_author input
+          author_name: cicd
 
-          # Optional. Used by `git-status`
-          # See https://git-scm.com/docs/git-status#_options
-          status_options: '--untracked-files=yes'
+          # The email of the user that will be displayed as the author of the commit.
+          # Default: depends on the default_author input
+          author_email: support@nestjs.pro
 
-          # Optional. Used by `git-add`
-          # See https://git-scm.com/docs/git-add#_options
-          add_options: '-u'
+          # The name of the custom committer you want to use, if different from the author of the commit.
+          # Default: the name of the author (set with either author_name or default_author)
+          committer_name: Matthew Davis
 
-          # Optional. Used by `git-push`
-          # See https://git-scm.com/docs/git-push#_options
-          push_options: '--force'
+          # The email of the custom committer you want to use, if different from the author of the commit.
+          # Default: the email of the author (set with either author_email or default_author)
+          committer_email: matthew@matthewdavis.io
 
-          # Optional. Disable dirty check and always try to create a commit and push
-          skip_dirty_check: true
+          # Determines the way the action fills missing author name and email. Three options are available:
+          # - github_actor -> UserName <UserName@users.noreply.github.com>
+          # - user_info -> Your Display Name <your-actual@email.com>
+          # - github_actions -> github-actions <email associated with the github logo>
+          # Default: github_actor
+          default_author: github_actor
 
-          # Optional. Skip internal call to `git fetch`
-          skip_fetch: true
+          # The message for the commit.
+          # Default: 'Commit from GitHub Actions (name of the workflow)'
+          message: 'Generated updated documentation for https://amqp.nestjs.pro.'
 
-          # Optional. Prevents the shell from expanding filenames.
-          # Details: https://www.gnu.org/software/bash/manual/html_node/Filename-Expansion.html
-          disable_globbing: true
+          # The way the action should handle pathspec errors from the add and remove commands. Three options are available:
+          # - ignore -> errors will be logged but the step won't fail
+          # - exitImmediately -> the action will stop right away, and the step will fail
+          # - exitAtEnd -> the action will go on, every pathspec error will be logged at the end, the step will fail.
+          # Default: ignore
+          pathspec_error_handling: ignore
+
+          # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (see the paragraph below for more info)
+          # Default: true
+          push: true
+
+          signoff: true
+
+          # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
+          # Default: ''
