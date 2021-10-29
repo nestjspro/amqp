@@ -132,7 +132,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.client_payload.ref }}
+          ref: docs
 
       - name: Cache pnpm modules
         id: pnpm-cache
