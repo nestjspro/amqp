@@ -1,7 +1,7 @@
 {
   "name": "@nestjs.pro/amqp",
   "description": "AMQP for Nest.js like a boss. 💪",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "license": "MIT",
   "homepage": "https://amqp.nestjs.pro",
   "readme": "README.md",
