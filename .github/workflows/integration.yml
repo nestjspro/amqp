@@ -153,7 +153,7 @@ jobs:
           # The arguments for the `git add` command (see the paragraph below for more info)
           # Default: '.'
           add: 'docs --force'
-
+          branch: docs
           # The name of the user that will be displayed as the author of the commit.
           # Default: depends on the default_author input
           author_name: cicd
@@ -194,8 +194,6 @@ jobs:
           pull: 'NO-PULL'
           signoff: true
 
-          # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
-          # Default: ''
 
   release:
     needs:
