@@ -58,6 +58,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-cache-
 
+      - run: pwd
+      - run: ls -la
       - name: start rabbitmq server
         run: docker-compose up -d
 
