@@ -197,7 +197,10 @@ jobs:
           # Default: ''
 
   release:
-    needs: analyze
+    needs:
+      - analyze
+      - coverage
+
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
