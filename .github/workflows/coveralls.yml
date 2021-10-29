@@ -22,14 +22,14 @@ jobs:
       with:
         node-version: 16.x
 
-    - name: npm install
-      run: npm ci
+    - name: install pnpm
+      run: npm i -g pnpm
+
+    - name: pnpm ci
+      run: pnpm ci
 
     - name: run coverage
       run: npm run test:coverage
-
-    - run: ls -la
-    - run: ls -la coverage
 
     - run: CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
 
@@ -56,8 +56,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: npm install
-      run: npm install
+    - name: install pnpm
+      run: npm i -g pnpm
+
+    - name: pnpm install
+      run: pnpm install
 
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
