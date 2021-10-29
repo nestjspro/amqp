@@ -73,10 +73,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-cache-3-
 
-      - run: pwd
-      - run: ls -la
-      - run: ls -la ../
-
       - name: run coverage
         run: npm run test:coverage
 
