@@ -25,9 +25,9 @@ jobs:
           path: |
             ~/.pnpm-store
             **/node_modules
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-npm-cache-2-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-cache-
+            ${{ runner.os }}-npm-cache-2
 
       - uses: pnpm/action-setup@v2.0.1
         with:
@@ -55,9 +55,6 @@ jobs:
         with:
           ref: ${{ github.event.client_payload.ref }}
 
-      - run: pwd
-      - run: ls -la
-
       - name: start rabbitmq server
         run: docker-compose up -d
 
@@ -71,10 +68,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-npm-cache-2-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-cache-
+            ${{ runner.os }}-npm-cache-2
 
+      - run: pwd
+      - run: ls -la
+      - run: ls -la ../
 
       - name: run coverage
         run: npm run test:coverage
