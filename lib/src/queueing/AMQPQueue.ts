@@ -1,6 +1,6 @@
-import { AMQPConnection } from '../AMQPConnection';
+import { AMQPConnection } from '../connections/AMQPConnection';
 import { Subject, Subscription, Observable, ReplaySubject } from 'rxjs';
-import { AMQPConnectionStatus } from '../AMQPConnectionStatus';
+import { AMQPConnectionStatus } from '../connections/AMQPConnectionStatus';
 import { AMQPQueueMessage } from './AMQPQueueMessage';
 import { AMQPLogger } from '../logging/AMQPLogger';
 import * as chalk from 'chalk';

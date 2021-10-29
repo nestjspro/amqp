@@ -1,11 +1,13 @@
-import { AMQPService, AMQPModule, AMQPLogLevel, AMQPConnectionStatus } from '../dist';
+import { AMQPService, AMQPModule, AMQPLogLevel, AMQPConnectionStatus, AMQPMessage } from '../dist';
 import { TestingModule, Test } from '@nestjs/testing';
+import { ConsumeMessage } from 'amqplib';
 
 jest.setTimeout(15000);
 
 describe('AMQPModule Test', () => {
 
     let app;
+    let amqpService: AMQPService;
 
     test('asdf', async () => {
 
@@ -96,45 +98,63 @@ describe('AMQPModule Test', () => {
 
         await app.init();
 
-        const service = module.get(AMQPService);
+        amqpService = module.get<AMQPService>(AMQPService);
 
-        service.getConnection('two').subscribe(connection => {
+        await expect(amqpService.connections[ 0 ].config).toBeTruthy();
 
-            expect(connection.status).toEqual(AMQPConnectionStatus.DISCONNECTED);
+
+        await expect(amqpService.connections.length).toEqual(2);
+
+        amqpService.getConnection('two').subscribe(async connection => {
+
+            await expect(connection.status).toEqual(AMQPConnectionStatus.DISCONNECTED);
 
         });
 
-
-        service.disconnect();
 
         return new Promise<void>(resolve => {
 
             expect(1).toEqual(1);
 
             resolve();
-            
+
         });
 
-        //
-        // service.connections[ 0 ].reference$.subscribe(reference => {
-        //     console.log(3);
-        //     console.log(reference);
-        //
-        // });
-        // console.log(4);
-        // console.log(service.connections);
-        // await publisher.connect();
-        //
-        // const channel = await publisher.amqp.createChannel();
-        // console.log(channel);
-        // console.log(await channel.assertExchange('test-2', 'topic'));
-        //
-        // await app.close();
+    });
 
+    test('Publish Message', async () => {
+
+        return new Promise<void>(resolve => {
+
+            amqpService.getConnection('two').subscribe(connection => {
+
+                connection.queue.publish({ exchange: 'test-1', message: Buffer.from('a'), routingKey: '1' });
+
+                expect(connection.config).toBeTruthy();
+
+                resolve();
+
+            });
+
+        });
+
+    });
+
+    test('AMQPMessage', () => {
+
+        const message = new AMQPMessage({
+
+            content: Buffer.from(JSON.stringify({ a: 1, b: 2 }))
+
+        } as ConsumeMessage);
+
+        return expect(message.fromJSON()).toBeTruthy();
 
     });
 
     afterAll(async () => {
+
+        amqpService.disconnect();
 
         await app.close();
 

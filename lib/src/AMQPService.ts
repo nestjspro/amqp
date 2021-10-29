@@ -1,5 +1,5 @@
 import { Injectable, Inject, OnModuleDestroy } from '@nestjs/common';
-import { AMQPConnection } from './AMQPConnection';
+import { AMQPConnection } from './connections/AMQPConnection';
 import { AMQPConfig } from './configuration/AMQPConfig';
 import { AMQPConnectionNotFoundException } from './exceptions/AMQPConnectionNotFoundException';
 import { ReplaySubject, forkJoin, Observable } from 'rxjs';
@@ -12,8 +12,7 @@ import { AMQPLogEmoji } from './logging/AMQPLogEmoji';
 export class AMQPService implements OnModuleDestroy {
 
     public config: AMQPConfig;
-
-    private connections: Array<AMQPConnection> = [];
+    public connections: Array<AMQPConnection> = [];
 
     public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig, private readonly logger: AMQPLogger) {
 

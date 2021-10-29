@@ -1,5 +1,5 @@
-export * from './AMQPConnection';
-export * from './AMQPConnectionStatus';
+export * from './connections/AMQPConnection';
+export * from './connections/AMQPConnectionStatus';
 export * from './AMQPModule';
 export * from './AMQPQueueOptions';
 export * from './AMQPReference';
