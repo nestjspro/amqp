@@ -3,7 +3,7 @@ export interface AMQPQueueOptions {
     exclusive?: boolean | undefined;
     durable?: boolean | undefined;
     autoDelete?: boolean | undefined;
-    arguments?: any;
+    arguments?: Object;
     messageTtl?: number | undefined;
     expires?: number | undefined;
     deadLetterExchange?: string | undefined;
