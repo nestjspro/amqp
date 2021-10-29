@@ -12,5 +12,8 @@ jobs:
       - name: npm install
         run: npm install
 
+      - run: ls -la
+      - run: pwd
+
       - name: generate docs
         run: npm run docs
