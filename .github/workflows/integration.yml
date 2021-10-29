@@ -44,11 +44,15 @@ jobs:
     needs: dependencies
     name: Code Coverage
     runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        working-directory: ./lib
+    defaults:
+      run:
+        working-directory: ./lib
 
     steps:
+      - uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+
       - run: pwd
       - run: ls -la
 
