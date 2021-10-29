@@ -1,106 +1,116 @@
 {
-    "name": "@nestjs.pro/amqp",
-    "description": "AMQP for Nest.js like a boss. 💪",
-    "version": "1.0.0",
-    "license": "MIT",
-    "homepage": "https://amqp.nestjs.pro",
-    "readme": "README.md",
-    "types": "src/index.ts",
-    "author": {
-        "name": "Matthew Davis",
-        "email": "matthew@matthewdavis.io",
-        "url": "https://matthewdavis.io"
-    },
-    "repository": {
-        "url": "https://github.com/nestjspro/amqp.git",
-        "type": "git"
-    },
-    "bugs": {
-        "url": "https://github.com/nestjspro/amqp/issues",
-        "email": "support@nestjs.pro"
-    },
-    "contributors": [
-        {
-            "name": "Matthew Davis",
-            "email": "matthew@matthewdavis.io",
-            "url": "https://matthewdavis.io"
-        }
+  "name": "@nestjs.pro/amqp",
+  "description": "AMQP for Nest.js like a boss. 💪",
+  "version": "0.0.0-development",
+  "license": "MIT",
+  "homepage": "https://amqp.nestjs.pro",
+  "readme": "README.md",
+  "types": "src/index.ts",
+  "author": {
+    "name": "Matthew Davis",
+    "email": "matthew@matthewdavis.io",
+    "url": "https://matthewdavis.io"
+  },
+  "repository": {
+    "url": "https://github.com/nestjspro/amqp.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/nestjspro/amqp/issues",
+    "email": "support@nestjs.pro"
+  },
+  "contributors": [
+    {
+      "name": "Matthew Davis",
+      "email": "matthew@matthewdavis.io",
+      "url": "https://matthewdavis.io"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "Matthew Davis",
+      "email": "matthew@matthewdavis.io",
+      "url": "https://matthewdavis.io"
+    }
+  ],
+  "main": "start.sh",
+  "scripts": {
+    "build:watch": "tsc -w",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:clearcache": "jest --clearCache",
+    "test:watch": "jest --maxWorkers 1 --watchAll --detectOpenHandles --no-cahe",
+    "test:coverage": "jest --runInBand --coverage --detectOpenHandles --forceExit",
+    "semantic-release": "semantic-release"
+  },
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "chalk": "^4.1.2",
+    "rxjs": "^7.4.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@nestjs/common": "^8.1.2",
+    "@nestjs/core": "^8.1.2",
+    "@nestjs/platform-express": "^8.1.2",
+    "@nestjs/testing": "^8.1.2",
+    "@types/amqplib": "^0.8.2",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.6",
+    "codecov": "^3.8.3",
+    "coveralls": "^3.1.1",
+    "jest": "^27.3.1",
+    "semantic-release": "^18.0.0",
+    "ts-jest": "^27.0.7",
+    "typedoc": "^0.22.7",
+    "typedoc-plugin-extras": "^2.2.1",
+    "typescript": "^4.4.4"
+  },
+  "release": {
+    "branches": [
+      "main"
     ],
-    "maintainers": [
-        {
-            "name": "Matthew Davis",
-            "email": "matthew@matthewdavis.io",
-            "url": "https://matthewdavis.io"
-        }
+    "repositoryUrl": "git@github.com:nestjspro/amqp.git"
+  },
+  "jest": {
+    "rootDir": ".",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
     ],
-    "main": "start.sh",
-    "scripts": {
-        "build:watch": "tsc -w",
-        "test": "jest --runInBand --detectOpenHandles --forceExit",
-        "test:clearcache": "jest --clearCache",
-        "test:watch": "jest --maxWorkers 1 --watchAll --detectOpenHandles --no-cahe",
-        "test:coverage": "jest --runInBand --coverage --detectOpenHandles --forceExit"
+    "testEnvironment": "node",
+    "testRegex": "Test.ts$",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
     },
-    "dependencies": {
-        "amqplib": "^0.8.0",
-        "chalk": "^4.1.2",
-        "rxjs": "^7.4.0"
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/{!(ignore-coverage),}*.ts"
+    ],
+    "verbose": true,
+    "coverageThreshold": {
+      "global": {
+        "statements": 90,
+        "branches": 50,
+        "lines": 90
+      }
     },
-    "devDependencies": {
-        "@nestjs/common": "^8.1.2",
-        "@nestjs/core": "^8.1.2",
-        "@nestjs/platform-express": "^8.1.2",
-        "@nestjs/testing": "^8.1.2",
-        "@types/amqplib": "^0.8.2",
-        "@types/jest": "^27.0.2",
-        "@types/node": "^16.11.6",
-        "codecov": "^3.8.3",
-        "coveralls": "^3.1.1",
-        "jest": "^27.3.1",
-        "ts-jest": "^27.0.7",
-        "typedoc": "^0.22.7",
-        "typedoc-plugin-extras": "^2.2.1",
-        "typescript": "^4.4.4"
-    },
-    "jest": {
-        "rootDir": ".",
-        "moduleFileExtensions": [
-            "js",
-            "ts"
-        ],
-        "testEnvironment": "node",
-        "testRegex": "Test.ts$",
-        "transform": {
-            "^.+\\.ts$": "ts-jest"
-        },
-        "collectCoverage": true,
-        "collectCoverageFrom": [
-            "src/**/{!(ignore-coverage),}*.ts"
-        ],
-        "verbose": true,
-        "coverageThreshold": {
-            "global": {
-                "statements": 90,
-                "branches": 50,
-                "lines": 90
-            }
-        },
-        "coverageReporters": [
-            "lcov",
-            "json",
-            "text"
-        ],
-        "cacheDirectory": ".jest",
-        "coverageDirectory": "./coverage"
-    },
-    "keywords": [
-        "amqp",
-        "amqplib",
-        "messaging",
-        "microservices",
-        "nestjs",
-        "nestjs.pro",
-        "queue",
-        "rabbitmq"
-    ]
+    "coverageReporters": [
+      "lcov",
+      "json",
+      "text"
+    ],
+    "cacheDirectory": ".jest",
+    "coverageDirectory": "./coverage"
+  },
+  "keywords": [
+    "amqp",
+    "amqplib",
+    "messaging",
+    "microservices",
+    "nestjs",
+    "nestjs.pro",
+    "queue",
+    "rabbitmq"
+  ]
 }
