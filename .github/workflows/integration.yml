@@ -9,7 +9,6 @@ name: CI
 jobs:
 
   dependencies:
-
     name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
@@ -107,12 +106,6 @@ jobs:
       with:
         ref: ${{ github.event.client_payload.ref }}
 
-    - name: install pnpm
-      run: npm i -g pnpm
-
-    - name: pnpm install
-      run: pnpm install
-
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
       env:
@@ -133,18 +126,23 @@ jobs:
       uses: github/codeql-action/analyze@v1
 
   generate-docs:
-    needs: analyze
+    needs: dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.client_payload.ref }}
 
-      - name: install pnpm
-        run: npm i -g pnpm
-
-      - name: pnpm install
-        run: pnpm install
+      - name: Cache pnpm modules
+        id: pnpm-cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.pnpm-store
+            **/node_modules
+          key: ${{ runner.os }}-npm-cache-3-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-3-
 
       - name: generate docs
         run: npm run docs
