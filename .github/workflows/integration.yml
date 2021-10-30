@@ -212,6 +212,9 @@ jobs:
         with:
           ref: ${{ github.event.client_payload.ref }}
 
+      - run: pwd
+      - run: ls -la
+      - run: ls -la ../
       - name: Cache pnpm modules
         id: pnpm-cache
         uses: actions/cache@v2
