@@ -203,9 +203,9 @@ jobs:
       - analyze
       - coverage
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./lib
+#    defaults:
+#      run:
+#        working-directory: ./lib
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
