@@ -244,7 +244,7 @@ jobs:
         run: npm --prefix lib run build
 
       - name: NPM Version
-        run: npm --prefix lib version from-git --allow-same-version
+        run: npm --prefix lib version --allow-same-version
 
       - name: NPM Publish
-        run: npm --prefix lib version from-git --allow-same-version
+        run: npm --prefix lib version --allow-same-version
