@@ -5,8 +5,8 @@ export interface AMQPRPCCall {
 
     correlationId?: string;
     queue: string;
-    message: Buffer;
+    message: any;
     options?: Publish;
     timeout?: number;
-    
+
 }

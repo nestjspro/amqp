@@ -12,6 +12,7 @@ import { AMQPMessage } from '../queueing/AMQPMessage';
 import { AMQPSubscriber } from '../queueing/AMQPSubscriber';
 import { AMQPRPCCall } from '../queueing/AMQPRPCCall';
 import { randomUUID } from 'crypto';
+import { AMQPUtilities } from '../utilities/AMQPUtilities';
 import Consume = Replies.Consume;
 
 /**
@@ -469,7 +470,7 @@ export class AMQPConnection {
             //
             // Publish the RPC message.
             //
-            channel.sendToQueue(call.queue, call.message, call.options);
+            channel.sendToQueue(call.queue, AMQPUtilities.serialize(call.message), call.options);
 
         });
 
@@ -522,7 +523,7 @@ export class AMQPConnection {
                     //
                     // Send the reply back to the RPC consumer/caller.
                     //
-                    reference.channel.sendToQueue(message.properties.replyTo, Buffer.from(result), {
+                    reference.channel.sendToQueue(message.properties.replyTo, AMQPUtilities.serialize(result), {
 
                         correlationId: message.properties.correlationId,
                         replyTo: q.queue
@@ -547,7 +548,6 @@ export class AMQPConnection {
     public addSubscription(subscription: Subscription): void {
 
         this.subscriptions.push(subscription);
-
 
     }
 

@@ -5,6 +5,7 @@ import { AMQPQueueMessage } from './AMQPQueueMessage';
 import { AMQPLogger } from '../logging/AMQPLogger';
 import * as chalk from 'chalk';
 import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
+import { AMQPUtilities } from '../utilities/AMQPUtilities';
 
 export class AMQPQueue {
 
@@ -83,7 +84,7 @@ export class AMQPQueue {
 
             if (this.connection.status === AMQPConnectionStatus.CONNECTED) {
 
-                const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), message.message, message.options);
+                const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), AMQPUtilities.serialize(message.message), message.options);
 
                 this.length--;
 
@@ -120,7 +121,7 @@ export class AMQPQueue {
         this.length++;
 
         return message.published$;
-        
+
     }
 
     /**

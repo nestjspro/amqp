@@ -152,7 +152,7 @@ describe('AMQPModule Test', () => {
 
     });
 
-    test('AMQPQueue->RPC', done => {
+    test('AMQPQueue->RPC (using buffer)', done => {
 
         amqpService.getConnection('two').subscribe(async connection => {
 
@@ -166,6 +166,37 @@ describe('AMQPModule Test', () => {
 
                     queue: 'rpc',
                     message: Buffer.from(JSON.stringify({ a: 123 })),
+                    timeout: 5000
+
+                }).subscribe(response => {
+
+                    console.log(response);
+                    expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
+
+                    done();
+
+                });
+
+            });
+
+        });
+
+    });
+
+    test('AMQPQueue->RPC (using an object)', done => {
+
+        amqpService.getConnection('two').subscribe(async connection => {
+
+            connection.rpcConsume('rpc', message => {
+
+                return of(message.fromJSON());
+
+            }).subscribe(() => {
+
+                connection.rpcCall({
+
+                    queue: 'rpc',
+                    message: { a: 123 },
                     timeout: 5000
 
                 }).subscribe(response => {
