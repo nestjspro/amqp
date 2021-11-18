@@ -443,7 +443,11 @@ export class AMQPConnection {
             //
             // Create a new queue.
             //
-            const queue = await channel.assertQueue('');
+            const queue = await channel.assertQueue('', {
+
+                autoDelete: true
+
+            });
 
             //
             // Kick off the consumer first.
@@ -453,6 +457,8 @@ export class AMQPConnection {
                 channel.ack(message);
 
                 await channel.close();
+
+                this.logger.trace(JSON.stringify(message), AMQPLogEmoji.SUCCESS, 'RPC->CALL');
 
                 subject$.next(new AMQPMessage<T>(message));
 
