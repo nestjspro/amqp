@@ -504,6 +504,12 @@ export class AMQPConnection {
                 const reply = callback(new AMQPMessage(message));
 
                 //
+                // Acknowledge the message so it gets removed now what
+                // our callback has returned without throwing an exception.
+                //
+                reference.channel.ack(message);
+
+                //
                 // Send the reply back to the RPC consumer/caller.
                 //
                 reference.channel.sendToQueue(message.properties.replyTo, Buffer.from(reply), {
