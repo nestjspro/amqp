@@ -490,7 +490,7 @@ export class AMQPConnection {
             //
             // Create the (temporary) queue to get the reply from.
             //
-            await reference.channel.assertQueue(queue, { autoDelete: true });
+            const q = await reference.channel.assertQueue(queue, { autoDelete: true });
 
             //
             // Subscribe to the temporary queue.
@@ -509,13 +509,14 @@ export class AMQPConnection {
                 //
                 reference.channel.ack(message);
 
+                console.log(message);
                 //
                 // Send the reply back to the RPC consumer/caller.
                 //
                 reference.channel.sendToQueue(message.properties.replyTo, Buffer.from(reply), {
 
                     correlationId: message.properties.correlationId,
-                    replyTo: message.properties.replyTo
+                    replyTo: q.queue
 
                 });
 
