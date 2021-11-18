@@ -10,7 +10,7 @@ import {
 } from '../src';
 import { TestingModule, Test } from '@nestjs/testing';
 import { ConsumeMessage } from 'amqplib';
-import { first } from 'rxjs';
+import { first, of } from 'rxjs';
 
 jest.setTimeout(15000);
 
@@ -158,7 +158,7 @@ describe('AMQPModule Test', () => {
 
             connection.rpcConsume('rpc', message => {
 
-                return Buffer.from(JSON.stringify(message.fromJSON()));
+                return of(Buffer.from(JSON.stringify(message.fromJSON())));
 
             }).subscribe(() => {
 

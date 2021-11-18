@@ -456,11 +456,9 @@ export class AMQPConnection {
             //
             await channel.consume(queue.queue, async message => {
 
-                console.log(123123123123123);
-                console.log(message);
                 channel.ack(message);
 
-                // await channel.close();
+                await channel.close();
 
                 this.logger.trace(JSON.stringify(message), AMQPLogEmoji.SUCCESS, 'RPC->CALL');
 
@@ -488,7 +486,7 @@ export class AMQPConnection {
      *
      * @return {Subject<void>} Emits when setup is complete and subscribe is ready.
      */
-    public rpcConsume<T>(queue: string, callback: Subject<Function>, options?: Consume): Subject<void> {
+    public rpcConsume<T>(queue: string, callback: Function, options?: Consume): Subject<void> {
 
         const subject$: Subject<void> = new Subject();
 
@@ -513,21 +511,23 @@ export class AMQPConnection {
                 // Execute the callback method that returns the RPC
                 // response as an observable.
                 //
-                const reply = callback(new AMQPMessage(message));
+                callback(new AMQPMessage(message)).subscribe(result => {
 
-                //
-                // Acknowledge the message so it gets removed now what
-                // our callback has returned without throwing an exception.
-                //
-                reference.channel.ack(message);
+                    //
+                    // Acknowledge the message so it gets removed now what
+                    // our callback has returned without throwing an exception.
+                    //
+                    reference.channel.ack(message);
 
-                //
-                // Send the reply back to the RPC consumer/caller.
-                //
-                reference.channel.sendToQueue(message.properties.replyTo, Buffer.from(reply), {
+                    //
+                    // Send the reply back to the RPC consumer/caller.
+                    //
+                    reference.channel.sendToQueue(message.properties.replyTo, Buffer.from(result), {
 
-                    correlationId: message.properties.correlationId,
-                    replyTo: q.queue
+                        correlationId: message.properties.correlationId,
+                        replyTo: q.queue
+
+                    });
 
                 });
 
