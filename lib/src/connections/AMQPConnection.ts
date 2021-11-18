@@ -415,25 +415,9 @@ export class AMQPConnection {
         const subject$: Subject<AMQPMessage<T>> = new Subject();
 
         //
-        // Calculate correlationId (used for mapping the sender
-        // and receiver of a message across pub/sub sessions).
-        //
-        if (!call.options) {
-
-            call.options = { correlationId: randomUUID() };
-
-        } else if (call.options && !call.options.correlationId) {
-
-            call.options.correlationId = randomUUID();
-
-        }
-
-        //
         // Acquire the connection reference safely.
         //
         this.reference$.subscribe(async reference => {
-
-            this.logger.debug(`Sending RPC call to correlationId #${ chalk.yellowBright(call.options.correlationId) } for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
             //
             // Create a new channel.
@@ -451,13 +435,32 @@ export class AMQPConnection {
             });
 
             //
+            // Calculate correlationId (used for mapping the sender
+            // and receiver of a message across pub/sub sessions).
+            //
+            if (!call.options) {
+
+                call.options = {
+
+                    correlationId: randomUUID(),
+                    replyTo: queue.queue
+
+                };
+
+            }
+
+            this.logger.debug(`Sending RPC call to correlationId #${ chalk.yellowBright(call.options.correlationId) } for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+
+            //
             // Kick off the consumer first.
             //
             await channel.consume(queue.queue, async message => {
 
+                console.log(123123123123123);
+                console.log(message);
                 channel.ack(message);
 
-                await channel.close();
+                // await channel.close();
 
                 this.logger.trace(JSON.stringify(message), AMQPLogEmoji.SUCCESS, 'RPC->CALL');
 
@@ -509,7 +512,6 @@ export class AMQPConnection {
                 //
                 reference.channel.ack(message);
 
-                console.log(message);
                 //
                 // Send the reply back to the RPC consumer/caller.
                 //

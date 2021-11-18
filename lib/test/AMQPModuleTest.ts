@@ -158,7 +158,7 @@ describe('AMQPModule Test', () => {
 
             connection.rpcConsume('rpc', message => {
 
-                return message.content;
+                return Buffer.from(JSON.stringify(message.fromJSON()));
 
             }).subscribe(() => {
 
@@ -170,6 +170,7 @@ describe('AMQPModule Test', () => {
 
                 }).subscribe(response => {
 
+                    console.log(response);
                     expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
 
                     done();
@@ -296,7 +297,6 @@ describe('AMQPModule Test', () => {
         });
 
     });
-
 
     test('AMQPService->Clean up', done => {
 
