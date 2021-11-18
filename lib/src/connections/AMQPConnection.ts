@@ -441,9 +441,14 @@ export class AMQPConnection {
             const channel = await reference.connection.createChannel();
 
             //
+            // Create a new queue.
+            //
+            const queue = await channel.assertQueue('');
+
+            //
             // Kick off the consumer first.
             //
-            await channel.consume(call.queue, async message => {
+            await channel.consume(queue.queue, async message => {
 
                 channel.ack(message);
 
@@ -494,7 +499,7 @@ export class AMQPConnection {
                 //
                 // Send the reply back to the RPC consumer/caller.
                 //
-                reference.channel.sendToQueue(queue, Buffer.from(reply), {
+                reference.channel.sendToQueue(message.properties.replyTo, Buffer.from(reply), {
 
                     correlationId: message.properties.correlationId,
                     replyTo: message.properties.replyTo
