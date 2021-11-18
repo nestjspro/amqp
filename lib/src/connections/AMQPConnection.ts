@@ -479,7 +479,16 @@ export class AMQPConnection {
 
     }
 
-    public rpcConsume<T>(queue: string, callback: Function, options?: Consume): Subject<void> {
+    /**
+     * Subscribe to a queue and use the replyTo queue to affect an RPC call.
+     *
+     * @param {string} queue
+     * @param {Subject<Function>} callback that emits an observable as a result.
+     * @param {Replies.Consume} options
+     *
+     * @return {Subject<void>} Emits when setup is complete and subscribe is ready.
+     */
+    public rpcConsume<T>(queue: string, callback: Subject<Function>, options?: Consume): Subject<void> {
 
         const subject$: Subject<void> = new Subject();
 
@@ -502,7 +511,7 @@ export class AMQPConnection {
 
                 //
                 // Execute the callback method that returns the RPC
-                // response.
+                // response as an observable.
                 //
                 const reply = callback(new AMQPMessage(message));
 
