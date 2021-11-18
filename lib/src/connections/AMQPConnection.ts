@@ -445,6 +445,7 @@ export class AMQPConnection {
             //
             const queue = await channel.assertQueue('', {
 
+                durable: false,
                 autoDelete: true
 
             });
