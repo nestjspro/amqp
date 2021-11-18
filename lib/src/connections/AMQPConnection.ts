@@ -13,6 +13,7 @@ import { AMQPSubscriber } from '../queueing/AMQPSubscriber';
 import { AMQPRPCCall } from '../queueing/AMQPRPCCall';
 import { randomUUID } from 'crypto';
 import { AMQPUtilities } from '../utilities/AMQPUtilities';
+import { AMQPRPCResponse } from '../rpc/AMQPRPCResponse';
 import Consume = Replies.Consume;
 
 /**
@@ -411,9 +412,9 @@ export class AMQPConnection {
      * @param {AMQPRPCCall} call RPC call configuration object.
      * @return {Subject<any>} Observable which emits a reply of type {T}.
      */
-    public rpcCall<T>(call: AMQPRPCCall): Subject<AMQPMessage<T>> {
+    public rpcCall<T>(call: AMQPRPCCall): Subject<AMQPMessage<AMQPRPCResponse<T>>> {
 
-        const subject$: Subject<AMQPMessage<T>> = new Subject();
+        const subject$: Subject<AMQPMessage<AMQPRPCResponse<T>>> = new Subject();
 
         //
         // Acquire the connection reference safely.
@@ -463,7 +464,7 @@ export class AMQPConnection {
 
                 this.logger.trace(JSON.stringify(message), AMQPLogEmoji.SUCCESS, 'RPC->CALL');
 
-                subject$.next(new AMQPMessage<T>(message));
+                subject$.next(new AMQPMessage<AMQPRPCResponse<T>>(message));
 
             }, call.options);
 

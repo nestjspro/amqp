@@ -152,36 +152,36 @@ describe('AMQPModule Test', () => {
 
     });
 
-    test('AMQPQueue->RPC (using buffer)', done => {
-
-        amqpService.getConnection('two').subscribe(async connection => {
-
-            connection.rpcConsume('rpc', message => {
-
-                return of(Buffer.from(JSON.stringify(message.fromJSON())));
-
-            }).subscribe(() => {
-
-                connection.rpcCall({
-
-                    queue: 'rpc',
-                    message: Buffer.from(JSON.stringify({ a: 123 })),
-                    timeout: 5000
-
-                }).subscribe(response => {
-
-                    console.log(response);
-                    expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
-
-                    done();
-
-                });
-
-            });
-
-        });
-
-    });
+    // test('AMQPQueue->RPC (using buffer)', done => {
+    //
+    //     amqpService.getConnection('two').subscribe(async connection => {
+    //
+    //         connection.rpcConsume('rpc', message => {
+    //
+    //             return of(Buffer.from(JSON.stringify(message.fromJSON())));
+    //
+    //         }).subscribe(() => {
+    //
+    //             connection.rpcCall({
+    //
+    //                 queue: 'rpc',
+    //                 message: Buffer.from(JSON.stringify({ a: 123 })),
+    //                 timeout: 5000
+    //
+    //             }).subscribe(response => {
+    //
+    //                 console.log(response);
+    //                 expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
+    //
+    //                 done();
+    //
+    //             });
+    //
+    //         });
+    //
+    //     });
+    //
+    // });
 
     test('AMQPQueue->RPC (using an object)', done => {
 
@@ -189,11 +189,17 @@ describe('AMQPModule Test', () => {
 
             connection.rpcConsume('rpc', message => {
 
-                return of(message.fromJSON());
+                return of({
+
+                    result: true,
+                    wtf: 123123,
+                    content: message.fromJSON()
+
+                });
 
             }).subscribe(() => {
 
-                connection.rpcCall({
+                connection.rpcCall<{ a: number }>({
 
                     queue: 'rpc',
                     message: { a: 123 },
@@ -201,8 +207,7 @@ describe('AMQPModule Test', () => {
 
                 }).subscribe(response => {
 
-                    console.log(response);
-                    expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
+                    expect(response.fromJSON().content.a).toEqual(123);
 
                     done();
 
