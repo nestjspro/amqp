@@ -494,7 +494,7 @@ export class AMQPConnection {
                 // Execute the callback method that returns the RPC
                 // response.
                 //
-                const reply = callback(message);
+                const reply = callback(new AMQPMessage(message));
 
                 //
                 // Send the reply back to the RPC consumer/caller.
