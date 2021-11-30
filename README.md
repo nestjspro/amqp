@@ -4,9 +4,11 @@
 
 This module implements an AMQP pub/sub + RPC scalable & fault tolerant interface for [Nest.js](https://nestjs.com).
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/83f5be74f9c7488184bac4ee6e441154)](https://www.codacy.com/gh/nestjspro/amqp/dashboard?utm_source=github.com&utm_medium=referral&utm_content=nestjspro/amqp&utm_campaign=Badge_Coverage)
 ![integration](https://github.com/nestjspro/amqp/actions/workflows/integration.yml/badge.svg)
-![documentation](https://github.com/nestjspro/amqp/actions/workflows/documentation.yml/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/83f5be74f9c7488184bac4ee6e441154)](https://www.codacy.com/gh/nestjspro/amqp/dashboard?utm_source=github.com&utm_medium=referral&utm_content=nestjspro/amqp&utm_campaign=Badge_Coverage)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/nestjspro/amqp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/nestjspro/amqp/context:javascript)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/nestjspro/amqp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/nestjspro/amqp/alerts/)
+
 
 # ⚡ Features
 
