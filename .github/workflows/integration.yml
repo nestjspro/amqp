@@ -148,7 +148,7 @@ jobs:
       - name: generate docs
         run: npm run docs
 
-      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
+      - uses: EndBug/add-and-commit@v7
         with:
           # The arguments for the `git add` command (see the paragraph below for more info)
           # Default: '.'
