@@ -86,7 +86,7 @@ importers:
       jest: ^27.3.1
       rxjs: ^7.4.0
       semantic-release: ^18.0.0
-      ts-jest: ^27.0.7
+      ts-jest: 27.1.4
       typedoc: ^0.22.7
       typedoc-plugin-extras: ^2.2.1
       typescript: ^4.4.4
@@ -108,7 +108,7 @@ importers:
       coveralls: 3.1.1
       jest: 27.3.1
       semantic-release: 18.0.0
-      ts-jest: 27.0.7_2c4ca6574207836d1023f54689cc81ac
+      ts-jest: 27.1.4_2c4ca6574207836d1023f54689cc81ac
       typedoc: 0.22.7_typescript@4.4.4
       typedoc-plugin-extras: 2.2.1_typedoc@0.22.7
       typescript: 4.4.4
@@ -5443,6 +5443,40 @@ packages:
       semver: 7.3.5
       typescript: 4.4.4
       yargs-parser: 20.2.9
+
+  /ts-jest/27.1.4_2c4ca6574207836d1023f54689cc81ac:
+    resolution: {integrity: sha512-qjkZlVPWVctAezwsOD1OPzbZ+k7zA5z3oxII4dGdZo5ggX/PL7kvwTM0pXTr10fAtbiVpJaL3bWd502zAhpgSQ==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '>=7.0.0-beta.0 <8'
+      '@types/jest': ^27.0.0
+      babel-jest: '>=27.0.0 <28'
+      esbuild: '*'
+      jest: ^27.0.0
+      typescript: '>=3.8 <5.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@types/jest':
+        optional: true
+      babel-jest:
+        optional: true
+      esbuild:
+        optional: true
+    dependencies:
+      '@types/jest': 27.0.2
+      bs-logger: 0.2.6
+      fast-json-stable-stringify: 2.1.0
+      jest: 27.3.1
+      jest-util: 27.3.1
+      json5: 2.2.0
+      lodash.memoize: 4.1.2
+      make-error: 1.3.6
+      semver: 7.3.5
+      typescript: 4.4.4
+      yargs-parser: 20.2.9
+    dev: true
 
   /ts-node/9.1.1_typescript@4.4.4:
     resolution: {integrity: sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==}
