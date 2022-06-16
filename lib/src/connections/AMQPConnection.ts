@@ -147,11 +147,15 @@ export class AMQPConnection {
 
         connection.on('close', () => {
 
+            this.disconnect();
+
             this.logger.debug(`Server said: "${ chalk.greenBright('CLOSED') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
 
         });
 
         connection.on('error', async error => {
+
+            this.disconnect();
 
             this.logger.debug(`Server said: "${ chalk.greenBright('ERROR') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
 
@@ -160,6 +164,8 @@ export class AMQPConnection {
         });
 
         connection.on('blocked', reason => {
+
+            this.disconnect();
 
             this.logger.debug(`Server said: "${ chalk.greenBright('BLOCKED') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
 
@@ -361,12 +367,13 @@ export class AMQPConnection {
 
     /**
      * Subscribe to a queue returning an observable.
-     *
      * Message will auto-acknowledge itself when emitted if not disabled.
      *
      * @param {AMQPSubscriber} subscriber Subscripton configuration object.
      *
      * @return {Subject<AMQPMessage>} Observable emitting new messages on arrival.
+     *
+     * @author Matthew Davis <matthew@matthewdavis.io>
      */
     public subscribe(subscriber: AMQPSubscriber): Subject<AMQPMessage<any>> {
 
@@ -410,7 +417,10 @@ export class AMQPConnection {
      * **NOTE:** This call is susceptible to a timout (defaults to 5 seconds).
      *
      * @param {AMQPRPCCall} call RPC call configuration object.
+     *
      * @return {Subject<any>} Observable which emits a reply of type {T}.
+     *
+     * @author Matthew Davis <matthew@matthewdavis.io>
      */
     public rpcCall<T>(call: AMQPRPCCall): Subject<AMQPMessage<AMQPRPCResponse<T>>> {
 
@@ -482,14 +492,21 @@ export class AMQPConnection {
     /**
      * Subscribe to a queue and use the replyTo queue to affect an RPC call.
      *
-     * @param {string} queue
-     * @param {Subject<Function>} callback that emits an observable as a result.
-     * @param {Replies.Consume} options
+     * @param {string} queue Name of the queue to bind the RPC call to.
+     * @param {Subject<Function>} callback Emits an observable as a result.
+     * @param {Replies.Consume} options Consume options such as consumerTag.
      *
-     * @return {Subject<void>} Emits when setup is complete and subscribe is ready.
+     * @return {Subject<void>} observable emits when setup is complete and subscribe is ready.
+     *
+     * @author Matthew Davis <matthew@matthewdavis.io>
      */
     public rpcConsume<T>(queue: string, callback: Function, options?: Consume): Subject<void> {
 
+        //
+        // Observable for emitting when the caller is ready to .subscribe(..)
+        // for new messages once setup has complete. This is returned straight
+        // away (see the end of this method).
+        //
         const subject$: Subject<void> = new Subject();
 
         //
