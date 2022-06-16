@@ -216,15 +216,17 @@ export class AMQPConnection {
 
                 }
 
+                if (this.reference && this.reference.connection) {
+
+                    await this.reference.connection.close();
+
+                }
+
+                this.reference = null;
+
+
             }
 
-            if (this.reference.connection) {
-
-                await this.reference.connection.close();
-
-            }
-
-            this.reference = null;
 
         }
 
