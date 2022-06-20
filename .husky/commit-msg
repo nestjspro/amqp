@@ -3,4 +3,3 @@
 
 npx --no-install commitlint --edit ""
 npx commitlint --edit
-npx commitlint --edit
