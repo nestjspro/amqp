@@ -1,16 +1,14 @@
-import {
-    AMQPService,
-    AMQPModule,
-    AMQPLogLevel,
-    AMQPMessage,
-    AMQPLogger,
-    AMQPConnectionNotFoundException,
-    AMQPPublishException,
-    AMQPConnectionStatus
-} from '../src';
-import { TestingModule, Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { ConsumeMessage } from 'amqplib';
 import { first, of } from 'rxjs';
+import {
+    AMQPConnectionNotFoundException,
+    AMQPConnectionStatus,
+    AMQPLogger,
+    AMQPMessage,
+    AMQPPublishException
+} from '../dist';
+import { AMQPLogLevel, AMQPModule, AMQPService } from '../src';
 
 jest.setTimeout(15000);
 
@@ -27,13 +25,15 @@ describe('AMQPModule Test', () => {
 
                 AMQPModule.forRoot({
 
-                    logLevel: AMQPLogLevel.ERROR,
+                    logLevel: AMQPLogLevel.TRACE,
                     connections: [
 
                         {
 
                             name: 'one',
                             url: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                            autoConnect: true,
+                            autoReconnect: true,
                             exchange: {
 
                                 name: 'test-1',
@@ -66,6 +66,8 @@ describe('AMQPModule Test', () => {
 
                             name: 'two',
                             url: 'amqp://rabbitmq:agaeq14@localhost:5672',
+                            autoConnect: true,
+                            autoReconnect: true,
                             exchange: {
 
                                 name: 'test-2',
@@ -110,6 +112,8 @@ describe('AMQPModule Test', () => {
 
         amqpService = module.get<AMQPService>(AMQPService);
 
+        // amqpService.connect();
+
     });
 
     test('AMQPConnection->Connections', async () => {
@@ -123,6 +127,7 @@ describe('AMQPModule Test', () => {
             //
 
         }
+
         try {
 
             expect(amqpService.getConnection('bad')).toThrowError('There is no existing connection named "bad".');
@@ -134,7 +139,6 @@ describe('AMQPModule Test', () => {
         }
 
         expect(amqpService.connect()).toBeTruthy();
-
 
     });
 
@@ -171,7 +175,7 @@ describe('AMQPModule Test', () => {
     //             }).subscribe(response => {
     //
     //                 console.log(response);
-    //                 expect(JSON.parse(response.message.content.toString())[ 'a' ]).toEqual(123);
+    //                 expect(JSON.parse(response.message.content.toString())['a']).toEqual(123);
     //
     //                 done();
     //
@@ -301,6 +305,24 @@ describe('AMQPModule Test', () => {
 
         expect(new AMQPConnectionNotFoundException('test')).toBeTruthy();
         expect(new AMQPPublishException('test')).toBeTruthy();
+
+    });
+
+    test('aasdf', async (done) => {
+
+        setTimeout(() => {
+
+            amqpService.getConnection().subscribe(connection => {
+
+                connection.disconnect();
+
+                console.log(connection.status);
+
+                done();
+
+            });
+
+        }, 3000);
 
     });
 

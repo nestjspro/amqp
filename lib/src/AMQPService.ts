@@ -1,12 +1,12 @@
-import { Injectable, Inject, OnModuleDestroy } from '@nestjs/common';
-import { AMQPConnection } from './connections/AMQPConnection';
-import { AMQPConfig } from './configuration/AMQPConfig';
-import { AMQPConnectionNotFoundException } from './exceptions/AMQPConnectionNotFoundException';
-import { ReplaySubject, forkJoin, Observable } from 'rxjs';
-import { AMQPLogger } from './logging/AMQPLogger';
+import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import * as chalk from 'chalk';
+import { forkJoin, Observable, ReplaySubject } from 'rxjs';
+import { AMQPConfig } from './configuration/AMQPConfig';
 import { AMQPConfigConnection } from './configuration/AMQPConfigConnection';
+import { AMQPConnection } from './connections/AMQPConnection';
+import { AMQPConnectionNotFoundException } from './exceptions/AMQPConnectionNotFoundException';
 import { AMQPLogEmoji } from './logging/AMQPLogEmoji';
+import { AMQPLogger } from './logging/AMQPLogger';
 
 @Injectable()
 export class AMQPService implements OnModuleDestroy {
@@ -19,6 +19,12 @@ export class AMQPService implements OnModuleDestroy {
         this.config = config;
         this.logger.config = config;
 
+        if (this.config.autoConnect) {
+
+            this.connect();
+
+        }
+
     }
 
     public connect(): boolean {
@@ -29,7 +35,7 @@ export class AMQPService implements OnModuleDestroy {
 
             for (let i = 0; i < this.config.connections.length; i++) {
 
-                this.addConnection(this.config.connections[ i ]);
+                this.addConnection(this.config.connections[i]);
 
             }
 
@@ -37,7 +43,7 @@ export class AMQPService implements OnModuleDestroy {
 
             for (let i = 0; i < this.connections.length; i++) {
 
-                this.connections[ i ].connect();
+                this.connections[i].connect();
 
             }
 
@@ -51,9 +57,9 @@ export class AMQPService implements OnModuleDestroy {
 
         for (let i = 0; i < this.connections.length; i++) {
 
-            this.logger.debug(`Disconnecting from amqp server "${ chalk.yellowBright(this.connections[ i ].config.name ? this.connections[ i ].config.name : '#0') }"`, AMQPLogEmoji.DISCONNECT, 'SERVICE MANAGER');
+            this.logger.debug(`Disconnecting from amqp server "${ chalk.yellowBright(this.connections[i].config.name ? this.connections[i].config.name : '#0') }"`, AMQPLogEmoji.DISCONNECT, 'SERVICE MANAGER');
 
-            this.connections[ i ].disconnect();
+            this.connections[i].disconnect();
 
         }
 
@@ -71,7 +77,7 @@ export class AMQPService implements OnModuleDestroy {
 
         this.logger.debug(`Creating connection to amqp server "${ chalk.yellowBright(config.name ? config.name : '#0') }"`, AMQPLogEmoji.NEW, 'SERVICE MANAGER');
 
-        const connection = new AMQPConnection(config, this.logger);
+        const connection = new AMQPConnection(config, this.logger, this.config);
 
         this.connections.push(connection);
 
@@ -107,7 +113,7 @@ export class AMQPService implements OnModuleDestroy {
 
                 this.logger.debug(`Retrieved connection ${ chalk.yellowBright('#0!') }`, AMQPLogEmoji.SUCCESS, 'SERVICE MANAGER');
 
-                subject$.next(this.connections[ 0 ]);
+                subject$.next(this.connections[0]);
 
             } else {
 

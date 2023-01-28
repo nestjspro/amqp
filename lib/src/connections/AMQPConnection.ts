@@ -1,19 +1,20 @@
 import * as amqp from 'amqplib';
-import { Replies, Connection } from 'amqplib';
-import { AMQPConfigConnection } from '../configuration/AMQPConfigConnection';
-import { ReplaySubject, BehaviorSubject, Subject, Subscription, first, Observable } from 'rxjs';
-import { AMQPReference } from '../AMQPReference';
-import { AMQPConnectionStatus } from './AMQPConnectionStatus';
-import { AMQPLogger } from '../logging/AMQPLogger';
+import { Connection, Replies } from 'amqplib';
 import * as chalk from 'chalk';
-import { AMQPQueue } from '../queueing/AMQPQueue';
-import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
-import { AMQPMessage } from '../queueing/AMQPMessage';
-import { AMQPSubscriber } from '../queueing/AMQPSubscriber';
-import { AMQPRPCCall } from '../queueing/AMQPRPCCall';
 import { randomUUID } from 'crypto';
-import { AMQPUtilities } from '../utilities/AMQPUtilities';
+import { BehaviorSubject, first, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { AMQPReference } from '../AMQPReference';
+import { AMQPConfig } from '../configuration/AMQPConfig';
+import { AMQPConfigConnection } from '../configuration/AMQPConfigConnection';
+import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
+import { AMQPLogger } from '../logging/AMQPLogger';
+import { AMQPMessage } from '../queueing/AMQPMessage';
+import { AMQPQueue } from '../queueing/AMQPQueue';
+import { AMQPRPCCall } from '../queueing/AMQPRPCCall';
+import { AMQPSubscriber } from '../queueing/AMQPSubscriber';
 import { AMQPRPCResponse } from '../rpc/AMQPRPCResponse';
+import { AMQPUtilities } from '../utilities/AMQPUtilities';
+import { AMQPConnectionStatus } from './AMQPConnectionStatus';
 import Consume = Replies.Consume;
 
 /**
@@ -51,6 +52,13 @@ export class AMQPConnection {
     public reference: AMQPReference;
 
     /**
+     * Emits only after resources have been declared on rabbitmq.
+     *
+     * @type {ReplaySubject<void>}
+     */
+    public declared$: ReplaySubject<void> = new ReplaySubject();
+
+    /**
      * Queue for managing message delivery.
      *
      * @type {AMQPQueue}
@@ -71,8 +79,9 @@ export class AMQPConnection {
      *
      * @param {AMQPConfigConnection} config
      * @param {AMQPLogger} logger
+     * @param globalConfig
      */
-    public constructor(config: AMQPConfigConnection, public readonly logger: AMQPLogger) {
+    public constructor(config: AMQPConfigConnection, public readonly logger: AMQPLogger, private readonly globalConfig: AMQPConfig) {
 
         this.logger.trace(`Instantiating AMQP connection "${ chalk.yellowBright(config.name) }"..`, AMQPLogEmoji.NEW, 'CONNECTION MANAGER');
 
@@ -80,7 +89,15 @@ export class AMQPConnection {
         this.queue = new AMQPQueue(this);
         this.config = config;
 
-        this.connect();
+        if(!this.config.name) {
+            this.config.name = randomUUID();
+        }
+
+        if (globalConfig.autoConnect || this.config.autoConnect) {
+
+            this.connect();
+
+        }
 
     }
 
@@ -153,13 +170,11 @@ export class AMQPConnection {
 
         });
 
-        connection.on('error', async error => {
+        connection.on('error', error => {
 
             this.disconnect();
 
             this.logger.debug(`Server said: "${ chalk.greenBright('ERROR') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
-            await this.reconnect();
 
         });
 
@@ -230,6 +245,19 @@ export class AMQPConnection {
 
         }
 
+        if (this.config.exitOnError) {
+
+            this.logger.error(`Exiting due to exitOnError being enabled and connection is disconnected for connection "${ chalk.yellowBright(this.config.name) }".`, 'SERVER');
+            process.exit(1);
+
+        } else if (this.config.autoReconnect) {
+
+            this.logger.error(`Reconnecting due to autoReconnect being enabled and connection is disconnected for connection "${ chalk.yellowBright(this.config.name) }".`, 'SERVER');
+
+            // await this.connect();
+
+        }
+
     }
 
     /**
@@ -273,11 +301,11 @@ export class AMQPConnection {
 
             for (let i = 0; i < this.config.queues.length; i++) {
 
-                this.logger.debug(`Deleting queue "${ this.config.queues[ i ].name }" on AMQP connection "${ this.config.name }"..`, AMQPLogEmoji.DISCONNECT, 'CONNECTION MANAGER');
+                this.logger.debug(`Deleting queue "${ this.config.queues[i].name }" on AMQP connection "${ this.config.name }"..`, AMQPLogEmoji.DISCONNECT, 'CONNECTION MANAGER');
 
                 try {
 
-                    await reference.channel.deleteQueue(this.config.queues[ i ].name);
+                    await reference.channel.deleteQueue(this.config.queues[i].name);
 
                 } catch (e) {
 
@@ -327,17 +355,19 @@ export class AMQPConnection {
 
                     for (let i = 0; i < this.config.queues.length; i++) {
 
-                        if (this.config.queues[ i ].createBindings) {
+                        if (this.config.queues[i].createBindings) {
 
-                            await reference.channel.assertQueue(this.config.queues[ i ].name);
-                            this.logger.debug(`Declared the queue "${ chalk.yellowBright(this.config.queues[ i ].name) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+                            await reference.channel.assertQueue(this.config.queues[i].name, this.config.queues[i].options);
+                            this.logger.debug(`Declared the queue "${ chalk.yellowBright(this.config.queues[i].name) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
-                            await reference.channel.bindQueue(this.config.queues[ i ].name, this.config.exchange.name, this.config.queues[ i ].routingKey);
-                            this.logger.debug(`Binded the queue "${ chalk.yellowBright(this.config.queues[ i ].name) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+                            await reference.channel.bindQueue(this.config.queues[i].name, this.config.exchange.name, this.config.queues[i].routingKey);
+                            this.logger.debug(`Binded the queue "${ chalk.yellowBright(this.config.queues[i].name) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
                         }
 
                     }
+
+                    this.declared$.next();
 
                     subject$.next();
 
@@ -514,50 +544,54 @@ export class AMQPConnection {
         //
         // Acquire the connection reference.
         //
-        this.reference$.subscribe(async reference => {
+        this.declared$.subscribe(() => {
 
-            this.logger.debug(`RPC consuming queue "${ chalk.yellowBright(queue) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+            this.reference$.subscribe(async reference => {
 
-            //
-            // Create the (temporary) queue to get the reply from.
-            //
-            const q = await reference.channel.assertQueue(queue, { autoDelete: true });
-
-            //
-            // Subscribe to the temporary queue.
-            //
-            await reference.channel.consume(queue, message => {
+                this.logger.debug(`RPC consuming queue "${ chalk.yellowBright(queue) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
                 //
-                // Execute the callback method that returns the RPC
-                // response as an observable.
+                // Create the (temporary) queue to get the reply from.
                 //
-                callback(new AMQPMessage(message)).subscribe(result => {
+                const q = await reference.channel.assertQueue(queue, { autoDelete: true });
+
+                //
+                // Subscribe to the temporary queue.
+                //
+                await reference.channel.consume(queue, message => {
 
                     //
-                    // Acknowledge the message so it gets removed now what
-                    // our callback has returned without throwing an exception.
+                    // Execute the callback method that returns the RPC
+                    // response as an observable.
                     //
-                    reference.channel.ack(message);
+                    callback(new AMQPMessage(message)).subscribe(result => {
 
-                    //
-                    // Send the reply back to the RPC consumer/caller.
-                    //
-                    reference.channel.sendToQueue(message.properties.replyTo, AMQPUtilities.serialize(result), {
+                        //
+                        // Acknowledge the message so it gets removed now what
+                        // our callback has returned without throwing an exception.
+                        //
+                        reference.channel.ack(message);
 
-                        correlationId: message.properties.correlationId,
-                        replyTo: q.queue
+                        //
+                        // Send the reply back to the RPC consumer/caller.
+                        //
+                        reference.channel.sendToQueue(message.properties.replyTo, AMQPUtilities.serialize(result), {
+
+                            correlationId: message.properties.correlationId,
+                            replyTo: q.queue
+
+                        });
 
                     });
 
-                });
+                }, options);
 
-            }, options);
+                //
+                // Fire off that we're ready to handle new messages.
+                //
+                subject$.next();
 
-            //
-            // Fire off that we're ready to handle new messages.
-            //
-            subject$.next();
+            });
 
         });
 
