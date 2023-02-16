@@ -9,8 +9,9 @@ import { AMQPUtilities } from '../utilities/AMQPUtilities';
 
 export class AMQPQueue {
 
-    private queue$: ReplaySubject<AMQPQueueMessage> = new ReplaySubject();
     public connection: AMQPConnection;
+
+    private queue$: ReplaySubject<AMQPQueueMessage> = new ReplaySubject();
     private readonly logger: AMQPLogger;
 
     /**

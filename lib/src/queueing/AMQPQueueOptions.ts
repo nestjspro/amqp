@@ -1,5 +1,4 @@
 export interface AMQPQueueOptions {
-
     exclusive?: boolean | undefined;
     durable?: boolean | undefined;
     autoDelete?: boolean | undefined;
@@ -10,5 +9,5 @@ export interface AMQPQueueOptions {
     deadLetterRoutingKey?: string | undefined;
     maxLength?: number | undefined;
     maxPriority?: number | undefined;
-
+    autoAck: boolean | undefined;
 }

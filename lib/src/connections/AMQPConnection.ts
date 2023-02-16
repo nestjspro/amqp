@@ -426,10 +426,11 @@ export class AMQPConnection {
                 //
                 // Emit the new message.
                 //
-                subject$.next(new AMQPMessage<any>(message, () => {
-
-                    reference.channel.ack(message);
-
+                subject$.next(new AMQPMessage<any>(message, {
+                    ack: (allUpTo?: boolean) => reference.channel.ack(message, allUpTo),
+                    ackAll: () => reference.channel.ackAll(),
+                    nack: (allUpTo?: boolean, requeue?: boolean) => reference.channel.nack(message, allUpTo, requeue),
+                    nackAll: (requeue?: boolean) => reference.channel.nackAll(requeue)
                 }));
 
             });
