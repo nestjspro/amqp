@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import * as chalk from 'chalk';
-import { forkJoin, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { AMQPConfig } from './configuration/AMQPConfig';
 import { AMQPConfigConnection } from './configuration/AMQPConfigConnection';
 import { AMQPConnection } from './connections/AMQPConnection';
@@ -13,6 +13,7 @@ export class AMQPService implements OnModuleDestroy {
 
     public config: AMQPConfig;
     public connections: Array<AMQPConnection> = [];
+    public connection$: ReplaySubject<Array<AMQPConnection>> = new ReplaySubject();
 
     public constructor(@Inject('AMQP_CONFIG') config: AMQPConfig, public readonly logger: AMQPLogger) {
 

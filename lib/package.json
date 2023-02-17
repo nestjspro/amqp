@@ -1,7 +1,7 @@
 {
     "name": "@nestjs.pro/amqp",
     "description": "AMQP for Nest.js like a boss. 💪",
-    "version": "0.0.35",
+    "version": "0.0.36",
     "license": "MIT",
     "homepage": "https://amqp.nestjs.pro",
     "readme": "README.md",
@@ -32,6 +32,16 @@
             "email": "matthew@matthewdavis.io",
             "url": "https://matthewdavis.io"
         }
+    ],
+    "keywords": [
+        "amqp",
+        "amqplib",
+        "messaging",
+        "microservices",
+        "nestjs",
+        "nestjs.pro",
+        "queue",
+        "rabbitmq"
     ],
     "scripts": {
         "build": "tsc",
@@ -98,14 +108,14 @@
         "cacheDirectory": ".jest",
         "coverageDirectory": "./coverage"
     },
-    "keywords": [
-        "amqp",
-        "amqplib",
-        "messaging",
-        "microservices",
-        "nestjs",
-        "nestjs.pro",
-        "queue",
-        "rabbitmq"
-    ]
+    "prettier": {
+        "printWidth": 200,
+        "tabWidth": 4,
+        "bracketSameLine": true,
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "semi": true,
+        "trailingComma": "none",
+        "bracketSpacing": true
+    }
 }
