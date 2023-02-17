@@ -5,34 +5,20 @@ import { AMQPLogger } from './logging/AMQPLogger';
 
 @Module({})
 export class AMQPModule {
-
     public static forRoot(config: AMQPConfig): DynamicModule {
-
         return {
-
             module: AMQPModule,
 
             providers: [
-
                 AMQPLogger,
                 AMQPService,
                 {
-
                     provide: 'AMQP_CONFIG',
                     useValue: config
-
                 }
-
             ],
 
-            exports: [
-
-                AMQPService
-
-            ]
-
+            exports: [AMQPService]
         };
-
     }
-
 }

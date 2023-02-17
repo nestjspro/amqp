@@ -8,7 +8,6 @@ import { AMQPLogEmoji } from '../logging/AMQPLogEmoji';
 import { AMQPUtilities } from '../utilities/AMQPUtilities';
 
 export class AMQPQueue {
-
     public connection: AMQPConnection;
 
     private queue$: ReplaySubject<AMQPQueueMessage> = new ReplaySubject();
@@ -37,7 +36,6 @@ export class AMQPQueue {
      * @param {number} max Maximum number of messages to allow in queue at a time.
      */
     public constructor(connection: AMQPConnection, max?: number) {
-
         this.logger = connection.logger;
         this.connection = connection;
         this.max = max;
@@ -46,30 +44,31 @@ export class AMQPQueue {
         // Listen for connection status changes.
         //
         this.connection.status$.subscribe(status => {
-
             //
             // If we're now connected, drain the queue, otherwise stop listening.
             //
             if (status === AMQPConnectionStatus.CONNECTED) {
-
-                this.logger.debug(`${ chalk.greenBright('Connection established') }, queue is ready for drain operations for the connection ${ chalk.yellowBright(this.connection.config.name) }!`, AMQPLogEmoji.SUCCESS, 'QUEUE MANAGER');
+                this.logger.debug(
+                    `${chalk.greenBright('Connection established')}, queue is ready for drain operations for the connection ${chalk.yellowBright(this.connection.config.name)}!`,
+                    AMQPLogEmoji.SUCCESS,
+                    'QUEUE MANAGER'
+                );
 
                 //
                 // Start draining the queue and listening for
                 // additional messages.
                 //
                 this.subscriptions.add(this.queue$.subscribe(messages => this.drain(messages)));
-
             } else {
-
                 this.subscriptions.unsubscribe();
 
-                this.logger.debug(`${ chalk.greenBright('Connection established') }, queue has stopped draining operations for the connection ${ chalk.yellowBright(this.connection.config.name) }!`, AMQPLogEmoji.DISCONNECT, 'QUEUE MANAGER');
-
+                this.logger.debug(
+                    `${chalk.greenBright('Connection established')}, queue has stopped draining operations for the connection ${chalk.yellowBright(this.connection.config.name)}!`,
+                    AMQPLogEmoji.DISCONNECT,
+                    'QUEUE MANAGER'
+                );
             }
-
         });
-
     }
 
     /**
@@ -78,34 +77,34 @@ export class AMQPQueue {
      * @param {AMQPQueueMessage} message
      */
     public drain(message: AMQPQueueMessage): void {
+        this.subscriptions.add(
+            this.connection.reference$.subscribe(reference => {
+                this.logger.debug(
+                    `${chalk.redBright('Draining message')} to ${chalk.yellowBright(message.exchange)}(#${chalk.blueBright(message.routingKey)}) for the connection "${chalk.yellowBright(
+                        this.connection.config.name
+                    )}"`,
+                    AMQPLogEmoji.DOWN,
+                    'QUEUE MANAGER'
+                );
 
-        this.subscriptions.add(this.connection.reference$.subscribe(reference => {
+                if (this.connection.status === AMQPConnectionStatus.CONNECTED) {
+                    const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), AMQPUtilities.serialize(message.message), message.options);
 
-            this.logger.debug(`${ chalk.redBright('Draining message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }"`, AMQPLogEmoji.DOWN, 'QUEUE MANAGER');
+                    this.length--;
 
-            if (this.connection.status === AMQPConnectionStatus.CONNECTED) {
-
-                const result = reference.channel.publish(message.exchange.toString(), message.routingKey.toString(), AMQPUtilities.serialize(message.message), message.options);
-
-                this.length--;
-
-                //
-                // If the caller passed in an observable, call it to
-                // notify that the message has been published.
-                //
-                // This is beneficial in the event that there is a
-                // long backlog of messages due to connectivity issue(s).
-                //
-                if (message.published$) {
-
-                    message.published$.next(result);
-
+                    //
+                    // If the caller passed in an observable, call it to
+                    // notify that the message has been published.
+                    //
+                    // This is beneficial in the event that there is a
+                    // long backlog of messages due to connectivity issue(s).
+                    //
+                    if (message.published$) {
+                        message.published$.next(result);
+                    }
                 }
-
-            }
-
-        }));
-
+            })
+        );
     }
 
     /**
@@ -114,15 +113,19 @@ export class AMQPQueue {
      * @param {AMQPQueueMessage} message
      */
     public publish(message: AMQPQueueMessage): Observable<boolean> {
-
-        this.logger.debug(`${ chalk.greenBright('Publishing message') } to ${ chalk.yellowBright(message.exchange) }(#${ chalk.blueBright(message.routingKey) }) for the connection "${ chalk.yellowBright(this.connection.config.name) }" (${ this.connection.status === AMQPConnectionStatus.CONNECTED ? chalk.green(this.connection.status) : chalk.red(this.connection.status) })`, AMQPLogEmoji.INBOX, 'QUEUE MANAGER');
+        this.logger.debug(
+            `${chalk.greenBright('Publishing message')} to ${chalk.yellowBright(message.exchange)}(#${chalk.blueBright(message.routingKey)}) for the connection "${chalk.yellowBright(
+                this.connection.config.name
+            )}" (${this.connection.status === AMQPConnectionStatus.CONNECTED ? chalk.green(this.connection.status) : chalk.red(this.connection.status)})`,
+            AMQPLogEmoji.INBOX,
+            'QUEUE MANAGER'
+        );
 
         this.queue$.next(message);
 
         this.length++;
 
         return message.published$;
-
     }
 
     /**
@@ -136,18 +139,13 @@ export class AMQPQueue {
      * @return {Subject<boolean>} Observable that is .next'ed upon completion with the boolean response from amqplib.
      */
     public publishJSON(exchange: string | number, routingKey: string | number, message: Object, published$: Subject<boolean> = new Subject()): Observable<boolean> {
-
         this.publish({
-
             exchange,
             routingKey,
             message: Buffer.from(JSON.stringify(message)),
             published$
-
         });
 
         return published$;
-
     }
-
 }

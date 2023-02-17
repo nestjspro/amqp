@@ -4,7 +4,6 @@ import { AMQPConfigExchange } from './AMQPConfigExchange';
 import { AMQPConfigQueue } from './AMQPConfigQueue';
 
 export interface AMQPConfigConnection {
-
     name?: string;
     url: string | Options.Connect;
     exchange?: AMQPConfigExchange;
@@ -15,5 +14,4 @@ export interface AMQPConfigConnection {
     exitOnError?: boolean;
     autoConnect?: boolean;
     autoReconnect?: boolean;
-
 }

@@ -21,7 +21,6 @@ import Consume = Replies.Consume;
  * AMQP individual connection class.
  */
 export class AMQPConnection {
-
     /**
      * Connection status.
      *
@@ -82,23 +81,19 @@ export class AMQPConnection {
      * @param globalConfig
      */
     public constructor(config: AMQPConfigConnection, public readonly logger: AMQPLogger, private readonly globalConfig: AMQPConfig) {
-
-        this.logger.trace(`Instantiating AMQP connection "${ chalk.yellowBright(config.name) }"..`, AMQPLogEmoji.NEW, 'CONNECTION MANAGER');
+        this.logger.trace(`Instantiating AMQP connection "${chalk.yellowBright(config.name)}"..`, AMQPLogEmoji.NEW, 'CONNECTION MANAGER');
 
         this.status = AMQPConnectionStatus.DISCONNECTED;
         this.queue = new AMQPQueue(this);
         this.config = config;
 
-        if(!this.config.name) {
+        if (!this.config.name) {
             this.config.name = randomUUID();
         }
 
         if (globalConfig.autoConnect || this.config.autoConnect) {
-
             this.connect();
-
         }
-
     }
 
     /**
@@ -107,28 +102,23 @@ export class AMQPConnection {
      * @returns {ReplaySubject<AMQPReference>}
      */
     public connect(): ReplaySubject<AMQPReference> {
-
         this.status$.next(AMQPConnectionStatus.CONNECTING);
 
         //
         // Subscribe to status changes so we can log them.
         //
-        this.addSubscription(this.status$.subscribe(status => {
+        this.addSubscription(
+            this.status$.subscribe(status => {
+                this.logger.debug(`Connection status changed to ${chalk.greenBright(status)} for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'STATUS');
 
-            this.logger.debug(`Connection status changed to ${ chalk.greenBright(status) } for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'STATUS');
-
-            if (status !== AMQPConnectionStatus.CONNECTED) {
-
-                this.cancelActiveSubscriptions();
-
-            }
-
-        }));
+                if (status !== AMQPConnectionStatus.CONNECTED) {
+                    this.cancelActiveSubscriptions();
+                }
+            })
+        );
 
         try {
-
             amqp.connect(this.config.url, { timeout: this.config.timeout || 5000 }).then(async connection => {
-
                 this.addEventListeners(connection);
 
                 const channel = await connection.createChannel();
@@ -139,71 +129,52 @@ export class AMQPConnection {
 
                 this.setStatus(AMQPConnectionStatus.CONNECTED);
 
-                this.addSubscription(this.declareResources().subscribe(() => {
-
-                    this.logger.info(`AMQP connection "${ chalk.yellowBright(this.config.name) }" is ready!`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
-
-                }));
-
+                this.addSubscription(
+                    this.declareResources().subscribe(() => {
+                        this.logger.info(`AMQP connection "${chalk.yellowBright(this.config.name)}" is ready!`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+                    })
+                );
             });
 
             return this.reference$;
-
         } catch (e) {
-
             this.setStatus(AMQPConnectionStatus.DISCONNECTED);
 
             console.log(e);
-
         }
-
     }
 
     /* istanbul ignore next */
     public addEventListeners(connection: Connection): void {
-
         connection.on('close', () => {
-
             this.disconnect();
 
-            this.logger.debug(`Server said: "${ chalk.greenBright('CLOSED') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
+            this.logger.debug(`Server said: "${chalk.greenBright('CLOSED')}" for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'SERVER');
         });
 
         connection.on('error', error => {
-
             this.disconnect();
 
-            this.logger.debug(`Server said: "${ chalk.greenBright('ERROR') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
+            this.logger.debug(`Server said: "${chalk.greenBright('ERROR')}" for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'SERVER');
         });
 
         connection.on('blocked', reason => {
-
             this.disconnect();
 
-            this.logger.debug(`Server said: "${ chalk.greenBright('BLOCKED') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
+            this.logger.debug(`Server said: "${chalk.greenBright('BLOCKED')}" for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'SERVER');
         });
 
         connection.on('unblocked', () => {
-
-            this.logger.debug(`Server said: "${ chalk.greenBright('UNBLOCKED') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
+            this.logger.debug(`Server said: "${chalk.greenBright('UNBLOCKED')}" for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'SERVER');
         });
 
         connection.on('drain', () => {
-
-            this.logger.debug(`Server said: "${ chalk.greenBright('DRAIN') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
+            this.logger.debug(`Server said: "${chalk.greenBright('DRAIN')}" for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'SERVER');
         });
 
         connection.on('return', message => {
-
-            this.logger.debug(`Server said: "${ chalk.greenBright('MESSAGE') }" for connection "${ chalk.yellowBright(this.config.name) }".`, AMQPLogEmoji.SETTINGS, 'SERVER');
-
+            this.logger.debug(`Server said: "${chalk.greenBright('MESSAGE')}" for connection "${chalk.yellowBright(this.config.name)}".`, AMQPLogEmoji.SETTINGS, 'SERVER');
         });
-
     }
 
     /**
@@ -213,51 +184,32 @@ export class AMQPConnection {
      * @author Matthew Davis <matthew@matthewdavis.io
      */
     public async disconnect(): Promise<void> {
-
         this.cancelActiveSubscriptions();
 
         this.setStatus(AMQPConnectionStatus.DISCONNECTED);
 
         if (this.reference) {
-
             if (this.reference.channel) {
-
                 try {
-
                     await this.reference.channel.close();
-
-                } catch (e) {
-
-
-                }
+                } catch (e) {}
 
                 if (this.reference && this.reference.connection) {
-
                     await this.reference.connection.close();
-
                 }
 
                 this.reference = null;
-
-
             }
-
-
         }
 
         if (this.config.exitOnError) {
-
-            this.logger.error(`Exiting due to exitOnError being enabled and connection is disconnected for connection "${ chalk.yellowBright(this.config.name) }".`, 'SERVER');
+            this.logger.error(`Exiting due to exitOnError being enabled and connection is disconnected for connection "${chalk.yellowBright(this.config.name)}".`, 'SERVER');
             process.exit(1);
-
         } else if (this.config.autoReconnect) {
-
-            this.logger.error(`Reconnecting due to autoReconnect being enabled and connection is disconnected for connection "${ chalk.yellowBright(this.config.name) }".`, 'SERVER');
+            this.logger.error(`Reconnecting due to autoReconnect being enabled and connection is disconnected for connection "${chalk.yellowBright(this.config.name)}".`, 'SERVER');
 
             // await this.connect();
-
         }
-
     }
 
     /**
@@ -266,70 +218,47 @@ export class AMQPConnection {
      * @return {Observable<void>}
      */
     public reconnect(): Observable<void> {
-
         const subject$: Subject<void> = new Subject();
 
         this.disconnect().then(() => {
-
             this.connect();
 
             const subscription = this.status$.subscribe(status => {
-
                 if (status === AMQPConnectionStatus.CONNECTED) {
-
                     subscription.unsubscribe();
 
                     subject$.next();
-
                 }
-
             });
-
         });
 
         return subject$;
-
     }
 
     public tearDown(): Subject<void> {
-
-        this.logger.debug(`Tearing down AMQP resources for connection "${ chalk.yellowBright(this.config.name) }"..`);
+        this.logger.debug(`Tearing down AMQP resources for connection "${chalk.yellowBright(this.config.name)}"..`);
 
         const subject$: Subject<void> = new Subject();
 
         this.reference$.pipe(first()).subscribe(async reference => {
-
             for (let i = 0; i < this.config.queues.length; i++) {
-
-                this.logger.debug(`Deleting queue "${ this.config.queues[i].name }" on AMQP connection "${ this.config.name }"..`, AMQPLogEmoji.DISCONNECT, 'CONNECTION MANAGER');
+                this.logger.debug(`Deleting queue "${this.config.queues[i].name}" on AMQP connection "${this.config.name}"..`, AMQPLogEmoji.DISCONNECT, 'CONNECTION MANAGER');
 
                 try {
-
                     await reference.channel.deleteQueue(this.config.queues[i].name);
-
-                } catch (e) {
-
-
-                }
-
+                } catch (e) {}
             }
 
-            this.logger.debug(`Deleting queue "${ this.config.exchange.name }" on AMQP connection "${ this.config.name }"..`, AMQPLogEmoji.DISCONNECT, 'CONNECTION MANAGER');
+            this.logger.debug(`Deleting queue "${this.config.exchange.name}" on AMQP connection "${this.config.name}"..`, AMQPLogEmoji.DISCONNECT, 'CONNECTION MANAGER');
 
             try {
-
                 await reference.channel.deleteExchange(this.config.exchange.name);
-
-            } catch (e) {
-
-            }
+            } catch (e) {}
 
             subject$.next();
-
         });
 
         return subject$;
-
     }
 
     /**
@@ -340,48 +269,43 @@ export class AMQPConnection {
      * @returns {Subject<void>} Observable emitted when complete.
      */
     public declareResources(): Subject<void> {
-
-        this.logger.debug(`Declaring AMQP resources for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.NEW, 'CONNECTION MANAGER');
+        this.logger.debug(`Declaring AMQP resources for connection "${chalk.yellowBright(this.config.name)}"..`, AMQPLogEmoji.NEW, 'CONNECTION MANAGER');
 
         const subject$: Subject<void> = new Subject();
 
-        this.addSubscription(this.reference$.pipe(first()).subscribe(async reference => {
+        this.addSubscription(
+            this.reference$.pipe(first()).subscribe(async reference => {
+                if (this.status === AMQPConnectionStatus.CONNECTED) {
+                    try {
+                        await reference.channel.assertExchange(this.config.exchange.name, this.config.exchange.type, this.config.exchange.options);
 
-            if (this.status === AMQPConnectionStatus.CONNECTED) {
+                        for (let i = 0; i < this.config.queues.length; i++) {
+                            if (this.config.queues[i].createBindings) {
+                                await reference.channel.assertQueue(this.config.queues[i].name, this.config.queues[i].options);
+                                this.logger.debug(
+                                    `Declared the queue "${chalk.yellowBright(this.config.queues[i].name)}" for connection "${chalk.yellowBright(this.config.name)}"..`,
+                                    AMQPLogEmoji.SUCCESS,
+                                    'CONNECTION MANAGER'
+                                );
 
-                try {
-
-                    await reference.channel.assertExchange(this.config.exchange.name, this.config.exchange.type, this.config.exchange.options);
-
-                    for (let i = 0; i < this.config.queues.length; i++) {
-
-                        if (this.config.queues[i].createBindings) {
-
-                            await reference.channel.assertQueue(this.config.queues[i].name, this.config.queues[i].options);
-                            this.logger.debug(`Declared the queue "${ chalk.yellowBright(this.config.queues[i].name) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
-
-                            await reference.channel.bindQueue(this.config.queues[i].name, this.config.exchange.name, this.config.queues[i].routingKey);
-                            this.logger.debug(`Binded the queue "${ chalk.yellowBright(this.config.queues[i].name) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
-
+                                await reference.channel.bindQueue(this.config.queues[i].name, this.config.exchange.name, this.config.queues[i].routingKey);
+                                this.logger.debug(
+                                    `Binded the queue "${chalk.yellowBright(this.config.queues[i].name)}" for connection "${chalk.yellowBright(this.config.name)}"..`,
+                                    AMQPLogEmoji.SUCCESS,
+                                    'CONNECTION MANAGER'
+                                );
+                            }
                         }
 
-                    }
+                        this.declared$.next();
 
-                    this.declared$.next();
-
-                    subject$.next();
-
-                } catch (e) {
-
-
+                        subject$.next();
+                    } catch (e) {}
                 }
-
-            }
-
-        }));
+            })
+        );
 
         return subject$;
-
     }
 
     /**
@@ -390,11 +314,9 @@ export class AMQPConnection {
      * @param {AMQPConnectionStatus} status
      */
     public setStatus(status: AMQPConnectionStatus): void {
-
         this.status = status;
 
         this.status$.next(status);
-
     }
 
     /**
@@ -408,37 +330,37 @@ export class AMQPConnection {
      * @author Matthew Davis <matthew@matthewdavis.io>
      */
     public subscribe(subscriber: AMQPSubscriber): Subject<AMQPMessage<any>> {
-
         const subject$: Subject<AMQPMessage<any>> = new Subject();
 
         //
         // Acquire connection reference.
         //
         this.reference$.subscribe(reference => {
-
             //
             // Start consuming (subscribing) new messages.
             //
             reference.channel.consume(subscriber.queue, message => {
-
-                this.logger.debug(`Subscribe emitted deliveryTag #${ chalk.yellowBright(message.fields.deliveryTag) } for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+                this.logger.debug(
+                    `Subscribe emitted deliveryTag #${chalk.yellowBright(message.fields.deliveryTag)} for connection "${chalk.yellowBright(this.config.name)}"..`,
+                    AMQPLogEmoji.SUCCESS,
+                    'CONNECTION MANAGER'
+                );
 
                 //
                 // Emit the new message.
                 //
-                subject$.next(new AMQPMessage<any>(message, {
-                    ack: (allUpTo?: boolean) => reference.channel.ack(message, allUpTo),
-                    ackAll: () => reference.channel.ackAll(),
-                    nack: (allUpTo?: boolean, requeue?: boolean) => reference.channel.nack(message, allUpTo, requeue),
-                    nackAll: (requeue?: boolean) => reference.channel.nackAll(requeue)
-                }));
-
+                subject$.next(
+                    new AMQPMessage<any>(message, {
+                        ack: (allUpTo?: boolean) => reference.channel.ack(message, allUpTo),
+                        ackAll: () => reference.channel.ackAll(),
+                        nack: (allUpTo?: boolean, requeue?: boolean) => reference.channel.nack(message, allUpTo, requeue),
+                        nackAll: (requeue?: boolean) => reference.channel.nackAll(requeue)
+                    })
+                );
             });
-
         });
 
         return subject$;
-
     }
 
     /**
@@ -456,14 +378,12 @@ export class AMQPConnection {
      * @author Matthew Davis <matthew@matthewdavis.io>
      */
     public rpcCall<T>(call: AMQPRPCCall): Subject<AMQPMessage<AMQPRPCResponse<T>>> {
-
         const subject$: Subject<AMQPMessage<AMQPRPCResponse<T>>> = new Subject();
 
         //
         // Acquire the connection reference safely.
         //
         this.reference$.subscribe(async reference => {
-
             //
             // Create a new channel.
             //
@@ -473,10 +393,8 @@ export class AMQPConnection {
             // Create a new queue.
             //
             const queue = await channel.assertQueue('', {
-
                 durable: false,
                 autoDelete: true
-
             });
 
             //
@@ -484,42 +402,42 @@ export class AMQPConnection {
             // and receiver of a message across pub/sub sessions).
             //
             if (!call.options) {
-
                 call.options = {
-
                     correlationId: randomUUID(),
                     replyTo: queue.queue
-
                 };
-
             }
 
-            this.logger.debug(`Sending RPC call to correlationId #${ chalk.yellowBright(call.options.correlationId) } for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+            this.logger.debug(
+                `Sending RPC call to correlationId #${chalk.yellowBright(call.options.correlationId)} for connection "${chalk.yellowBright(this.config.name)}"..`,
+                AMQPLogEmoji.SUCCESS,
+                'CONNECTION MANAGER'
+            );
 
             //
             // Kick off the consumer first.
             //
-            await channel.consume(queue.queue, async message => {
+            await channel.consume(
+                queue.queue,
+                async message => {
+                    channel.ack(message);
 
-                channel.ack(message);
+                    await channel.close();
 
-                await channel.close();
+                    this.logger.trace(JSON.stringify(message), AMQPLogEmoji.SUCCESS, 'RPC->CALL');
 
-                this.logger.trace(JSON.stringify(message), AMQPLogEmoji.SUCCESS, 'RPC->CALL');
-
-                subject$.next(new AMQPMessage<AMQPRPCResponse<T>>(message));
-
-            }, call.options);
+                    subject$.next(new AMQPMessage<AMQPRPCResponse<T>>(message));
+                },
+                call.options
+            );
 
             //
             // Publish the RPC message.
             //
             channel.sendToQueue(call.queue, AMQPUtilities.serialize(call.message), call.options);
-
         });
 
         return subject$;
-
     }
 
     /**
@@ -534,7 +452,6 @@ export class AMQPConnection {
      * @author Matthew Davis <matthew@matthewdavis.io>
      */
     public rpcConsume<T>(queue: string, callback: Function, options?: Consume): Subject<void> {
-
         //
         // Observable for emitting when the caller is ready to .subscribe(..)
         // for new messages once setup has complete. This is returned straight
@@ -546,10 +463,8 @@ export class AMQPConnection {
         // Acquire the connection reference.
         //
         this.declared$.subscribe(() => {
-
             this.reference$.subscribe(async reference => {
-
-                this.logger.debug(`RPC consuming queue "${ chalk.yellowBright(queue) }" for connection "${ chalk.yellowBright(this.config.name) }"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
+                this.logger.debug(`RPC consuming queue "${chalk.yellowBright(queue)}" for connection "${chalk.yellowBright(this.config.name)}"..`, AMQPLogEmoji.SUCCESS, 'CONNECTION MANAGER');
 
                 //
                 // Create the (temporary) queue to get the reply from.
@@ -559,57 +474,47 @@ export class AMQPConnection {
                 //
                 // Subscribe to the temporary queue.
                 //
-                await reference.channel.consume(queue, message => {
-
-                    //
-                    // Execute the callback method that returns the RPC
-                    // response as an observable.
-                    //
-                    callback(new AMQPMessage(message)).subscribe(result => {
-
+                await reference.channel.consume(
+                    queue,
+                    message => {
                         //
-                        // Acknowledge the message so it gets removed now what
-                        // our callback has returned without throwing an exception.
+                        // Execute the callback method that returns the RPC
+                        // response as an observable.
                         //
-                        reference.channel.ack(message);
+                        callback(new AMQPMessage(message)).subscribe(result => {
+                            //
+                            // Acknowledge the message so it gets removed now what
+                            // our callback has returned without throwing an exception.
+                            //
+                            reference.channel.ack(message);
 
-                        //
-                        // Send the reply back to the RPC consumer/caller.
-                        //
-                        reference.channel.sendToQueue(message.properties.replyTo, AMQPUtilities.serialize(result), {
-
-                            correlationId: message.properties.correlationId,
-                            replyTo: q.queue
-
+                            //
+                            // Send the reply back to the RPC consumer/caller.
+                            //
+                            reference.channel.sendToQueue(message.properties.replyTo, AMQPUtilities.serialize(result), {
+                                correlationId: message.properties.correlationId,
+                                replyTo: q.queue
+                            });
                         });
-
-                    });
-
-                }, options);
+                    },
+                    options
+                );
 
                 //
                 // Fire off that we're ready to handle new messages.
                 //
                 subject$.next();
-
             });
-
         });
 
         return subject$;
-
     }
 
     public addSubscription(subscription: Subscription): void {
-
         this.subscriptions.push(subscription);
-
     }
 
     public cancelActiveSubscriptions(): void {
-
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
-
     }
-
 }

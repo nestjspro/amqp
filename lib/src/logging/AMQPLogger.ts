@@ -9,20 +9,17 @@ import { AMQPConfig } from '../configuration/AMQPConfig';
  */
 @Injectable()
 export class AMQPLogger {
-
     /**
      * List of colors mapped by log level value.
      *
      * @type {chalk.Chalk[]}
      */
-    public static LOG_LEVEL_COLORS = [ cyan.redBright, cyan.yellowBright, cyan.magenta, cyan.gray ];
+    public static LOG_LEVEL_COLORS = [cyan.redBright, cyan.yellowBright, cyan.magenta, cyan.gray];
 
     public static pad(str: string, padLeft = ' '): string {
-
         const pad = '                   ';
 
         return (pad + str).slice(-pad.length) + ' ';
-
     }
 
     /**
@@ -41,30 +38,23 @@ export class AMQPLogger {
      * @param {string?} context (optional) context to prepend to message.
      */
     public log(logLevel: AMQPLogLevel, message: string, emoji?: string, context?: string): string {
-
         if (this.config.logLevel >= logLevel) {
-
-            let str = `[${ chalk.cyan('@nestjs.pro/amqp') }] ${ chalk.gray(new Date().toLocaleString()) } `;
+            let str = `[${chalk.cyan('@nestjs.pro/amqp')}] ${chalk.gray(new Date().toLocaleString())} `;
 
             if (context) {
-
-                str += `${ chalk.bgGrey(AMQPLogger.pad(context)) } `;
-
+                str += `${chalk.bgGrey(AMQPLogger.pad(context))} `;
             }
 
-            str += `${ AMQPLogger.LOG_LEVEL_COLORS[ logLevel ](AMQPLogLevel[ logLevel ]) }: `;
+            str += `${AMQPLogger.LOG_LEVEL_COLORS[logLevel](AMQPLogLevel[logLevel])}: `;
 
             if (emoji) {
-
-                str += `${ emoji }`;
+                str += `${emoji}`;
             }
 
-            console.log(`${ str } ${ message }`);
+            console.log(`${str} ${message}`);
 
-            return `${ str } ${ message }`;
-
+            return `${str} ${message}`;
         }
-
     }
 
     /**
@@ -75,9 +65,7 @@ export class AMQPLogger {
      * @param {string?} context (optional) context to prepend to message.
      */
     public error(message: string, emoji?: string, context?: string): string {
-
         return this.log(AMQPLogLevel.ERROR, message, emoji, context);
-
     }
 
     /**
@@ -88,9 +76,7 @@ export class AMQPLogger {
      * @param {string?} context (optional) context to prepend to message.
      */
     public info(message: string, emoji?: string, context?: string): string {
-
         return this.log(AMQPLogLevel.INFO, message, emoji, context);
-
     }
 
     /**
@@ -101,9 +87,7 @@ export class AMQPLogger {
      * @param {string?} context Optional context to prepend to message.
      */
     public debug(message: string, emoji?: string, context?: string): string {
-
         return this.log(AMQPLogLevel.DEBUG, message, emoji, context);
-
     }
 
     /**
@@ -114,9 +98,6 @@ export class AMQPLogger {
      * @param {string?} context (optional) context to prepend to message.
      */
     public trace(message: string, emoji?: string, context?: string): string {
-
         return this.log(AMQPLogLevel.TRACE, message, emoji, context);
-
     }
-
 }

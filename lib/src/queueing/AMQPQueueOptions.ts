@@ -9,5 +9,5 @@ export interface AMQPQueueOptions {
     deadLetterRoutingKey?: string | undefined;
     maxLength?: number | undefined;
     maxPriority?: number | undefined;
-    autoAck: boolean | undefined;
+    autoAck?: boolean | undefined;
 }

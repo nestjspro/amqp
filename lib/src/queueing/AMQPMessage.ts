@@ -5,7 +5,6 @@ import { AMQPMessageHandlers } from './AMQPMessageHandlers';
  * Message envelope.
  */
 export class AMQPMessage<T> {
-
     /**
      * Original message envelope from the AMQP service.
      *
@@ -28,10 +27,8 @@ export class AMQPMessage<T> {
      * @param {AMQPMessageHandlers} handlers various ways to acknowledge a message.
      */
     public constructor(message: ConsumeMessage, handlers?: AMQPMessageHandlers) {
-
         this.message = message;
         this.handlers = handlers;
-
     }
 
     /**
@@ -43,5 +40,4 @@ export class AMQPMessage<T> {
     public fromJSON(): T {
         return JSON.parse(this.message.content.toString());
     }
-
 }
