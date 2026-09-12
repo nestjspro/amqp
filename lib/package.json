@@ -61,7 +61,7 @@
         "@commitlint/cli": "^17.4.2",
         "@commitlint/config-conventional": "^17.4.2",
         "@nestjs/common": "^9.2.1",
-        "@nestjs/core": "^9.2.1",
+        "@nestjs/core": "^11.0.0",
         "@nestjs/platform-express": "^9.2.1",
         "@nestjs/testing": "^9.2.1",
         "@types/amqplib": "^0.10.1",
